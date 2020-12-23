@@ -35,3 +35,48 @@ message Loader {
   int32 task_id = 4; // Номер текущей задачи - сделать массивом
   repeated google.protobuf.Any details = 5;
 }
+// Новая задача от диспетчера
+message NewTask {
+  repeated google.protobuf.Any details = 1;
+  enum Weight { // Грузоподъемность
+    TON_2 = 0;
+    TON_3 = 1;
+    TON_5 = 2;
+  }
+  Weight weight = 2;
+  enum Priority { // Приоритет
+    LOW = 0;
+    MEDIUM = 1;
+    HIGH = 2;
+  }
+  Priority priority = 3;
+}
+// Действие с задачей
+message Action {
+  repeated google.protobuf.Any details = 1;
+  int32 id = 2;
+  enum Act {
+    CANCEL = 0;
+    FINISH = 1;
+    START = 2;
+  }
+  Act act = 3;
+}
+// Список задач
+message ListofTaskDisp {
+  repeated google.protobuf.Any details = 1;
+  // Задача для отображения в списке
+  message Task2 {
+    int32 id = 1;
+    NewTask.Weight weight = 2;
+    NewTask.Priority priority = 3;
+    string timeCreate = 4;
+    enum Status {
+      WAIT = 0;
+      STARTED = 1;
+      CANCELLED = 2;
+    }
+    Status status = 5;
+  }
+  repeated Task2 task = 2;
+}

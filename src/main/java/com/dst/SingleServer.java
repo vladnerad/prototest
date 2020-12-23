@@ -22,14 +22,67 @@ class SingleServer implements Runnable {
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
-            if (isAuthorized(inputStream, outputStream)) System.out.println("Authorized: " + socket.getInetAddress());
-            else System.out.println("Not authorized: " + socket.getInetAddress());
-        } catch (IOException e) {
+            if (isAuthorized(inputStream, outputStream)) {
+                System.out.println("Authorized: " + socket.getInetAddress());
+//                List<WarehouseMessage.ListofTaskDisp.Task2> task2List = new ArrayList<>();
+                WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
+                int taskIdcounter = 0;
+                while (true) {
+
+                    Any any = Any.parseDelimitedFrom(inputStream); // Команда
+                    if (any.is(WarehouseMessage.NewTask.class)) {
+                        WarehouseMessage.NewTask newTask = any.unpack(WarehouseMessage.NewTask.class);
+//                        System.out.println("New task received: ");
+//                        System.out.println(newTask.toString());
+//                        System.out.println("1: " + newTask.getWeight());
+                        WarehouseMessage.ListofTaskDisp.Task2.Builder t2builder = WarehouseMessage.ListofTaskDisp.Task2.newBuilder();
+                        t2builder.setId(taskIdcounter++);
+                        t2builder.setWeight(newTask.getWeight());
+                        t2builder.setPriority(newTask.getPriority());
+                        t2builder.setTimeCreate(String.valueOf(System.currentTimeMillis()));
+                        t2builder.setStatus(WarehouseMessage.ListofTaskDisp.Task2.Status.WAIT);
+//                    task2List.add(t2builder.build());
+                        listBuilder.addTask(t2builder.build());
+                        System.out.println("Task added: " + t2builder.getId());
+//                        System.out.println(t2builder.toString());
+//                        System.out.println("1: " + t2builder.getWeight());
+                        Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
+                    } else if (any.is(WarehouseMessage.Action.class)) {
+                        WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
+                        WarehouseMessage.ListofTaskDisp.Task2 task2 = listBuilder.getTaskList()
+                                .stream()
+                                .filter(t -> action.getId() == t.getId())
+                                .findAny()
+                                .orElse(null);
+//                    for (WarehouseMessage.ListofTaskDisp.Task2 t2: listBuilder.getTaskList()){
+//                        if (t2.getId() == action.getId()){
+//                            task2 = t2;
+//                        }
+//                    }
+//                        System.out.println(listBuilder.build().getTaskList());
+//                        System.out.println(listBuilder.getTaskList().toString());
+
+                        if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
+                            listBuilder.removeTask(listBuilder.getTaskList().indexOf(task2));
+                            System.out.println("Task removed: " + task2.getId());
+                        } else if (action.getAct() == WarehouseMessage.Action.Act.START) {
+                            task2.toBuilder().setStatus(WarehouseMessage.ListofTaskDisp.Task2.Status.STARTED).build();
+                            System.out.println("Status changed");
+                        } else {
+                            System.out.println("Unknown action");
+                        }
+                        Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
+                    }
+                }
+            } else System.out.println("Not authorized: " + socket.getInetAddress());
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    private boolean isAuthorized(InputStream inputStream, OutputStream outputStream) throws IOException {
+    private boolean isAuthorized(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
         boolean result = false;
         Any auth = Any.parseDelimitedFrom(inputStream);
         if (auth != null && auth.is(WarehouseMessage.Credentials.class)) {
@@ -41,8 +94,8 @@ class SingleServer implements Runnable {
                 if (usr.getUserName().equals(credentials.getLogin())) {
                     isFound = true;
                     if (usr.getPassword().equals(credentials.getPassword())) {
-                        System.out.println("Logged in");
-                        response.setPassword("SUCCESS");
+                        System.out.println("Logged in: " + usr.getUserName());
+                        response.setPassword("SUCCESS: " + usr.getRole());
                         result = true;
                     } else {
                         System.out.println("Incorrect password");
@@ -63,41 +116,3 @@ class SingleServer implements Runnable {
         return false;
     }
 }
-
-//            WarehouseMessage.Loader.Builder loader = WarehouseMessage.Loader.newBuilder();
-//            loader.setId(1);
-//            loader.setLat("123");
-//            loader.setLon("345");
-//            loader.setTaskId(7);
-//
-//            WarehouseMessage.Loader load = loader.build();
-
-//            while(true) {
-//                load.writeDelimitedTo(socket.getOutputStream());
-//            }
-//            System.out.println("Loader is sent");
-//            Any any = Any.pack(load);
-//            any.writeDelimitedTo(socket.getOutputStream());
-//            System.out.println("Any is sent");
-
-
-//            Scanner scanner = new Scanner(inputStream);
-//            System.out.println("___________Scanner______________");
-//            while (scanner.hasNext()){
-//                System.out.println(scanner.next());
-//            }
-//            Any message = Any.parseDelimitedFrom(inputStream);
-//            if (message != null) {
-////                System.out.println("Any received: " + message);
-//                if (message.is(WarehouseMessage.Credentials.class)) {
-//                    System.out.println(message.unpack(WarehouseMessage.Credentials.class).toString());
-//                } else if (message.is(WarehouseMessage.Loader.class)) {
-//                    System.out.println("It's a loader");
-//                    System.out.println(message.unpack(WarehouseMessage.Loader.class).toString());
-//                } else if (message.is(WarehouseMessage.Task.class)) {
-//                    System.out.println(message.unpack(WarehouseMessage.Task.class).toString());
-//                } else {
-//                    System.out.println("I don't know the type of Any");
-//                }
-//                socket.close();
-//            } else System.out.println("Any message is null");
