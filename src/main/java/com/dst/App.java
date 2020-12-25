@@ -1,5 +1,7 @@
 package com.dst;
 
+import com.dst.server.SingleServer;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,7 +21,6 @@ public class App
                 counter++;
                 System.out.println("IP " + socket.getInetAddress() + " connected: #" + counter);
                 executorService.execute(new SingleServer(socket));
-//                new Thread(new SingleServer(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
