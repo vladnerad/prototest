@@ -7712,39 +7712,67 @@ public final class WarehouseMessage {
         com.google.protobuf.MessageOrBuilder {
 
       /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
        * <code>int32 id = 1;</code>
        * @return The id.
        */
       int getId();
 
       /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
        * <code>.msg.NewTask.Weight weight = 2;</code>
        * @return The enum numeric value on the wire for weight.
        */
       int getWeightValue();
       /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
        * <code>.msg.NewTask.Weight weight = 2;</code>
        * @return The weight.
        */
       com.dst.msg.WarehouseMessage.NewTask.Weight getWeight();
 
       /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
        * <code>.msg.NewTask.Priority priority = 3;</code>
        * @return The enum numeric value on the wire for priority.
        */
       int getPriorityValue();
       /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
        * <code>.msg.NewTask.Priority priority = 3;</code>
        * @return The priority.
        */
       com.dst.msg.WarehouseMessage.NewTask.Priority getPriority();
 
       /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
        * <code>string timeCreate = 4;</code>
        * @return The timeCreate.
        */
       java.lang.String getTimeCreate();
       /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
        * <code>string timeCreate = 4;</code>
        * @return The bytes for timeCreate.
        */
@@ -7761,6 +7789,46 @@ public final class WarehouseMessage {
        * @return The status.
        */
       com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status getStatus();
+
+      /**
+       * <pre>
+       * кто последний менял статус?
+       * </pre>
+       *
+       * <code>string statusOwner = 6;</code>
+       * @return The statusOwner.
+       */
+      java.lang.String getStatusOwner();
+      /**
+       * <pre>
+       * кто последний менял статус?
+       * </pre>
+       *
+       * <code>string statusOwner = 6;</code>
+       * @return The bytes for statusOwner.
+       */
+      com.google.protobuf.ByteString
+          getStatusOwnerBytes();
+
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 7;</code>
+       * @return The name.
+       */
+      java.lang.String getName();
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 7;</code>
+       * @return The bytes for name.
+       */
+      com.google.protobuf.ByteString
+          getNameBytes();
     }
     /**
      * <pre>
@@ -7783,6 +7851,8 @@ public final class WarehouseMessage {
         priority_ = 0;
         timeCreate_ = "";
         status_ = 0;
+        statusOwner_ = "";
+        name_ = "";
       }
 
       @java.lang.Override
@@ -7844,6 +7914,18 @@ public final class WarehouseMessage {
                 status_ = rawValue;
                 break;
               }
+              case 50: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                statusOwner_ = s;
+                break;
+              }
+              case 58: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                name_ = s;
+                break;
+              }
               default: {
                 if (!parseUnknownField(
                     input, unknownFields, extensionRegistry, tag)) {
@@ -7882,14 +7964,26 @@ public final class WarehouseMessage {
       public enum Status
           implements com.google.protobuf.ProtocolMessageEnum {
         /**
+         * <pre>
+         * задача в очереди
+         * </pre>
+         *
          * <code>WAIT = 0;</code>
          */
         WAIT(0),
         /**
+         * <pre>
+         * задача выполняется
+         * </pre>
+         *
          * <code>STARTED = 1;</code>
          */
         STARTED(1),
         /**
+         * <pre>
+         * задача отменена
+         * </pre>
+         *
          * <code>CANCELLED = 2;</code>
          */
         CANCELLED(2),
@@ -7897,14 +7991,26 @@ public final class WarehouseMessage {
         ;
 
         /**
+         * <pre>
+         * задача в очереди
+         * </pre>
+         *
          * <code>WAIT = 0;</code>
          */
         public static final int WAIT_VALUE = 0;
         /**
+         * <pre>
+         * задача выполняется
+         * </pre>
+         *
          * <code>STARTED = 1;</code>
          */
         public static final int STARTED_VALUE = 1;
         /**
+         * <pre>
+         * задача отменена
+         * </pre>
+         *
          * <code>CANCELLED = 2;</code>
          */
         public static final int CANCELLED_VALUE = 2;
@@ -7996,6 +8102,10 @@ public final class WarehouseMessage {
       public static final int ID_FIELD_NUMBER = 1;
       private int id_;
       /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
        * <code>int32 id = 1;</code>
        * @return The id.
        */
@@ -8007,6 +8117,10 @@ public final class WarehouseMessage {
       public static final int WEIGHT_FIELD_NUMBER = 2;
       private int weight_;
       /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
        * <code>.msg.NewTask.Weight weight = 2;</code>
        * @return The enum numeric value on the wire for weight.
        */
@@ -8014,6 +8128,10 @@ public final class WarehouseMessage {
         return weight_;
       }
       /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
        * <code>.msg.NewTask.Weight weight = 2;</code>
        * @return The weight.
        */
@@ -8026,6 +8144,10 @@ public final class WarehouseMessage {
       public static final int PRIORITY_FIELD_NUMBER = 3;
       private int priority_;
       /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
        * <code>.msg.NewTask.Priority priority = 3;</code>
        * @return The enum numeric value on the wire for priority.
        */
@@ -8033,6 +8155,10 @@ public final class WarehouseMessage {
         return priority_;
       }
       /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
        * <code>.msg.NewTask.Priority priority = 3;</code>
        * @return The priority.
        */
@@ -8045,6 +8171,10 @@ public final class WarehouseMessage {
       public static final int TIMECREATE_FIELD_NUMBER = 4;
       private volatile java.lang.Object timeCreate_;
       /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
        * <code>string timeCreate = 4;</code>
        * @return The timeCreate.
        */
@@ -8062,6 +8192,10 @@ public final class WarehouseMessage {
         }
       }
       /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
        * <code>string timeCreate = 4;</code>
        * @return The bytes for timeCreate.
        */
@@ -8099,6 +8233,98 @@ public final class WarehouseMessage {
         return result == null ? com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.UNRECOGNIZED : result;
       }
 
+      public static final int STATUSOWNER_FIELD_NUMBER = 6;
+      private volatile java.lang.Object statusOwner_;
+      /**
+       * <pre>
+       * кто последний менял статус?
+       * </pre>
+       *
+       * <code>string statusOwner = 6;</code>
+       * @return The statusOwner.
+       */
+      @java.lang.Override
+      public java.lang.String getStatusOwner() {
+        java.lang.Object ref = statusOwner_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          statusOwner_ = s;
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       * кто последний менял статус?
+       * </pre>
+       *
+       * <code>string statusOwner = 6;</code>
+       * @return The bytes for statusOwner.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getStatusOwnerBytes() {
+        java.lang.Object ref = statusOwner_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          statusOwner_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int NAME_FIELD_NUMBER = 7;
+      private volatile java.lang.Object name_;
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 7;</code>
+       * @return The name.
+       */
+      @java.lang.Override
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 7;</code>
+       * @return The bytes for name.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -8128,6 +8354,12 @@ public final class WarehouseMessage {
         if (status_ != com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.WAIT.getNumber()) {
           output.writeEnum(5, status_);
         }
+        if (!getStatusOwnerBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 6, statusOwner_);
+        }
+        if (!getNameBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 7, name_);
+        }
         unknownFields.writeTo(output);
       }
 
@@ -8156,6 +8388,12 @@ public final class WarehouseMessage {
           size += com.google.protobuf.CodedOutputStream
             .computeEnumSize(5, status_);
         }
+        if (!getStatusOwnerBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, statusOwner_);
+        }
+        if (!getNameBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, name_);
+        }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
         return size;
@@ -8178,6 +8416,10 @@ public final class WarehouseMessage {
         if (!getTimeCreate()
             .equals(other.getTimeCreate())) return false;
         if (status_ != other.status_) return false;
+        if (!getStatusOwner()
+            .equals(other.getStatusOwner())) return false;
+        if (!getName()
+            .equals(other.getName())) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -8199,6 +8441,10 @@ public final class WarehouseMessage {
         hash = (53 * hash) + getTimeCreate().hashCode();
         hash = (37 * hash) + STATUS_FIELD_NUMBER;
         hash = (53 * hash) + status_;
+        hash = (37 * hash) + STATUSOWNER_FIELD_NUMBER;
+        hash = (53 * hash) + getStatusOwner().hashCode();
+        hash = (37 * hash) + NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getName().hashCode();
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -8346,6 +8592,10 @@ public final class WarehouseMessage {
 
           status_ = 0;
 
+          statusOwner_ = "";
+
+          name_ = "";
+
           return this;
         }
 
@@ -8377,6 +8627,8 @@ public final class WarehouseMessage {
           result.priority_ = priority_;
           result.timeCreate_ = timeCreate_;
           result.status_ = status_;
+          result.statusOwner_ = statusOwner_;
+          result.name_ = name_;
           onBuilt();
           return result;
         }
@@ -8441,6 +8693,14 @@ public final class WarehouseMessage {
           if (other.status_ != 0) {
             setStatusValue(other.getStatusValue());
           }
+          if (!other.getStatusOwner().isEmpty()) {
+            statusOwner_ = other.statusOwner_;
+            onChanged();
+          }
+          if (!other.getName().isEmpty()) {
+            name_ = other.name_;
+            onChanged();
+          }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
           return this;
@@ -8472,6 +8732,10 @@ public final class WarehouseMessage {
 
         private int id_ ;
         /**
+         * <pre>
+         * идентификатор
+         * </pre>
+         *
          * <code>int32 id = 1;</code>
          * @return The id.
          */
@@ -8480,6 +8744,10 @@ public final class WarehouseMessage {
           return id_;
         }
         /**
+         * <pre>
+         * идентификатор
+         * </pre>
+         *
          * <code>int32 id = 1;</code>
          * @param value The id to set.
          * @return This builder for chaining.
@@ -8491,6 +8759,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * идентификатор
+         * </pre>
+         *
          * <code>int32 id = 1;</code>
          * @return This builder for chaining.
          */
@@ -8503,6 +8775,10 @@ public final class WarehouseMessage {
 
         private int weight_ = 0;
         /**
+         * <pre>
+         * весовая категория
+         * </pre>
+         *
          * <code>.msg.NewTask.Weight weight = 2;</code>
          * @return The enum numeric value on the wire for weight.
          */
@@ -8510,6 +8786,10 @@ public final class WarehouseMessage {
           return weight_;
         }
         /**
+         * <pre>
+         * весовая категория
+         * </pre>
+         *
          * <code>.msg.NewTask.Weight weight = 2;</code>
          * @param value The enum numeric value on the wire for weight to set.
          * @return This builder for chaining.
@@ -8521,6 +8801,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * весовая категория
+         * </pre>
+         *
          * <code>.msg.NewTask.Weight weight = 2;</code>
          * @return The weight.
          */
@@ -8531,6 +8815,10 @@ public final class WarehouseMessage {
           return result == null ? com.dst.msg.WarehouseMessage.NewTask.Weight.UNRECOGNIZED : result;
         }
         /**
+         * <pre>
+         * весовая категория
+         * </pre>
+         *
          * <code>.msg.NewTask.Weight weight = 2;</code>
          * @param value The weight to set.
          * @return This builder for chaining.
@@ -8545,6 +8833,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * весовая категория
+         * </pre>
+         *
          * <code>.msg.NewTask.Weight weight = 2;</code>
          * @return This builder for chaining.
          */
@@ -8557,6 +8849,10 @@ public final class WarehouseMessage {
 
         private int priority_ = 0;
         /**
+         * <pre>
+         * приоритет
+         * </pre>
+         *
          * <code>.msg.NewTask.Priority priority = 3;</code>
          * @return The enum numeric value on the wire for priority.
          */
@@ -8564,6 +8860,10 @@ public final class WarehouseMessage {
           return priority_;
         }
         /**
+         * <pre>
+         * приоритет
+         * </pre>
+         *
          * <code>.msg.NewTask.Priority priority = 3;</code>
          * @param value The enum numeric value on the wire for priority to set.
          * @return This builder for chaining.
@@ -8575,6 +8875,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * приоритет
+         * </pre>
+         *
          * <code>.msg.NewTask.Priority priority = 3;</code>
          * @return The priority.
          */
@@ -8585,6 +8889,10 @@ public final class WarehouseMessage {
           return result == null ? com.dst.msg.WarehouseMessage.NewTask.Priority.UNRECOGNIZED : result;
         }
         /**
+         * <pre>
+         * приоритет
+         * </pre>
+         *
          * <code>.msg.NewTask.Priority priority = 3;</code>
          * @param value The priority to set.
          * @return This builder for chaining.
@@ -8599,6 +8907,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * приоритет
+         * </pre>
+         *
          * <code>.msg.NewTask.Priority priority = 3;</code>
          * @return This builder for chaining.
          */
@@ -8611,6 +8923,10 @@ public final class WarehouseMessage {
 
         private java.lang.Object timeCreate_ = "";
         /**
+         * <pre>
+         * время создания задачи, мс
+         * </pre>
+         *
          * <code>string timeCreate = 4;</code>
          * @return The timeCreate.
          */
@@ -8627,6 +8943,10 @@ public final class WarehouseMessage {
           }
         }
         /**
+         * <pre>
+         * время создания задачи, мс
+         * </pre>
+         *
          * <code>string timeCreate = 4;</code>
          * @return The bytes for timeCreate.
          */
@@ -8644,6 +8964,10 @@ public final class WarehouseMessage {
           }
         }
         /**
+         * <pre>
+         * время создания задачи, мс
+         * </pre>
+         *
          * <code>string timeCreate = 4;</code>
          * @param value The timeCreate to set.
          * @return This builder for chaining.
@@ -8659,6 +8983,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * время создания задачи, мс
+         * </pre>
+         *
          * <code>string timeCreate = 4;</code>
          * @return This builder for chaining.
          */
@@ -8669,6 +8997,10 @@ public final class WarehouseMessage {
           return this;
         }
         /**
+         * <pre>
+         * время создания задачи, мс
+         * </pre>
+         *
          * <code>string timeCreate = 4;</code>
          * @param value The bytes for timeCreate to set.
          * @return This builder for chaining.
@@ -8735,6 +9067,198 @@ public final class WarehouseMessage {
         public Builder clearStatus() {
           
           status_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object statusOwner_ = "";
+        /**
+         * <pre>
+         * кто последний менял статус?
+         * </pre>
+         *
+         * <code>string statusOwner = 6;</code>
+         * @return The statusOwner.
+         */
+        public java.lang.String getStatusOwner() {
+          java.lang.Object ref = statusOwner_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            statusOwner_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         * кто последний менял статус?
+         * </pre>
+         *
+         * <code>string statusOwner = 6;</code>
+         * @return The bytes for statusOwner.
+         */
+        public com.google.protobuf.ByteString
+            getStatusOwnerBytes() {
+          java.lang.Object ref = statusOwner_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            statusOwner_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         * кто последний менял статус?
+         * </pre>
+         *
+         * <code>string statusOwner = 6;</code>
+         * @param value The statusOwner to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatusOwner(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          statusOwner_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * кто последний менял статус?
+         * </pre>
+         *
+         * <code>string statusOwner = 6;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStatusOwner() {
+          
+          statusOwner_ = getDefaultInstance().getStatusOwner();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * кто последний менял статус?
+         * </pre>
+         *
+         * <code>string statusOwner = 6;</code>
+         * @param value The bytes for statusOwner to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatusOwnerBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          statusOwner_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object name_ = "";
+        /**
+         * <pre>
+         * название задачи, пока что совпадает с именем того, кто поставил
+         * </pre>
+         *
+         * <code>string name = 7;</code>
+         * @return The name.
+         */
+        public java.lang.String getName() {
+          java.lang.Object ref = name_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            name_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         * название задачи, пока что совпадает с именем того, кто поставил
+         * </pre>
+         *
+         * <code>string name = 7;</code>
+         * @return The bytes for name.
+         */
+        public com.google.protobuf.ByteString
+            getNameBytes() {
+          java.lang.Object ref = name_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            name_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         * название задачи, пока что совпадает с именем того, кто поставил
+         * </pre>
+         *
+         * <code>string name = 7;</code>
+         * @param value The name to set.
+         * @return This builder for chaining.
+         */
+        public Builder setName(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          name_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * название задачи, пока что совпадает с именем того, кто поставил
+         * </pre>
+         *
+         * <code>string name = 7;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearName() {
+          
+          name_ = getDefaultInstance().getName();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * название задачи, пока что совпадает с именем того, кто поставил
+         * </pre>
+         *
+         * <code>string name = 7;</code>
+         * @param value The bytes for name to set.
+         * @return This builder for chaining.
+         */
+        public Builder setNameBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          name_ = value;
           onChanged();
           return this;
         }
@@ -9869,16 +10393,17 @@ public final class WarehouseMessage {
       "\002\"\203\001\n\006Action\022%\n\007details\030\001 \003(\0132\024.google.p" +
       "rotobuf.Any\022\n\n\002id\030\002 \001(\005\022\034\n\003act\030\003 \001(\0162\017.m" +
       "sg.Action.Act\"(\n\003Act\022\n\n\006CANCEL\020\000\022\n\n\006FINI" +
-      "SH\020\001\022\t\n\005START\020\002\"\272\002\n\016ListofTaskDisp\022%\n\007de" +
+      "SH\020\001\022\t\n\005START\020\002\"\335\002\n\016ListofTaskDisp\022%\n\007de" +
       "tails\030\001 \003(\0132\024.google.protobuf.Any\022\'\n\004tas" +
-      "k\030\002 \003(\0132\031.msg.ListofTaskDisp.Task2\032\327\001\n\005T" +
+      "k\030\002 \003(\0132\031.msg.ListofTaskDisp.Task2\032\372\001\n\005T" +
       "ask2\022\n\n\002id\030\001 \001(\005\022#\n\006weight\030\002 \001(\0162\023.msg.N" +
       "ewTask.Weight\022\'\n\010priority\030\003 \001(\0162\025.msg.Ne" +
       "wTask.Priority\022\022\n\ntimeCreate\030\004 \001(\t\0220\n\006st" +
       "atus\030\005 \001(\0162 .msg.ListofTaskDisp.Task2.St" +
-      "atus\".\n\006Status\022\010\n\004WAIT\020\000\022\013\n\007STARTED\020\001\022\r\n" +
-      "\tCANCELLED\020\002B\037\n\013com.dst.msgB\020WarehouseMe" +
-      "ssageb\006proto3"
+      "atus\022\023\n\013statusOwner\030\006 \001(\t\022\014\n\004name\030\007 \001(\t\"" +
+      ".\n\006Status\022\010\n\004WAIT\020\000\022\013\n\007STARTED\020\001\022\r\n\tCANC" +
+      "ELLED\020\002B\037\n\013com.dst.msgB\020WarehouseMessage" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9926,7 +10451,7 @@ public final class WarehouseMessage {
     internal_static_msg_ListofTaskDisp_Task2_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_ListofTaskDisp_Task2_descriptor,
-        new java.lang.String[] { "Id", "Weight", "Priority", "TimeCreate", "Status", });
+        new java.lang.String[] { "Id", "Weight", "Priority", "TimeCreate", "Status", "StatusOwner", "Name", });
     com.google.protobuf.AnyProto.getDescriptor();
   }
 

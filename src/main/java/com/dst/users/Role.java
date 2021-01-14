@@ -1,7 +1,7 @@
 package com.dst.users;
 
 public enum Role {
-    NOT_AUTHORIZED,
+    UNKNOWN,
     DISPATCHER,
     DRIVER
 }

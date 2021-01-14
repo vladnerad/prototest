@@ -25,26 +25,25 @@ public class SingleServer implements Runnable {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
             User sessionUser = getAuthUser(inputStream, outputStream);
+            // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
-                System.out.println("Authorized: " + socket.getInetAddress());
-//                WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
-//                int taskIdcounter = 0;
+                System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
+                // Get list of tasks for current dispatcher
                 WarehouseMessage.ListofTaskDisp.Builder listBuilder;
+                // List for current dispatcher exists and not empty, get it's builder from storage
                 if (TaskStorage.dispatcherTaskLists.containsKey(sessionUser.getUserName()) &&
                         !TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName()).getTaskList().isEmpty()) {
                     Any.pack(TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName()).build()).writeDelimitedTo(outputStream);
-                    listBuilder = TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName())/*.toBuilder()*/;
-                } else {
-                    TaskStorage.dispatcherTaskLists.put(sessionUser.getUserName(), WarehouseMessage.ListofTaskDisp.newBuilder());
-                    listBuilder = TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName());
-//                    listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
-//                    TaskStorage.dispatcherTaskLists.putIfAbsent(sessionUser.getUserName(), listBuilder.build());
                 }
+                // Create new builder and put it in the storage
+                else {
+                    TaskStorage.dispatcherTaskLists.put(sessionUser.getUserName(), WarehouseMessage.ListofTaskDisp.newBuilder());
+                }
+                listBuilder = TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName());
+                // Cyclic conversation
                 while (true) {
-
                     Any any = Any.parseDelimitedFrom(inputStream); // Команда
-//                    if (any == null) TaskStorage.dispatcherTaskLists.putIfAbsent(sessionUser.getUserName(), listBuilder/*.build()*/);
-//                    else System.out.println(TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName()).getTaskList().toString());
+                    // Create new task
                     if (any.is(WarehouseMessage.NewTask.class)) {
                         WarehouseMessage.NewTask newTask = any.unpack(WarehouseMessage.NewTask.class);
                         WarehouseMessage.ListofTaskDisp.Task2.Builder t2builder = WarehouseMessage.ListofTaskDisp.Task2.newBuilder();
@@ -55,32 +54,41 @@ public class SingleServer implements Runnable {
                         t2builder.setStatus(WarehouseMessage.ListofTaskDisp.Task2.Status.WAIT);
                         listBuilder.addTask(t2builder.build());
                         System.out.println("Task added: " + t2builder.getId());
-//                        if (TaskStorage.dispatcherTaskLists.containsKey(sessionUser.getUserName()) &&
-//                                !TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName()).getDetailsList().isEmpty()) {
-//                            TaskStorage.dispatcherTaskLists.get(sessionUser.getUserName()).toBuilder().addTask()
-//                        }
                         Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
-                    } else if (any.is(WarehouseMessage.Action.class)) {
+                    }
+                    // Action with task
+                    else if (any.is(WarehouseMessage.Action.class)) {
                         WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
                         WarehouseMessage.ListofTaskDisp.Task2 task2 = listBuilder.getTaskList()
                                 .stream()
                                 .filter(t -> action.getId() == t.getId())
                                 .findAny()
                                 .orElse(null);
-
+                        // Dispatcher removes task
                         if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
                             listBuilder.removeTask(listBuilder.getTaskList().indexOf(task2));
                             System.out.println("Task removed: " + task2.getId());
-                        } else if (action.getAct() == WarehouseMessage.Action.Act.START) {
+                        }
+                        // Dispatcher creates new task
+                        else if (action.getAct() == WarehouseMessage.Action.Act.START) {
                             task2.toBuilder().setStatus(WarehouseMessage.ListofTaskDisp.Task2.Status.STARTED).build();
                             System.out.println("Status changed");
-                        } else {
+                        }
+                        // Action doesn't exists
+                        else {
                             System.out.println("Unknown action");
                         }
+                        // Send updated list to dispatcher client
                         Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
                     }
                 }
-            } else System.out.println("Not authorized: " + socket.getInetAddress());
+            }
+            // Driver
+            else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
+                System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
+            }
+            // User not authorized
+            else System.out.println("Not authorized: " + socket.getInetAddress());
         } catch (
                 IOException e) {
             e.printStackTrace();

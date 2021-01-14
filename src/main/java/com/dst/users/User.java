@@ -1,14 +1,14 @@
 package com.dst.users;
 
-public class User {
-    private String userName;
-    private String password;
-    private Role role;
+public class User implements Roleable {
+    private final String userName;
+    private final String password;
+//    private Role role;
 
-    public User(String userName, String password, Role role) {
+    protected User(String userName, String password/*, Role role*/) {
         this.userName = userName;
         this.password = password;
-        this.role = role;
+//        this.role = role;
     }
 
     public String getUserName() {
@@ -20,6 +20,6 @@ public class User {
     }
 
     public Role getRole() {
-        return role;
+        return Role.UNKNOWN;
     }
 }

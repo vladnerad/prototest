@@ -11,7 +11,7 @@ public class UserStorage {
     }
 
     static {
-        users.add(new User("disp1", "1356", Role.DISPATCHER));
-        users.add(new User("driver1", "111665", Role.DRIVER));
+        users.add(new UserDispatcher("disp1", "1356"));
+        users.add(new UserDriver("driver1", "111665"));
     }
 }
