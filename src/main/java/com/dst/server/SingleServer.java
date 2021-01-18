@@ -29,7 +29,8 @@ public class SingleServer implements Runnable {
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
                 DispatcherExchanger dispatcherExchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
-                dispatcherExchanger.initListBuilder();
+//                dispatcherExchanger.initListBuilder();
+                dispatcherExchanger.initListBuilder2();
                 while (true){
                     dispatcherExchanger.exchange();
                 }

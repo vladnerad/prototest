@@ -7576,27 +7576,27 @@ public final class WarehouseMessage {
         int index);
 
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
-    java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> 
+    java.util.List<com.dst.msg.WarehouseMessage.Task2> 
         getTaskList();
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
-    com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getTask(int index);
+    com.dst.msg.WarehouseMessage.Task2 getTask(int index);
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     int getTaskCount();
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
-    java.util.List<? extends com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder> 
+    java.util.List<? extends com.dst.msg.WarehouseMessage.Task2OrBuilder> 
         getTaskOrBuilderList();
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
-    com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder getTaskOrBuilder(
+    com.dst.msg.WarehouseMessage.Task2OrBuilder getTaskOrBuilder(
         int index);
   }
   /**
@@ -7662,11 +7662,11 @@ public final class WarehouseMessage {
             }
             case 18: {
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                task_ = new java.util.ArrayList<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2>();
+                task_ = new java.util.ArrayList<com.dst.msg.WarehouseMessage.Task2>();
                 mutable_bitField0_ |= 0x00000002;
               }
               task_.add(
-                  input.readMessage(com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.parser(), extensionRegistry));
+                  input.readMessage(com.dst.msg.WarehouseMessage.Task2.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -7705,1614 +7705,6 @@ public final class WarehouseMessage {
       return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.dst.msg.WarehouseMessage.ListofTaskDisp.class, com.dst.msg.WarehouseMessage.ListofTaskDisp.Builder.class);
-    }
-
-    public interface Task2OrBuilder extends
-        // @@protoc_insertion_point(interface_extends:msg.ListofTaskDisp.Task2)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <pre>
-       * идентификатор
-       * </pre>
-       *
-       * <code>int32 id = 1;</code>
-       * @return The id.
-       */
-      int getId();
-
-      /**
-       * <pre>
-       * весовая категория
-       * </pre>
-       *
-       * <code>.msg.NewTask.Weight weight = 2;</code>
-       * @return The enum numeric value on the wire for weight.
-       */
-      int getWeightValue();
-      /**
-       * <pre>
-       * весовая категория
-       * </pre>
-       *
-       * <code>.msg.NewTask.Weight weight = 2;</code>
-       * @return The weight.
-       */
-      com.dst.msg.WarehouseMessage.NewTask.Weight getWeight();
-
-      /**
-       * <pre>
-       * приоритет
-       * </pre>
-       *
-       * <code>.msg.NewTask.Priority priority = 3;</code>
-       * @return The enum numeric value on the wire for priority.
-       */
-      int getPriorityValue();
-      /**
-       * <pre>
-       * приоритет
-       * </pre>
-       *
-       * <code>.msg.NewTask.Priority priority = 3;</code>
-       * @return The priority.
-       */
-      com.dst.msg.WarehouseMessage.NewTask.Priority getPriority();
-
-      /**
-       * <pre>
-       * время создания задачи, мс
-       * </pre>
-       *
-       * <code>string timeCreate = 4;</code>
-       * @return The timeCreate.
-       */
-      java.lang.String getTimeCreate();
-      /**
-       * <pre>
-       * время создания задачи, мс
-       * </pre>
-       *
-       * <code>string timeCreate = 4;</code>
-       * @return The bytes for timeCreate.
-       */
-      com.google.protobuf.ByteString
-          getTimeCreateBytes();
-
-      /**
-       * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-       * @return The enum numeric value on the wire for status.
-       */
-      int getStatusValue();
-      /**
-       * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-       * @return The status.
-       */
-      com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status getStatus();
-
-      /**
-       * <pre>
-       * кто последний менял статус?
-       * </pre>
-       *
-       * <code>string statusOwner = 6;</code>
-       * @return The statusOwner.
-       */
-      java.lang.String getStatusOwner();
-      /**
-       * <pre>
-       * кто последний менял статус?
-       * </pre>
-       *
-       * <code>string statusOwner = 6;</code>
-       * @return The bytes for statusOwner.
-       */
-      com.google.protobuf.ByteString
-          getStatusOwnerBytes();
-
-      /**
-       * <pre>
-       * название задачи, пока что совпадает с именем того, кто поставил
-       * </pre>
-       *
-       * <code>string name = 7;</code>
-       * @return The name.
-       */
-      java.lang.String getName();
-      /**
-       * <pre>
-       * название задачи, пока что совпадает с именем того, кто поставил
-       * </pre>
-       *
-       * <code>string name = 7;</code>
-       * @return The bytes for name.
-       */
-      com.google.protobuf.ByteString
-          getNameBytes();
-    }
-    /**
-     * <pre>
-     * Задача для отображения в списке
-     * </pre>
-     *
-     * Protobuf type {@code msg.ListofTaskDisp.Task2}
-     */
-    public static final class Task2 extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:msg.ListofTaskDisp.Task2)
-        Task2OrBuilder {
-    private static final long serialVersionUID = 0L;
-      // Use Task2.newBuilder() to construct.
-      private Task2(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private Task2() {
-        weight_ = 0;
-        priority_ = 0;
-        timeCreate_ = "";
-        status_ = 0;
-        statusOwner_ = "";
-        name_ = "";
-      }
-
-      @java.lang.Override
-      @SuppressWarnings({"unused"})
-      protected java.lang.Object newInstance(
-          UnusedPrivateParameter unused) {
-        return new Task2();
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Task2(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-
-                id_ = input.readInt32();
-                break;
-              }
-              case 16: {
-                int rawValue = input.readEnum();
-
-                weight_ = rawValue;
-                break;
-              }
-              case 24: {
-                int rawValue = input.readEnum();
-
-                priority_ = rawValue;
-                break;
-              }
-              case 34: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                timeCreate_ = s;
-                break;
-              }
-              case 40: {
-                int rawValue = input.readEnum();
-
-                status_ = rawValue;
-                break;
-              }
-              case 50: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                statusOwner_ = s;
-                break;
-              }
-              case 58: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                name_ = s;
-                break;
-              }
-              default: {
-                if (!parseUnknownField(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_Task2_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_Task2_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.class, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder.class);
-      }
-
-      /**
-       * Protobuf enum {@code msg.ListofTaskDisp.Task2.Status}
-       */
-      public enum Status
-          implements com.google.protobuf.ProtocolMessageEnum {
-        /**
-         * <pre>
-         * задача в очереди
-         * </pre>
-         *
-         * <code>WAIT = 0;</code>
-         */
-        WAIT(0),
-        /**
-         * <pre>
-         * задача выполняется
-         * </pre>
-         *
-         * <code>STARTED = 1;</code>
-         */
-        STARTED(1),
-        /**
-         * <pre>
-         * задача отменена
-         * </pre>
-         *
-         * <code>CANCELLED = 2;</code>
-         */
-        CANCELLED(2),
-        UNRECOGNIZED(-1),
-        ;
-
-        /**
-         * <pre>
-         * задача в очереди
-         * </pre>
-         *
-         * <code>WAIT = 0;</code>
-         */
-        public static final int WAIT_VALUE = 0;
-        /**
-         * <pre>
-         * задача выполняется
-         * </pre>
-         *
-         * <code>STARTED = 1;</code>
-         */
-        public static final int STARTED_VALUE = 1;
-        /**
-         * <pre>
-         * задача отменена
-         * </pre>
-         *
-         * <code>CANCELLED = 2;</code>
-         */
-        public static final int CANCELLED_VALUE = 2;
-
-
-        public final int getNumber() {
-          if (this == UNRECOGNIZED) {
-            throw new java.lang.IllegalArgumentException(
-                "Can't get the number of an unknown enum value.");
-          }
-          return value;
-        }
-
-        /**
-         * @param value The numeric wire value of the corresponding enum entry.
-         * @return The enum associated with the given numeric wire value.
-         * @deprecated Use {@link #forNumber(int)} instead.
-         */
-        @java.lang.Deprecated
-        public static Status valueOf(int value) {
-          return forNumber(value);
-        }
-
-        /**
-         * @param value The numeric wire value of the corresponding enum entry.
-         * @return The enum associated with the given numeric wire value.
-         */
-        public static Status forNumber(int value) {
-          switch (value) {
-            case 0: return WAIT;
-            case 1: return STARTED;
-            case 2: return CANCELLED;
-            default: return null;
-          }
-        }
-
-        public static com.google.protobuf.Internal.EnumLiteMap<Status>
-            internalGetValueMap() {
-          return internalValueMap;
-        }
-        private static final com.google.protobuf.Internal.EnumLiteMap<
-            Status> internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<Status>() {
-                public Status findValueByNumber(int number) {
-                  return Status.forNumber(number);
-                }
-              };
-
-        public final com.google.protobuf.Descriptors.EnumValueDescriptor
-            getValueDescriptor() {
-          if (this == UNRECOGNIZED) {
-            throw new java.lang.IllegalStateException(
-                "Can't get the descriptor of an unrecognized enum value.");
-          }
-          return getDescriptor().getValues().get(ordinal());
-        }
-        public final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptorForType() {
-          return getDescriptor();
-        }
-        public static final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptor() {
-          return com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.getDescriptor().getEnumTypes().get(0);
-        }
-
-        private static final Status[] VALUES = values();
-
-        public static Status valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-          if (desc.getType() != getDescriptor()) {
-            throw new java.lang.IllegalArgumentException(
-              "EnumValueDescriptor is not for this type.");
-          }
-          if (desc.getIndex() == -1) {
-            return UNRECOGNIZED;
-          }
-          return VALUES[desc.getIndex()];
-        }
-
-        private final int value;
-
-        private Status(int value) {
-          this.value = value;
-        }
-
-        // @@protoc_insertion_point(enum_scope:msg.ListofTaskDisp.Task2.Status)
-      }
-
-      public static final int ID_FIELD_NUMBER = 1;
-      private int id_;
-      /**
-       * <pre>
-       * идентификатор
-       * </pre>
-       *
-       * <code>int32 id = 1;</code>
-       * @return The id.
-       */
-      @java.lang.Override
-      public int getId() {
-        return id_;
-      }
-
-      public static final int WEIGHT_FIELD_NUMBER = 2;
-      private int weight_;
-      /**
-       * <pre>
-       * весовая категория
-       * </pre>
-       *
-       * <code>.msg.NewTask.Weight weight = 2;</code>
-       * @return The enum numeric value on the wire for weight.
-       */
-      @java.lang.Override public int getWeightValue() {
-        return weight_;
-      }
-      /**
-       * <pre>
-       * весовая категория
-       * </pre>
-       *
-       * <code>.msg.NewTask.Weight weight = 2;</code>
-       * @return The weight.
-       */
-      @java.lang.Override public com.dst.msg.WarehouseMessage.NewTask.Weight getWeight() {
-        @SuppressWarnings("deprecation")
-        com.dst.msg.WarehouseMessage.NewTask.Weight result = com.dst.msg.WarehouseMessage.NewTask.Weight.valueOf(weight_);
-        return result == null ? com.dst.msg.WarehouseMessage.NewTask.Weight.UNRECOGNIZED : result;
-      }
-
-      public static final int PRIORITY_FIELD_NUMBER = 3;
-      private int priority_;
-      /**
-       * <pre>
-       * приоритет
-       * </pre>
-       *
-       * <code>.msg.NewTask.Priority priority = 3;</code>
-       * @return The enum numeric value on the wire for priority.
-       */
-      @java.lang.Override public int getPriorityValue() {
-        return priority_;
-      }
-      /**
-       * <pre>
-       * приоритет
-       * </pre>
-       *
-       * <code>.msg.NewTask.Priority priority = 3;</code>
-       * @return The priority.
-       */
-      @java.lang.Override public com.dst.msg.WarehouseMessage.NewTask.Priority getPriority() {
-        @SuppressWarnings("deprecation")
-        com.dst.msg.WarehouseMessage.NewTask.Priority result = com.dst.msg.WarehouseMessage.NewTask.Priority.valueOf(priority_);
-        return result == null ? com.dst.msg.WarehouseMessage.NewTask.Priority.UNRECOGNIZED : result;
-      }
-
-      public static final int TIMECREATE_FIELD_NUMBER = 4;
-      private volatile java.lang.Object timeCreate_;
-      /**
-       * <pre>
-       * время создания задачи, мс
-       * </pre>
-       *
-       * <code>string timeCreate = 4;</code>
-       * @return The timeCreate.
-       */
-      @java.lang.Override
-      public java.lang.String getTimeCreate() {
-        java.lang.Object ref = timeCreate_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          timeCreate_ = s;
-          return s;
-        }
-      }
-      /**
-       * <pre>
-       * время создания задачи, мс
-       * </pre>
-       *
-       * <code>string timeCreate = 4;</code>
-       * @return The bytes for timeCreate.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString
-          getTimeCreateBytes() {
-        java.lang.Object ref = timeCreate_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          timeCreate_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int STATUS_FIELD_NUMBER = 5;
-      private int status_;
-      /**
-       * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-       * @return The enum numeric value on the wire for status.
-       */
-      @java.lang.Override public int getStatusValue() {
-        return status_;
-      }
-      /**
-       * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-       * @return The status.
-       */
-      @java.lang.Override public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status getStatus() {
-        @SuppressWarnings("deprecation")
-        com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status result = com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.valueOf(status_);
-        return result == null ? com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.UNRECOGNIZED : result;
-      }
-
-      public static final int STATUSOWNER_FIELD_NUMBER = 6;
-      private volatile java.lang.Object statusOwner_;
-      /**
-       * <pre>
-       * кто последний менял статус?
-       * </pre>
-       *
-       * <code>string statusOwner = 6;</code>
-       * @return The statusOwner.
-       */
-      @java.lang.Override
-      public java.lang.String getStatusOwner() {
-        java.lang.Object ref = statusOwner_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          statusOwner_ = s;
-          return s;
-        }
-      }
-      /**
-       * <pre>
-       * кто последний менял статус?
-       * </pre>
-       *
-       * <code>string statusOwner = 6;</code>
-       * @return The bytes for statusOwner.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString
-          getStatusOwnerBytes() {
-        java.lang.Object ref = statusOwner_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          statusOwner_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int NAME_FIELD_NUMBER = 7;
-      private volatile java.lang.Object name_;
-      /**
-       * <pre>
-       * название задачи, пока что совпадает с именем того, кто поставил
-       * </pre>
-       *
-       * <code>string name = 7;</code>
-       * @return The name.
-       */
-      @java.lang.Override
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        }
-      }
-      /**
-       * <pre>
-       * название задачи, пока что совпадает с именем того, кто поставил
-       * </pre>
-       *
-       * <code>string name = 7;</code>
-       * @return The bytes for name.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      private byte memoizedIsInitialized = -1;
-      @java.lang.Override
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      @java.lang.Override
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        if (id_ != 0) {
-          output.writeInt32(1, id_);
-        }
-        if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
-          output.writeEnum(2, weight_);
-        }
-        if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
-          output.writeEnum(3, priority_);
-        }
-        if (!getTimeCreateBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 4, timeCreate_);
-        }
-        if (status_ != com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.WAIT.getNumber()) {
-          output.writeEnum(5, status_);
-        }
-        if (!getStatusOwnerBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 6, statusOwner_);
-        }
-        if (!getNameBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 7, name_);
-        }
-        unknownFields.writeTo(output);
-      }
-
-      @java.lang.Override
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (id_ != 0) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, id_);
-        }
-        if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(2, weight_);
-        }
-        if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(3, priority_);
-        }
-        if (!getTimeCreateBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, timeCreate_);
-        }
-        if (status_ != com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.WAIT.getNumber()) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(5, status_);
-        }
-        if (!getStatusOwnerBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, statusOwner_);
-        }
-        if (!getNameBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, name_);
-        }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
-        return size;
-      }
-
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2)) {
-          return super.equals(obj);
-        }
-        com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 other = (com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2) obj;
-
-        if (getId()
-            != other.getId()) return false;
-        if (weight_ != other.weight_) return false;
-        if (priority_ != other.priority_) return false;
-        if (!getTimeCreate()
-            .equals(other.getTimeCreate())) return false;
-        if (status_ != other.status_) return false;
-        if (!getStatusOwner()
-            .equals(other.getStatusOwner())) return false;
-        if (!getName()
-            .equals(other.getName())) return false;
-        if (!unknownFields.equals(other.unknownFields)) return false;
-        return true;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + ID_FIELD_NUMBER;
-        hash = (53 * hash) + getId();
-        hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
-        hash = (53 * hash) + weight_;
-        hash = (37 * hash) + PRIORITY_FIELD_NUMBER;
-        hash = (53 * hash) + priority_;
-        hash = (37 * hash) + TIMECREATE_FIELD_NUMBER;
-        hash = (53 * hash) + getTimeCreate().hashCode();
-        hash = (37 * hash) + STATUS_FIELD_NUMBER;
-        hash = (53 * hash) + status_;
-        hash = (37 * hash) + STATUSOWNER_FIELD_NUMBER;
-        hash = (53 * hash) + getStatusOwner().hashCode();
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      @java.lang.Override
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      @java.lang.Override
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * <pre>
-       * Задача для отображения в списке
-       * </pre>
-       *
-       * Protobuf type {@code msg.ListofTaskDisp.Task2}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:msg.ListofTaskDisp.Task2)
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_Task2_descriptor;
-        }
-
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_Task2_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.class, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder.class);
-        }
-
-        // Construct using com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-          }
-        }
-        @java.lang.Override
-        public Builder clear() {
-          super.clear();
-          id_ = 0;
-
-          weight_ = 0;
-
-          priority_ = 0;
-
-          timeCreate_ = "";
-
-          status_ = 0;
-
-          statusOwner_ = "";
-
-          name_ = "";
-
-          return this;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.dst.msg.WarehouseMessage.internal_static_msg_ListofTaskDisp_Task2_descriptor;
-        }
-
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getDefaultInstanceForType() {
-          return com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.getDefaultInstance();
-        }
-
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 build() {
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 buildPartial() {
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 result = new com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2(this);
-          result.id_ = id_;
-          result.weight_ = weight_;
-          result.priority_ = priority_;
-          result.timeCreate_ = timeCreate_;
-          result.status_ = status_;
-          result.statusOwner_ = statusOwner_;
-          result.name_ = name_;
-          onBuilt();
-          return result;
-        }
-
-        @java.lang.Override
-        public Builder clone() {
-          return super.clone();
-        }
-        @java.lang.Override
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return super.setField(field, value);
-        }
-        @java.lang.Override
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return super.clearField(field);
-        }
-        @java.lang.Override
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return super.clearOneof(oneof);
-        }
-        @java.lang.Override
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
-          return super.setRepeatedField(field, index, value);
-        }
-        @java.lang.Override
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return super.addRepeatedField(field, value);
-        }
-        @java.lang.Override
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2) {
-            return mergeFrom((com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 other) {
-          if (other == com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.getDefaultInstance()) return this;
-          if (other.getId() != 0) {
-            setId(other.getId());
-          }
-          if (other.weight_ != 0) {
-            setWeightValue(other.getWeightValue());
-          }
-          if (other.priority_ != 0) {
-            setPriorityValue(other.getPriorityValue());
-          }
-          if (!other.getTimeCreate().isEmpty()) {
-            timeCreate_ = other.timeCreate_;
-            onChanged();
-          }
-          if (other.status_ != 0) {
-            setStatusValue(other.getStatusValue());
-          }
-          if (!other.getStatusOwner().isEmpty()) {
-            statusOwner_ = other.statusOwner_;
-            onChanged();
-          }
-          if (!other.getName().isEmpty()) {
-            name_ = other.name_;
-            onChanged();
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-        }
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        @java.lang.Override
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-
-        private int id_ ;
-        /**
-         * <pre>
-         * идентификатор
-         * </pre>
-         *
-         * <code>int32 id = 1;</code>
-         * @return The id.
-         */
-        @java.lang.Override
-        public int getId() {
-          return id_;
-        }
-        /**
-         * <pre>
-         * идентификатор
-         * </pre>
-         *
-         * <code>int32 id = 1;</code>
-         * @param value The id to set.
-         * @return This builder for chaining.
-         */
-        public Builder setId(int value) {
-          
-          id_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * идентификатор
-         * </pre>
-         *
-         * <code>int32 id = 1;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearId() {
-          
-          id_ = 0;
-          onChanged();
-          return this;
-        }
-
-        private int weight_ = 0;
-        /**
-         * <pre>
-         * весовая категория
-         * </pre>
-         *
-         * <code>.msg.NewTask.Weight weight = 2;</code>
-         * @return The enum numeric value on the wire for weight.
-         */
-        @java.lang.Override public int getWeightValue() {
-          return weight_;
-        }
-        /**
-         * <pre>
-         * весовая категория
-         * </pre>
-         *
-         * <code>.msg.NewTask.Weight weight = 2;</code>
-         * @param value The enum numeric value on the wire for weight to set.
-         * @return This builder for chaining.
-         */
-        public Builder setWeightValue(int value) {
-          
-          weight_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * весовая категория
-         * </pre>
-         *
-         * <code>.msg.NewTask.Weight weight = 2;</code>
-         * @return The weight.
-         */
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.NewTask.Weight getWeight() {
-          @SuppressWarnings("deprecation")
-          com.dst.msg.WarehouseMessage.NewTask.Weight result = com.dst.msg.WarehouseMessage.NewTask.Weight.valueOf(weight_);
-          return result == null ? com.dst.msg.WarehouseMessage.NewTask.Weight.UNRECOGNIZED : result;
-        }
-        /**
-         * <pre>
-         * весовая категория
-         * </pre>
-         *
-         * <code>.msg.NewTask.Weight weight = 2;</code>
-         * @param value The weight to set.
-         * @return This builder for chaining.
-         */
-        public Builder setWeight(com.dst.msg.WarehouseMessage.NewTask.Weight value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          
-          weight_ = value.getNumber();
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * весовая категория
-         * </pre>
-         *
-         * <code>.msg.NewTask.Weight weight = 2;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearWeight() {
-          
-          weight_ = 0;
-          onChanged();
-          return this;
-        }
-
-        private int priority_ = 0;
-        /**
-         * <pre>
-         * приоритет
-         * </pre>
-         *
-         * <code>.msg.NewTask.Priority priority = 3;</code>
-         * @return The enum numeric value on the wire for priority.
-         */
-        @java.lang.Override public int getPriorityValue() {
-          return priority_;
-        }
-        /**
-         * <pre>
-         * приоритет
-         * </pre>
-         *
-         * <code>.msg.NewTask.Priority priority = 3;</code>
-         * @param value The enum numeric value on the wire for priority to set.
-         * @return This builder for chaining.
-         */
-        public Builder setPriorityValue(int value) {
-          
-          priority_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * приоритет
-         * </pre>
-         *
-         * <code>.msg.NewTask.Priority priority = 3;</code>
-         * @return The priority.
-         */
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.NewTask.Priority getPriority() {
-          @SuppressWarnings("deprecation")
-          com.dst.msg.WarehouseMessage.NewTask.Priority result = com.dst.msg.WarehouseMessage.NewTask.Priority.valueOf(priority_);
-          return result == null ? com.dst.msg.WarehouseMessage.NewTask.Priority.UNRECOGNIZED : result;
-        }
-        /**
-         * <pre>
-         * приоритет
-         * </pre>
-         *
-         * <code>.msg.NewTask.Priority priority = 3;</code>
-         * @param value The priority to set.
-         * @return This builder for chaining.
-         */
-        public Builder setPriority(com.dst.msg.WarehouseMessage.NewTask.Priority value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          
-          priority_ = value.getNumber();
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * приоритет
-         * </pre>
-         *
-         * <code>.msg.NewTask.Priority priority = 3;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearPriority() {
-          
-          priority_ = 0;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object timeCreate_ = "";
-        /**
-         * <pre>
-         * время создания задачи, мс
-         * </pre>
-         *
-         * <code>string timeCreate = 4;</code>
-         * @return The timeCreate.
-         */
-        public java.lang.String getTimeCreate() {
-          java.lang.Object ref = timeCreate_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            timeCreate_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <pre>
-         * время создания задачи, мс
-         * </pre>
-         *
-         * <code>string timeCreate = 4;</code>
-         * @return The bytes for timeCreate.
-         */
-        public com.google.protobuf.ByteString
-            getTimeCreateBytes() {
-          java.lang.Object ref = timeCreate_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            timeCreate_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <pre>
-         * время создания задачи, мс
-         * </pre>
-         *
-         * <code>string timeCreate = 4;</code>
-         * @param value The timeCreate to set.
-         * @return This builder for chaining.
-         */
-        public Builder setTimeCreate(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          timeCreate_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * время создания задачи, мс
-         * </pre>
-         *
-         * <code>string timeCreate = 4;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearTimeCreate() {
-          
-          timeCreate_ = getDefaultInstance().getTimeCreate();
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * время создания задачи, мс
-         * </pre>
-         *
-         * <code>string timeCreate = 4;</code>
-         * @param value The bytes for timeCreate to set.
-         * @return This builder for chaining.
-         */
-        public Builder setTimeCreateBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          timeCreate_ = value;
-          onChanged();
-          return this;
-        }
-
-        private int status_ = 0;
-        /**
-         * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-         * @return The enum numeric value on the wire for status.
-         */
-        @java.lang.Override public int getStatusValue() {
-          return status_;
-        }
-        /**
-         * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-         * @param value The enum numeric value on the wire for status to set.
-         * @return This builder for chaining.
-         */
-        public Builder setStatusValue(int value) {
-          
-          status_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-         * @return The status.
-         */
-        @java.lang.Override
-        public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status getStatus() {
-          @SuppressWarnings("deprecation")
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status result = com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.valueOf(status_);
-          return result == null ? com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status.UNRECOGNIZED : result;
-        }
-        /**
-         * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-         * @param value The status to set.
-         * @return This builder for chaining.
-         */
-        public Builder setStatus(com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Status value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          
-          status_ = value.getNumber();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>.msg.ListofTaskDisp.Task2.Status status = 5;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearStatus() {
-          
-          status_ = 0;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object statusOwner_ = "";
-        /**
-         * <pre>
-         * кто последний менял статус?
-         * </pre>
-         *
-         * <code>string statusOwner = 6;</code>
-         * @return The statusOwner.
-         */
-        public java.lang.String getStatusOwner() {
-          java.lang.Object ref = statusOwner_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            statusOwner_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <pre>
-         * кто последний менял статус?
-         * </pre>
-         *
-         * <code>string statusOwner = 6;</code>
-         * @return The bytes for statusOwner.
-         */
-        public com.google.protobuf.ByteString
-            getStatusOwnerBytes() {
-          java.lang.Object ref = statusOwner_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            statusOwner_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <pre>
-         * кто последний менял статус?
-         * </pre>
-         *
-         * <code>string statusOwner = 6;</code>
-         * @param value The statusOwner to set.
-         * @return This builder for chaining.
-         */
-        public Builder setStatusOwner(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          statusOwner_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * кто последний менял статус?
-         * </pre>
-         *
-         * <code>string statusOwner = 6;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearStatusOwner() {
-          
-          statusOwner_ = getDefaultInstance().getStatusOwner();
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * кто последний менял статус?
-         * </pre>
-         *
-         * <code>string statusOwner = 6;</code>
-         * @param value The bytes for statusOwner to set.
-         * @return This builder for chaining.
-         */
-        public Builder setStatusOwnerBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          statusOwner_ = value;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object name_ = "";
-        /**
-         * <pre>
-         * название задачи, пока что совпадает с именем того, кто поставил
-         * </pre>
-         *
-         * <code>string name = 7;</code>
-         * @return The name.
-         */
-        public java.lang.String getName() {
-          java.lang.Object ref = name_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            name_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <pre>
-         * название задачи, пока что совпадает с именем того, кто поставил
-         * </pre>
-         *
-         * <code>string name = 7;</code>
-         * @return The bytes for name.
-         */
-        public com.google.protobuf.ByteString
-            getNameBytes() {
-          java.lang.Object ref = name_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            name_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <pre>
-         * название задачи, пока что совпадает с именем того, кто поставил
-         * </pre>
-         *
-         * <code>string name = 7;</code>
-         * @param value The name to set.
-         * @return This builder for chaining.
-         */
-        public Builder setName(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          name_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * название задачи, пока что совпадает с именем того, кто поставил
-         * </pre>
-         *
-         * <code>string name = 7;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearName() {
-          
-          name_ = getDefaultInstance().getName();
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         * название задачи, пока что совпадает с именем того, кто поставил
-         * </pre>
-         *
-         * <code>string name = 7;</code>
-         * @param value The bytes for name to set.
-         * @return This builder for chaining.
-         */
-        public Builder setNameBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          name_ = value;
-          onChanged();
-          return this;
-        }
-        @java.lang.Override
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFields(unknownFields);
-        }
-
-        @java.lang.Override
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:msg.ListofTaskDisp.Task2)
-      }
-
-      // @@protoc_insertion_point(class_scope:msg.ListofTaskDisp.Task2)
-      private static final com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2();
-      }
-
-      public static com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<Task2>
-          PARSER = new com.google.protobuf.AbstractParser<Task2>() {
-        @java.lang.Override
-        public Task2 parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Task2(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<Task2> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Task2> getParserForType() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
     }
 
     public static final int DETAILS_FIELD_NUMBER = 1;
@@ -9356,41 +7748,41 @@ public final class WarehouseMessage {
     }
 
     public static final int TASK_FIELD_NUMBER = 2;
-    private java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> task_;
+    private java.util.List<com.dst.msg.WarehouseMessage.Task2> task_;
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     @java.lang.Override
-    public java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> getTaskList() {
+    public java.util.List<com.dst.msg.WarehouseMessage.Task2> getTaskList() {
       return task_;
     }
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder> 
+    public java.util.List<? extends com.dst.msg.WarehouseMessage.Task2OrBuilder> 
         getTaskOrBuilderList() {
       return task_;
     }
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     @java.lang.Override
     public int getTaskCount() {
       return task_.size();
     }
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     @java.lang.Override
-    public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getTask(int index) {
+    public com.dst.msg.WarehouseMessage.Task2 getTask(int index) {
       return task_.get(index);
     }
     /**
-     * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+     * <code>repeated .msg.Task2 task = 2;</code>
      */
     @java.lang.Override
-    public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder getTaskOrBuilder(
+    public com.dst.msg.WarehouseMessage.Task2OrBuilder getTaskOrBuilder(
         int index) {
       return task_.get(index);
     }
@@ -10036,22 +8428,22 @@ public final class WarehouseMessage {
         return detailsBuilder_;
       }
 
-      private java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> task_ =
+      private java.util.List<com.dst.msg.WarehouseMessage.Task2> task_ =
         java.util.Collections.emptyList();
       private void ensureTaskIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
-          task_ = new java.util.ArrayList<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2>(task_);
+          task_ = new java.util.ArrayList<com.dst.msg.WarehouseMessage.Task2>(task_);
           bitField0_ |= 0x00000002;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder> taskBuilder_;
+          com.dst.msg.WarehouseMessage.Task2, com.dst.msg.WarehouseMessage.Task2.Builder, com.dst.msg.WarehouseMessage.Task2OrBuilder> taskBuilder_;
 
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> getTaskList() {
+      public java.util.List<com.dst.msg.WarehouseMessage.Task2> getTaskList() {
         if (taskBuilder_ == null) {
           return java.util.Collections.unmodifiableList(task_);
         } else {
@@ -10059,7 +8451,7 @@ public final class WarehouseMessage {
         }
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public int getTaskCount() {
         if (taskBuilder_ == null) {
@@ -10069,9 +8461,9 @@ public final class WarehouseMessage {
         }
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 getTask(int index) {
+      public com.dst.msg.WarehouseMessage.Task2 getTask(int index) {
         if (taskBuilder_ == null) {
           return task_.get(index);
         } else {
@@ -10079,10 +8471,10 @@ public final class WarehouseMessage {
         }
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder setTask(
-          int index, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 value) {
+          int index, com.dst.msg.WarehouseMessage.Task2 value) {
         if (taskBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -10096,10 +8488,10 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder setTask(
-          int index, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder builderForValue) {
+          int index, com.dst.msg.WarehouseMessage.Task2.Builder builderForValue) {
         if (taskBuilder_ == null) {
           ensureTaskIsMutable();
           task_.set(index, builderForValue.build());
@@ -10110,9 +8502,9 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public Builder addTask(com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 value) {
+      public Builder addTask(com.dst.msg.WarehouseMessage.Task2 value) {
         if (taskBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -10126,10 +8518,10 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder addTask(
-          int index, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2 value) {
+          int index, com.dst.msg.WarehouseMessage.Task2 value) {
         if (taskBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -10143,10 +8535,10 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder addTask(
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder builderForValue) {
+          com.dst.msg.WarehouseMessage.Task2.Builder builderForValue) {
         if (taskBuilder_ == null) {
           ensureTaskIsMutable();
           task_.add(builderForValue.build());
@@ -10157,10 +8549,10 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder addTask(
-          int index, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder builderForValue) {
+          int index, com.dst.msg.WarehouseMessage.Task2.Builder builderForValue) {
         if (taskBuilder_ == null) {
           ensureTaskIsMutable();
           task_.add(index, builderForValue.build());
@@ -10171,10 +8563,10 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder addAllTask(
-          java.lang.Iterable<? extends com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2> values) {
+          java.lang.Iterable<? extends com.dst.msg.WarehouseMessage.Task2> values) {
         if (taskBuilder_ == null) {
           ensureTaskIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10186,7 +8578,7 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder clearTask() {
         if (taskBuilder_ == null) {
@@ -10199,7 +8591,7 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
       public Builder removeTask(int index) {
         if (taskBuilder_ == null) {
@@ -10212,16 +8604,16 @@ public final class WarehouseMessage {
         return this;
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder getTaskBuilder(
+      public com.dst.msg.WarehouseMessage.Task2.Builder getTaskBuilder(
           int index) {
         return getTaskFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder getTaskOrBuilder(
+      public com.dst.msg.WarehouseMessage.Task2OrBuilder getTaskOrBuilder(
           int index) {
         if (taskBuilder_ == null) {
           return task_.get(index);  } else {
@@ -10229,9 +8621,9 @@ public final class WarehouseMessage {
         }
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public java.util.List<? extends com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder> 
+      public java.util.List<? extends com.dst.msg.WarehouseMessage.Task2OrBuilder> 
            getTaskOrBuilderList() {
         if (taskBuilder_ != null) {
           return taskBuilder_.getMessageOrBuilderList();
@@ -10240,33 +8632,33 @@ public final class WarehouseMessage {
         }
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder addTaskBuilder() {
+      public com.dst.msg.WarehouseMessage.Task2.Builder addTaskBuilder() {
         return getTaskFieldBuilder().addBuilder(
-            com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.getDefaultInstance());
+            com.dst.msg.WarehouseMessage.Task2.getDefaultInstance());
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder addTaskBuilder(
+      public com.dst.msg.WarehouseMessage.Task2.Builder addTaskBuilder(
           int index) {
         return getTaskFieldBuilder().addBuilder(
-            index, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.getDefaultInstance());
+            index, com.dst.msg.WarehouseMessage.Task2.getDefaultInstance());
       }
       /**
-       * <code>repeated .msg.ListofTaskDisp.Task2 task = 2;</code>
+       * <code>repeated .msg.Task2 task = 2;</code>
        */
-      public java.util.List<com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder> 
+      public java.util.List<com.dst.msg.WarehouseMessage.Task2.Builder> 
            getTaskBuilderList() {
         return getTaskFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder> 
+          com.dst.msg.WarehouseMessage.Task2, com.dst.msg.WarehouseMessage.Task2.Builder, com.dst.msg.WarehouseMessage.Task2OrBuilder> 
           getTaskFieldBuilder() {
         if (taskBuilder_ == null) {
           taskBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2.Builder, com.dst.msg.WarehouseMessage.ListofTaskDisp.Task2OrBuilder>(
+              com.dst.msg.WarehouseMessage.Task2, com.dst.msg.WarehouseMessage.Task2.Builder, com.dst.msg.WarehouseMessage.Task2OrBuilder>(
                   task_,
                   ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
@@ -10328,6 +8720,2175 @@ public final class WarehouseMessage {
 
   }
 
+  public interface Task2OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:msg.Task2)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<com.google.protobuf.Any> 
+        getDetailsList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.Any getDetails(int index);
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    int getDetailsCount();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * идентификатор
+     * </pre>
+     *
+     * <code>int32 id = 2;</code>
+     * @return The id.
+     */
+    int getId();
+
+    /**
+     * <pre>
+     * весовая категория
+     * </pre>
+     *
+     * <code>.msg.NewTask.Weight weight = 3;</code>
+     * @return The enum numeric value on the wire for weight.
+     */
+    int getWeightValue();
+    /**
+     * <pre>
+     * весовая категория
+     * </pre>
+     *
+     * <code>.msg.NewTask.Weight weight = 3;</code>
+     * @return The weight.
+     */
+    com.dst.msg.WarehouseMessage.NewTask.Weight getWeight();
+
+    /**
+     * <pre>
+     * приоритет
+     * </pre>
+     *
+     * <code>.msg.NewTask.Priority priority = 4;</code>
+     * @return The enum numeric value on the wire for priority.
+     */
+    int getPriorityValue();
+    /**
+     * <pre>
+     * приоритет
+     * </pre>
+     *
+     * <code>.msg.NewTask.Priority priority = 4;</code>
+     * @return The priority.
+     */
+    com.dst.msg.WarehouseMessage.NewTask.Priority getPriority();
+
+    /**
+     * <pre>
+     * время создания задачи, мс
+     * </pre>
+     *
+     * <code>string timeCreate = 5;</code>
+     * @return The timeCreate.
+     */
+    java.lang.String getTimeCreate();
+    /**
+     * <pre>
+     * время создания задачи, мс
+     * </pre>
+     *
+     * <code>string timeCreate = 5;</code>
+     * @return The bytes for timeCreate.
+     */
+    com.google.protobuf.ByteString
+        getTimeCreateBytes();
+
+    /**
+     * <code>.msg.Task2.Status status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.msg.Task2.Status status = 6;</code>
+     * @return The status.
+     */
+    com.dst.msg.WarehouseMessage.Task2.Status getStatus();
+
+    /**
+     * <pre>
+     * постановщик задачи
+     * </pre>
+     *
+     * <code>string assignee = 7;</code>
+     * @return The assignee.
+     */
+    java.lang.String getAssignee();
+    /**
+     * <pre>
+     * постановщик задачи
+     * </pre>
+     *
+     * <code>string assignee = 7;</code>
+     * @return The bytes for assignee.
+     */
+    com.google.protobuf.ByteString
+        getAssigneeBytes();
+
+    /**
+     * <pre>
+     * исполнитель задачи
+     * </pre>
+     *
+     * <code>string reporter = 8;</code>
+     * @return The reporter.
+     */
+    java.lang.String getReporter();
+    /**
+     * <pre>
+     * исполнитель задачи
+     * </pre>
+     *
+     * <code>string reporter = 8;</code>
+     * @return The bytes for reporter.
+     */
+    com.google.protobuf.ByteString
+        getReporterBytes();
+
+    /**
+     * <pre>
+     * название задачи, пока что совпадает с именем того, кто поставил
+     * </pre>
+     *
+     * <code>string name = 9;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * название задачи, пока что совпадает с именем того, кто поставил
+     * </pre>
+     *
+     * <code>string name = 9;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+  }
+  /**
+   * <pre>
+   * Задача для отображения в списке
+   * </pre>
+   *
+   * Protobuf type {@code msg.Task2}
+   */
+  public static final class Task2 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msg.Task2)
+      Task2OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Task2.newBuilder() to construct.
+    private Task2(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Task2() {
+      details_ = java.util.Collections.emptyList();
+      weight_ = 0;
+      priority_ = 0;
+      timeCreate_ = "";
+      status_ = 0;
+      assignee_ = "";
+      reporter_ = "";
+      name_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Task2();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Task2(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                details_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              details_.add(
+                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+              break;
+            }
+            case 16: {
+
+              id_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              weight_ = rawValue;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              priority_ = rawValue;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              timeCreate_ = s;
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              assignee_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              reporter_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          details_ = java.util.Collections.unmodifiableList(details_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_Task2_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_Task2_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dst.msg.WarehouseMessage.Task2.class, com.dst.msg.WarehouseMessage.Task2.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code msg.Task2.Status}
+     */
+    public enum Status
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <pre>
+       * задача в очереди
+       * </pre>
+       *
+       * <code>WAIT = 0;</code>
+       */
+      WAIT(0),
+      /**
+       * <pre>
+       * задача выполняется
+       * </pre>
+       *
+       * <code>STARTED = 1;</code>
+       */
+      STARTED(1),
+      /**
+       * <pre>
+       * задача отменена
+       * </pre>
+       *
+       * <code>CANCELLED = 2;</code>
+       */
+      CANCELLED(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <pre>
+       * задача в очереди
+       * </pre>
+       *
+       * <code>WAIT = 0;</code>
+       */
+      public static final int WAIT_VALUE = 0;
+      /**
+       * <pre>
+       * задача выполняется
+       * </pre>
+       *
+       * <code>STARTED = 1;</code>
+       */
+      public static final int STARTED_VALUE = 1;
+      /**
+       * <pre>
+       * задача отменена
+       * </pre>
+       *
+       * <code>CANCELLED = 2;</code>
+       */
+      public static final int CANCELLED_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Status valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Status forNumber(int value) {
+        switch (value) {
+          case 0: return WAIT;
+          case 1: return STARTED;
+          case 2: return CANCELLED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Status>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Status> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Status>() {
+              public Status findValueByNumber(int number) {
+                return Status.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.Task2.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Status[] VALUES = values();
+
+      public static Status valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Status(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:msg.Task2.Status)
+    }
+
+    public static final int DETAILS_FIELD_NUMBER = 1;
+    private java.util.List<com.google.protobuf.Any> details_;
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.google.protobuf.Any> getDetailsList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public int getDetailsCount() {
+      return details_.size();
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getDetails(int index) {
+      return details_.get(index);
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index) {
+      return details_.get(index);
+    }
+
+    public static final int ID_FIELD_NUMBER = 2;
+    private int id_;
+    /**
+     * <pre>
+     * идентификатор
+     * </pre>
+     *
+     * <code>int32 id = 2;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public int getId() {
+      return id_;
+    }
+
+    public static final int WEIGHT_FIELD_NUMBER = 3;
+    private int weight_;
+    /**
+     * <pre>
+     * весовая категория
+     * </pre>
+     *
+     * <code>.msg.NewTask.Weight weight = 3;</code>
+     * @return The enum numeric value on the wire for weight.
+     */
+    @java.lang.Override public int getWeightValue() {
+      return weight_;
+    }
+    /**
+     * <pre>
+     * весовая категория
+     * </pre>
+     *
+     * <code>.msg.NewTask.Weight weight = 3;</code>
+     * @return The weight.
+     */
+    @java.lang.Override public com.dst.msg.WarehouseMessage.NewTask.Weight getWeight() {
+      @SuppressWarnings("deprecation")
+      com.dst.msg.WarehouseMessage.NewTask.Weight result = com.dst.msg.WarehouseMessage.NewTask.Weight.valueOf(weight_);
+      return result == null ? com.dst.msg.WarehouseMessage.NewTask.Weight.UNRECOGNIZED : result;
+    }
+
+    public static final int PRIORITY_FIELD_NUMBER = 4;
+    private int priority_;
+    /**
+     * <pre>
+     * приоритет
+     * </pre>
+     *
+     * <code>.msg.NewTask.Priority priority = 4;</code>
+     * @return The enum numeric value on the wire for priority.
+     */
+    @java.lang.Override public int getPriorityValue() {
+      return priority_;
+    }
+    /**
+     * <pre>
+     * приоритет
+     * </pre>
+     *
+     * <code>.msg.NewTask.Priority priority = 4;</code>
+     * @return The priority.
+     */
+    @java.lang.Override public com.dst.msg.WarehouseMessage.NewTask.Priority getPriority() {
+      @SuppressWarnings("deprecation")
+      com.dst.msg.WarehouseMessage.NewTask.Priority result = com.dst.msg.WarehouseMessage.NewTask.Priority.valueOf(priority_);
+      return result == null ? com.dst.msg.WarehouseMessage.NewTask.Priority.UNRECOGNIZED : result;
+    }
+
+    public static final int TIMECREATE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object timeCreate_;
+    /**
+     * <pre>
+     * время создания задачи, мс
+     * </pre>
+     *
+     * <code>string timeCreate = 5;</code>
+     * @return The timeCreate.
+     */
+    @java.lang.Override
+    public java.lang.String getTimeCreate() {
+      java.lang.Object ref = timeCreate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        timeCreate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * время создания задачи, мс
+     * </pre>
+     *
+     * <code>string timeCreate = 5;</code>
+     * @return The bytes for timeCreate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTimeCreateBytes() {
+      java.lang.Object ref = timeCreate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        timeCreate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 6;
+    private int status_;
+    /**
+     * <code>.msg.Task2.Status status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.msg.Task2.Status status = 6;</code>
+     * @return The status.
+     */
+    @java.lang.Override public com.dst.msg.WarehouseMessage.Task2.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      com.dst.msg.WarehouseMessage.Task2.Status result = com.dst.msg.WarehouseMessage.Task2.Status.valueOf(status_);
+      return result == null ? com.dst.msg.WarehouseMessage.Task2.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int ASSIGNEE_FIELD_NUMBER = 7;
+    private volatile java.lang.Object assignee_;
+    /**
+     * <pre>
+     * постановщик задачи
+     * </pre>
+     *
+     * <code>string assignee = 7;</code>
+     * @return The assignee.
+     */
+    @java.lang.Override
+    public java.lang.String getAssignee() {
+      java.lang.Object ref = assignee_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        assignee_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * постановщик задачи
+     * </pre>
+     *
+     * <code>string assignee = 7;</code>
+     * @return The bytes for assignee.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAssigneeBytes() {
+      java.lang.Object ref = assignee_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        assignee_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REPORTER_FIELD_NUMBER = 8;
+    private volatile java.lang.Object reporter_;
+    /**
+     * <pre>
+     * исполнитель задачи
+     * </pre>
+     *
+     * <code>string reporter = 8;</code>
+     * @return The reporter.
+     */
+    @java.lang.Override
+    public java.lang.String getReporter() {
+      java.lang.Object ref = reporter_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        reporter_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * исполнитель задачи
+     * </pre>
+     *
+     * <code>string reporter = 8;</code>
+     * @return The bytes for reporter.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getReporterBytes() {
+      java.lang.Object ref = reporter_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reporter_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 9;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * название задачи, пока что совпадает с именем того, кто поставил
+     * </pre>
+     *
+     * <code>string name = 9;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * название задачи, пока что совпадает с именем того, кто поставил
+     * </pre>
+     *
+     * <code>string name = 9;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < details_.size(); i++) {
+        output.writeMessage(1, details_.get(i));
+      }
+      if (id_ != 0) {
+        output.writeInt32(2, id_);
+      }
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+        output.writeEnum(3, weight_);
+      }
+      if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
+        output.writeEnum(4, priority_);
+      }
+      if (!getTimeCreateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, timeCreate_);
+      }
+      if (status_ != com.dst.msg.WarehouseMessage.Task2.Status.WAIT.getNumber()) {
+        output.writeEnum(6, status_);
+      }
+      if (!getAssigneeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, assignee_);
+      }
+      if (!getReporterBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, reporter_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, name_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < details_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, details_.get(i));
+      }
+      if (id_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, id_);
+      }
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, weight_);
+      }
+      if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, priority_);
+      }
+      if (!getTimeCreateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, timeCreate_);
+      }
+      if (status_ != com.dst.msg.WarehouseMessage.Task2.Status.WAIT.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, status_);
+      }
+      if (!getAssigneeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, assignee_);
+      }
+      if (!getReporterBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, reporter_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, name_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dst.msg.WarehouseMessage.Task2)) {
+        return super.equals(obj);
+      }
+      com.dst.msg.WarehouseMessage.Task2 other = (com.dst.msg.WarehouseMessage.Task2) obj;
+
+      if (!getDetailsList()
+          .equals(other.getDetailsList())) return false;
+      if (getId()
+          != other.getId()) return false;
+      if (weight_ != other.weight_) return false;
+      if (priority_ != other.priority_) return false;
+      if (!getTimeCreate()
+          .equals(other.getTimeCreate())) return false;
+      if (status_ != other.status_) return false;
+      if (!getAssignee()
+          .equals(other.getAssignee())) return false;
+      if (!getReporter()
+          .equals(other.getReporter())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDetailsCount() > 0) {
+        hash = (37 * hash) + DETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getDetailsList().hashCode();
+      }
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId();
+      hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + weight_;
+      hash = (37 * hash) + PRIORITY_FIELD_NUMBER;
+      hash = (53 * hash) + priority_;
+      hash = (37 * hash) + TIMECREATE_FIELD_NUMBER;
+      hash = (53 * hash) + getTimeCreate().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + ASSIGNEE_FIELD_NUMBER;
+      hash = (53 * hash) + getAssignee().hashCode();
+      hash = (37 * hash) + REPORTER_FIELD_NUMBER;
+      hash = (53 * hash) + getReporter().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.Task2 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dst.msg.WarehouseMessage.Task2 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Задача для отображения в списке
+     * </pre>
+     *
+     * Protobuf type {@code msg.Task2}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msg.Task2)
+        com.dst.msg.WarehouseMessage.Task2OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_Task2_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_Task2_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dst.msg.WarehouseMessage.Task2.class, com.dst.msg.WarehouseMessage.Task2.Builder.class);
+      }
+
+      // Construct using com.dst.msg.WarehouseMessage.Task2.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDetailsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          detailsBuilder_.clear();
+        }
+        id_ = 0;
+
+        weight_ = 0;
+
+        priority_ = 0;
+
+        timeCreate_ = "";
+
+        status_ = 0;
+
+        assignee_ = "";
+
+        reporter_ = "";
+
+        name_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_Task2_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.Task2 getDefaultInstanceForType() {
+        return com.dst.msg.WarehouseMessage.Task2.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.Task2 build() {
+        com.dst.msg.WarehouseMessage.Task2 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.Task2 buildPartial() {
+        com.dst.msg.WarehouseMessage.Task2 result = new com.dst.msg.WarehouseMessage.Task2(this);
+        int from_bitField0_ = bitField0_;
+        if (detailsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            details_ = java.util.Collections.unmodifiableList(details_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.details_ = details_;
+        } else {
+          result.details_ = detailsBuilder_.build();
+        }
+        result.id_ = id_;
+        result.weight_ = weight_;
+        result.priority_ = priority_;
+        result.timeCreate_ = timeCreate_;
+        result.status_ = status_;
+        result.assignee_ = assignee_;
+        result.reporter_ = reporter_;
+        result.name_ = name_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dst.msg.WarehouseMessage.Task2) {
+          return mergeFrom((com.dst.msg.WarehouseMessage.Task2)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dst.msg.WarehouseMessage.Task2 other) {
+        if (other == com.dst.msg.WarehouseMessage.Task2.getDefaultInstance()) return this;
+        if (detailsBuilder_ == null) {
+          if (!other.details_.isEmpty()) {
+            if (details_.isEmpty()) {
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDetailsIsMutable();
+              details_.addAll(other.details_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.details_.isEmpty()) {
+            if (detailsBuilder_.isEmpty()) {
+              detailsBuilder_.dispose();
+              detailsBuilder_ = null;
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              detailsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDetailsFieldBuilder() : null;
+            } else {
+              detailsBuilder_.addAllMessages(other.details_);
+            }
+          }
+        }
+        if (other.getId() != 0) {
+          setId(other.getId());
+        }
+        if (other.weight_ != 0) {
+          setWeightValue(other.getWeightValue());
+        }
+        if (other.priority_ != 0) {
+          setPriorityValue(other.getPriorityValue());
+        }
+        if (!other.getTimeCreate().isEmpty()) {
+          timeCreate_ = other.timeCreate_;
+          onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (!other.getAssignee().isEmpty()) {
+          assignee_ = other.assignee_;
+          onChanged();
+        }
+        if (!other.getReporter().isEmpty()) {
+          reporter_ = other.reporter_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.dst.msg.WarehouseMessage.Task2 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.dst.msg.WarehouseMessage.Task2) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.google.protobuf.Any> details_ =
+        java.util.Collections.emptyList();
+      private void ensureDetailsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          details_ = new java.util.ArrayList<com.google.protobuf.Any>(details_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> detailsBuilder_;
+
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any> getDetailsList() {
+        if (detailsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(details_);
+        } else {
+          return detailsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public int getDetailsCount() {
+        if (detailsBuilder_ == null) {
+          return details_.size();
+        } else {
+          return detailsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any getDetails(int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);
+        } else {
+          return detailsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.set(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addAllDetails(
+          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, details_);
+          onChanged();
+        } else {
+          detailsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder clearDetails() {
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          detailsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder removeDetails(int index) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.remove(index);
+          onChanged();
+        } else {
+          detailsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder getDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+          int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);  } else {
+          return detailsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+           getDetailsOrBuilderList() {
+        if (detailsBuilder_ != null) {
+          return detailsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(details_);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder() {
+        return getDetailsFieldBuilder().addBuilder(
+            com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().addBuilder(
+            index, com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any.Builder> 
+           getDetailsBuilderList() {
+        return getDetailsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getDetailsFieldBuilder() {
+        if (detailsBuilder_ == null) {
+          detailsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  details_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          details_ = null;
+        }
+        return detailsBuilder_;
+      }
+
+      private int id_ ;
+      /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
+       * <code>int32 id = 2;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
+       * <code>int32 id = 2;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(int value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
+       * <code>int32 id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int weight_ = 0;
+      /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
+       * <code>.msg.NewTask.Weight weight = 3;</code>
+       * @return The enum numeric value on the wire for weight.
+       */
+      @java.lang.Override public int getWeightValue() {
+        return weight_;
+      }
+      /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
+       * <code>.msg.NewTask.Weight weight = 3;</code>
+       * @param value The enum numeric value on the wire for weight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeightValue(int value) {
+        
+        weight_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
+       * <code>.msg.NewTask.Weight weight = 3;</code>
+       * @return The weight.
+       */
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.NewTask.Weight getWeight() {
+        @SuppressWarnings("deprecation")
+        com.dst.msg.WarehouseMessage.NewTask.Weight result = com.dst.msg.WarehouseMessage.NewTask.Weight.valueOf(weight_);
+        return result == null ? com.dst.msg.WarehouseMessage.NewTask.Weight.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
+       * <code>.msg.NewTask.Weight weight = 3;</code>
+       * @param value The weight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeight(com.dst.msg.WarehouseMessage.NewTask.Weight value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        weight_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * весовая категория
+       * </pre>
+       *
+       * <code>.msg.NewTask.Weight weight = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWeight() {
+        
+        weight_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int priority_ = 0;
+      /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
+       * <code>.msg.NewTask.Priority priority = 4;</code>
+       * @return The enum numeric value on the wire for priority.
+       */
+      @java.lang.Override public int getPriorityValue() {
+        return priority_;
+      }
+      /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
+       * <code>.msg.NewTask.Priority priority = 4;</code>
+       * @param value The enum numeric value on the wire for priority to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriorityValue(int value) {
+        
+        priority_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
+       * <code>.msg.NewTask.Priority priority = 4;</code>
+       * @return The priority.
+       */
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.NewTask.Priority getPriority() {
+        @SuppressWarnings("deprecation")
+        com.dst.msg.WarehouseMessage.NewTask.Priority result = com.dst.msg.WarehouseMessage.NewTask.Priority.valueOf(priority_);
+        return result == null ? com.dst.msg.WarehouseMessage.NewTask.Priority.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
+       * <code>.msg.NewTask.Priority priority = 4;</code>
+       * @param value The priority to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriority(com.dst.msg.WarehouseMessage.NewTask.Priority value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        priority_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * приоритет
+       * </pre>
+       *
+       * <code>.msg.NewTask.Priority priority = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPriority() {
+        
+        priority_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object timeCreate_ = "";
+      /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
+       * <code>string timeCreate = 5;</code>
+       * @return The timeCreate.
+       */
+      public java.lang.String getTimeCreate() {
+        java.lang.Object ref = timeCreate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          timeCreate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
+       * <code>string timeCreate = 5;</code>
+       * @return The bytes for timeCreate.
+       */
+      public com.google.protobuf.ByteString
+          getTimeCreateBytes() {
+        java.lang.Object ref = timeCreate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          timeCreate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
+       * <code>string timeCreate = 5;</code>
+       * @param value The timeCreate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeCreate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        timeCreate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
+       * <code>string timeCreate = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTimeCreate() {
+        
+        timeCreate_ = getDefaultInstance().getTimeCreate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * время создания задачи, мс
+       * </pre>
+       *
+       * <code>string timeCreate = 5;</code>
+       * @param value The bytes for timeCreate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeCreateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        timeCreate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.msg.Task2.Status status = 6;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.msg.Task2.Status status = 6;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.msg.Task2.Status status = 6;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.Task2.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        com.dst.msg.WarehouseMessage.Task2.Status result = com.dst.msg.WarehouseMessage.Task2.Status.valueOf(status_);
+        return result == null ? com.dst.msg.WarehouseMessage.Task2.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.msg.Task2.Status status = 6;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(com.dst.msg.WarehouseMessage.Task2.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.msg.Task2.Status status = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object assignee_ = "";
+      /**
+       * <pre>
+       * постановщик задачи
+       * </pre>
+       *
+       * <code>string assignee = 7;</code>
+       * @return The assignee.
+       */
+      public java.lang.String getAssignee() {
+        java.lang.Object ref = assignee_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          assignee_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * постановщик задачи
+       * </pre>
+       *
+       * <code>string assignee = 7;</code>
+       * @return The bytes for assignee.
+       */
+      public com.google.protobuf.ByteString
+          getAssigneeBytes() {
+        java.lang.Object ref = assignee_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          assignee_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * постановщик задачи
+       * </pre>
+       *
+       * <code>string assignee = 7;</code>
+       * @param value The assignee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssignee(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        assignee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * постановщик задачи
+       * </pre>
+       *
+       * <code>string assignee = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssignee() {
+        
+        assignee_ = getDefaultInstance().getAssignee();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * постановщик задачи
+       * </pre>
+       *
+       * <code>string assignee = 7;</code>
+       * @param value The bytes for assignee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssigneeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        assignee_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object reporter_ = "";
+      /**
+       * <pre>
+       * исполнитель задачи
+       * </pre>
+       *
+       * <code>string reporter = 8;</code>
+       * @return The reporter.
+       */
+      public java.lang.String getReporter() {
+        java.lang.Object ref = reporter_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          reporter_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * исполнитель задачи
+       * </pre>
+       *
+       * <code>string reporter = 8;</code>
+       * @return The bytes for reporter.
+       */
+      public com.google.protobuf.ByteString
+          getReporterBytes() {
+        java.lang.Object ref = reporter_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reporter_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * исполнитель задачи
+       * </pre>
+       *
+       * <code>string reporter = 8;</code>
+       * @param value The reporter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReporter(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        reporter_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * исполнитель задачи
+       * </pre>
+       *
+       * <code>string reporter = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReporter() {
+        
+        reporter_ = getDefaultInstance().getReporter();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * исполнитель задачи
+       * </pre>
+       *
+       * <code>string reporter = 8;</code>
+       * @param value The bytes for reporter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReporterBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        reporter_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 9;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 9;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 9;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название задачи, пока что совпадает с именем того, кто поставил
+       * </pre>
+       *
+       * <code>string name = 9;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:msg.Task2)
+    }
+
+    // @@protoc_insertion_point(class_scope:msg.Task2)
+    private static final com.dst.msg.WarehouseMessage.Task2 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dst.msg.WarehouseMessage.Task2();
+    }
+
+    public static com.dst.msg.WarehouseMessage.Task2 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Task2>
+        PARSER = new com.google.protobuf.AbstractParser<Task2>() {
+      @java.lang.Override
+      public Task2 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Task2(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Task2> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Task2> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dst.msg.WarehouseMessage.Task2 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_msg_Credentials_descriptor;
   private static final 
@@ -10359,10 +10920,10 @@ public final class WarehouseMessage {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_msg_ListofTaskDisp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_msg_ListofTaskDisp_Task2_descriptor;
+    internal_static_msg_Task2_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_msg_ListofTaskDisp_Task2_fieldAccessorTable;
+      internal_static_msg_Task2_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -10393,17 +10954,17 @@ public final class WarehouseMessage {
       "\002\"\203\001\n\006Action\022%\n\007details\030\001 \003(\0132\024.google.p" +
       "rotobuf.Any\022\n\n\002id\030\002 \001(\005\022\034\n\003act\030\003 \001(\0162\017.m" +
       "sg.Action.Act\"(\n\003Act\022\n\n\006CANCEL\020\000\022\n\n\006FINI" +
-      "SH\020\001\022\t\n\005START\020\002\"\335\002\n\016ListofTaskDisp\022%\n\007de" +
-      "tails\030\001 \003(\0132\024.google.protobuf.Any\022\'\n\004tas" +
-      "k\030\002 \003(\0132\031.msg.ListofTaskDisp.Task2\032\372\001\n\005T" +
-      "ask2\022\n\n\002id\030\001 \001(\005\022#\n\006weight\030\002 \001(\0162\023.msg.N" +
-      "ewTask.Weight\022\'\n\010priority\030\003 \001(\0162\025.msg.Ne" +
-      "wTask.Priority\022\022\n\ntimeCreate\030\004 \001(\t\0220\n\006st" +
-      "atus\030\005 \001(\0162 .msg.ListofTaskDisp.Task2.St" +
-      "atus\022\023\n\013statusOwner\030\006 \001(\t\022\014\n\004name\030\007 \001(\t\"" +
-      ".\n\006Status\022\010\n\004WAIT\020\000\022\013\n\007STARTED\020\001\022\r\n\tCANC" +
-      "ELLED\020\002B\037\n\013com.dst.msgB\020WarehouseMessage" +
-      "b\006proto3"
+      "SH\020\001\022\t\n\005START\020\002\"Q\n\016ListofTaskDisp\022%\n\007det" +
+      "ails\030\001 \003(\0132\024.google.protobuf.Any\022\030\n\004task" +
+      "\030\002 \003(\0132\n.msg.Task2\"\241\002\n\005Task2\022%\n\007details\030" +
+      "\001 \003(\0132\024.google.protobuf.Any\022\n\n\002id\030\002 \001(\005\022" +
+      "#\n\006weight\030\003 \001(\0162\023.msg.NewTask.Weight\022\'\n\010" +
+      "priority\030\004 \001(\0162\025.msg.NewTask.Priority\022\022\n" +
+      "\ntimeCreate\030\005 \001(\t\022!\n\006status\030\006 \001(\0162\021.msg." +
+      "Task2.Status\022\020\n\010assignee\030\007 \001(\t\022\020\n\010report" +
+      "er\030\010 \001(\t\022\014\n\004name\030\t \001(\t\".\n\006Status\022\010\n\004WAIT" +
+      "\020\000\022\013\n\007STARTED\020\001\022\r\n\tCANCELLED\020\002B\037\n\013com.ds" +
+      "t.msgB\020WarehouseMessageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10446,12 +11007,12 @@ public final class WarehouseMessage {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_ListofTaskDisp_descriptor,
         new java.lang.String[] { "Details", "Task", });
-    internal_static_msg_ListofTaskDisp_Task2_descriptor =
-      internal_static_msg_ListofTaskDisp_descriptor.getNestedTypes().get(0);
-    internal_static_msg_ListofTaskDisp_Task2_fieldAccessorTable = new
+    internal_static_msg_Task2_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_msg_Task2_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_msg_ListofTaskDisp_Task2_descriptor,
-        new java.lang.String[] { "Id", "Weight", "Priority", "TimeCreate", "Status", "StatusOwner", "Name", });
+        internal_static_msg_Task2_descriptor,
+        new java.lang.String[] { "Details", "Id", "Weight", "Priority", "TimeCreate", "Status", "Assignee", "Reporter", "Name", });
     com.google.protobuf.AnyProto.getDescriptor();
   }
 

@@ -65,20 +65,22 @@ message Action {
 // Список задач
 message ListofTaskDisp {
   repeated google.protobuf.Any details = 1;
-  // Задача для отображения в списке
-  message Task2 {
-    int32 id = 1; // идентификатор
-    NewTask.Weight weight = 2;  // весовая категория
-    NewTask.Priority priority = 3;  // приоритет
-    string timeCreate = 4;  // время создания задачи, мс
-    enum Status {
-      WAIT = 0;         // задача в очереди
-      STARTED = 1;      // задача выполняется
-      CANCELLED = 2;    // задача отменена
-    }
-    Status status = 5;
-    string statusOwner = 6; // кто последний менял статус?
-    string name = 7;        // название задачи, пока что совпадает с именем того, кто поставил
-  }
   repeated Task2 task = 2;
+}
+// Задача для отображения в списке
+message Task2 {
+  repeated google.protobuf.Any details = 1;
+  int32 id = 2; // идентификатор
+  NewTask.Weight weight = 3;  // весовая категория
+  NewTask.Priority priority = 4;  // приоритет
+  string timeCreate = 5;  // время создания задачи, мс
+  enum Status {
+    WAIT = 0;         // задача в очереди
+    STARTED = 1;      // задача выполняется
+    CANCELLED = 2;    // задача отменена
+  }
+  Status status = 6;
+  string assignee = 7; // постановщик задачи
+  string reporter = 8; // исполнитель задачи
+  string name = 9;     // название задачи, пока что совпадает с именем того, кто поставил
 }
