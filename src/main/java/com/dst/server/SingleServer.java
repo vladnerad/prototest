@@ -38,6 +38,11 @@ public class SingleServer implements Runnable {
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
+                DriverExchanger driverExchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
+                driverExchanger.initListBuilder2();
+                while (true){
+                    driverExchanger.exchange();
+                }
             }
             // User not authorized
             else System.out.println("Not authorized: " + socket.getInetAddress());

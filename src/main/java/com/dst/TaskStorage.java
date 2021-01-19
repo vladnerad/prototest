@@ -13,7 +13,7 @@ public class TaskStorage {
     // Id for task
     public static volatile AtomicInteger idCounter = new AtomicInteger(0);
 
-    public static Set<WarehouseMessage.Task2> allTasks = new HashSet<>();
+    public static Set<WarehouseMessage.Task2.Builder> allTasks = new HashSet<>();
 
 //    public void fullUpdate(){
 ////        for (Map.Entry<String, WarehouseMessage.ListofTaskDisp.Builder> entry: dispatcherTaskLists.entrySet()){
