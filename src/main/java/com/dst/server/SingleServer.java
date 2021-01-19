@@ -1,7 +1,7 @@
 package com.dst.server;
 
-import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
+import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserStorage;
 import com.google.protobuf.Any;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import com.dst.users.Role;
+import java.net.SocketException;
 
 public class SingleServer implements Runnable {
 
@@ -29,10 +29,14 @@ public class SingleServer implements Runnable {
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
                 DispatcherExchanger dispatcherExchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
-//                dispatcherExchanger.initListBuilder();
                 dispatcherExchanger.initListBuilder2();
-                while (socket.isConnected()){
-                    dispatcherExchanger.exchange();
+                while (!socket.isClosed()){
+                    try {
+                        dispatcherExchanger.exchange();
+                    } catch (SocketException e) {
+//                        e.printStackTrace();
+                        socket.close();
+                    }
                 }
                 System.out.println("Connection closed " + socket.getInetAddress());
             }
@@ -41,8 +45,13 @@ public class SingleServer implements Runnable {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
                 DriverExchanger driverExchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
                 driverExchanger.initListBuilder2();
-                while (socket.isConnected()){
-                    driverExchanger.exchange();
+                while (!socket.isClosed()){
+                    try {
+                        driverExchanger.exchange();
+                    } catch (SocketException e) {
+//                        e.printStackTrace();
+                        socket.close();
+                    }
                 }
                 System.out.println("Connection closed " + socket.getInetAddress());
             }

@@ -10,6 +10,7 @@ import com.google.protobuf.Any;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.SocketException;
 import java.util.stream.Collectors;
 
 public class DispatcherExchanger {
@@ -29,39 +30,43 @@ public class DispatcherExchanger {
 
     public void exchange() throws IOException {
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
-        // Create new task
-        if (any.is(WarehouseMessage.NewTask.class)) {
-            WarehouseMessage.NewTask newTask = any.unpack(WarehouseMessage.NewTask.class);
-            createTask(newTask);
-        }
-        // Action with task
-        else if (any.is(WarehouseMessage.Action.class)) {
-            WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
-            WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
-                    .stream()
-                    .filter(t -> t.getId() == action.getId())
-                    .findAny()
-                    .orElse(null);
-            if (t2 != null) {
-                // Dispatcher removes task
-                if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
-                    t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
-                    TaskStorage.allTasks.remove(t2);
-                    System.out.println("Task removed: " + t2.getId());
+        if (any == null) {
+            throw new SocketException("Any in dispatcher exchanger is null");
+        } else {
+            // Create new task
+            if (any.is(WarehouseMessage.NewTask.class)) {
+                WarehouseMessage.NewTask newTask = any.unpack(WarehouseMessage.NewTask.class);
+                createTask(newTask);
+            }
+            // Action with task
+            else if (any.is(WarehouseMessage.Action.class)) {
+                WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
+                WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
+                        .stream()
+                        .filter(t -> t.getId() == action.getId())
+                        .findAny()
+                        .orElse(null);
+                if (t2 != null) {
+                    // Dispatcher removes task
+                    if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
+                        t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
+                        TaskStorage.allTasks.remove(t2);
+                        System.out.println("Task removed: " + t2.getId());
+                    }
+                    // Dispatcher creates new task
+                    else if (action.getAct() == WarehouseMessage.Action.Act.START) {
+                        t2.setStatus(WarehouseMessage.Task2.Status.STARTED).build();
+                        System.out.println("Status changed");
+                    }
+                    // Action doesn't exists
+                    else {
+                        System.out.println("Unknown action");
+                    }
+                    // Send updated list to dispatcher client
+                    Any.pack(t2.build()).writeDelimitedTo(outputStream);
+                } else {
+                    System.out.println("Task isn't found");
                 }
-                // Dispatcher creates new task
-                else if (action.getAct() == WarehouseMessage.Action.Act.START) {
-                    t2.setStatus(WarehouseMessage.Task2.Status.STARTED).build();
-                    System.out.println("Status changed");
-                }
-                // Action doesn't exists
-                else {
-                    System.out.println("Unknown action");
-                }
-                // Send updated list to dispatcher client
-                Any.pack(t2.build()).writeDelimitedTo(outputStream);
-            } else {
-                System.out.println("Task isn't found");
             }
         }
     }
