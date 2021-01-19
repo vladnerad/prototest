@@ -16,7 +16,7 @@ public class App
         ExecutorService executorService = Executors.newCachedThreadPool();
         System.out.println( "Server started!" );
         try (ServerSocket serverSocket = new ServerSocket(8189)){
-            while (true){
+            while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
                 counter++;
                 System.out.println("IP " + socket.getInetAddress() + " connected: #" + counter);

@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
+import static com.dst.TaskStorage.noDriverLogin;
+
 public class DriverExchanger {
 
     private UserDriver userDriver;
@@ -113,7 +115,7 @@ public class DriverExchanger {
             if (task != null) {
                 Any.pack(task
                         .setStatus(WarehouseMessage.Task2.Status.WAIT)
-                        .setReporter("Not assigned")
+                        .setReporter(noDriverLogin)
                         .build()).writeDelimitedTo(outputStream);
                 System.out.println("Task " + task.getId() + " has been returned by: " + userDriver.getUserName());
             } else System.out.println("No tasks available");

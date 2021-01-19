@@ -13,6 +13,8 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
+import static com.dst.TaskStorage.noDriverLogin;
+
 public class DispatcherExchanger {
 
     private UserDispatcher userDispatcher;
@@ -87,7 +89,6 @@ public class DispatcherExchanger {
     }
 
     public void createTask(WarehouseMessage.NewTask newTask) throws IOException {
-//        WarehouseMessage.NewTask newTask = any.unpack(WarehouseMessage.NewTask.class);
         WarehouseMessage.Task2.Builder t2builder = WarehouseMessage.Task2.newBuilder();
         t2builder.setId(TaskStorage.idCounter.incrementAndGet());
         t2builder.setWeight(newTask.getWeight());
@@ -95,7 +96,7 @@ public class DispatcherExchanger {
         t2builder.setTimeCreate(String.valueOf(System.currentTimeMillis()));
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
         t2builder.setAssignee(userDispatcher.getUserName());
-        t2builder.setReporter("Not assigned");
+        t2builder.setReporter(noDriverLogin);
         TaskStorage.allTasks.add(t2builder);
         listBuilder.addTask(t2builder.build());
         System.out.println("Task added: " + t2builder.getId());
