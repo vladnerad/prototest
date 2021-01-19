@@ -2,6 +2,7 @@ package com.dst.server;
 
 import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
+import com.dst.users.DriverStatus;
 import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserDriver;
@@ -10,6 +11,7 @@ import com.google.protobuf.Any;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DriverExchanger {
@@ -17,26 +19,28 @@ public class DriverExchanger {
     private UserDriver userDriver;
     private InputStream inputStream;
     private OutputStream outputStream;
-    private WarehouseMessage.ListofTaskDisp.Builder listBuilder;
 
     public DriverExchanger(User user, InputStream inputStream, OutputStream outputStream) {
         if (user.getRole() == Role.DRIVER) {
             this.userDriver = (UserDriver) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
+            userDriver.setStatus(DriverStatus.FREE);
         } else System.out.println("DriverExchanger constructor error");
     }
 
     // Get list of tasks for current dispatcher
     public void initListBuilder2() throws IOException {
-        listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
+        WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
         listBuilder.addAllTask(TaskStorage.allTasks.stream().filter(task2 -> task2.getReporter().equals("Not assigned")).map(WarehouseMessage.Task2.Builder::build).collect(Collectors.toList()));
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
+        System.out.println(userDriver.getUserName() + " has status " + userDriver.getStatus());
     }
 
     public void exchange() throws IOException {
+        if (userDriver.getStatus() == DriverStatus.FREE) startNewTask();
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         // Create new task
         if (any.is(WarehouseMessage.Action.class)) {
@@ -50,7 +54,55 @@ public class DriverExchanger {
                     Any.pack(t2.build()).writeDelimitedTo(outputStream);
                 }
                 System.out.println("Status changed");
+            } else if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
+                finishCurrentTask();
             }
+        } else if (!any.isInitialized()) {
+            Objects.requireNonNull(TaskStorage.allTasks
+                    .stream()
+                    .filter(t -> t.getReporter().equals(userDriver.getUserName()))
+                    .findAny()
+                    .orElse(null))
+                    .setStatus(WarehouseMessage.Task2.Status.WAIT)
+                    .setReporter("Not assigned");
+            System.out.println("Disconnected " + userDriver.getUserName());
         }
+    }
+
+    public WarehouseMessage.Task2.Builder getNextTask() {
+        return TaskStorage.allTasks
+                .stream()
+                .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void startNewTask() throws IOException {
+        WarehouseMessage.Task2.Builder task = getNextTask();
+        if (task != null) {
+            userDriver.setStatus(DriverStatus.BUSY);
+            Any.pack(task/*getNextTask()*/
+                    .setStatus(WarehouseMessage.Task2.Status.STARTED)
+                    .setReporter(userDriver.getUserName())
+                    .build()).writeDelimitedTo(outputStream);
+            System.out.println("New task started by: " + userDriver.getUserName());
+        } else System.out.println("No tasks avaible");
+    }
+
+    public void finishCurrentTask() throws IOException {
+        userDriver.setStatus(DriverStatus.FREE);
+        WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
+                .stream()
+                .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.STARTED)
+                .filter(t -> t.getReporter().equals(userDriver.getUserName()))
+                .findAny()
+                .orElse(null);
+        if (t2 != null) {
+            Any.pack(t2
+                    .setStatus(WarehouseMessage.Task2.Status.FINISHED)
+                    .build()).writeDelimitedTo(outputStream);
+            TaskStorage.allTasks.remove(t2);
+            System.out.println("Task finished: " + t2.getId());
+        } else System.out.println("Task not founded");
     }
 }

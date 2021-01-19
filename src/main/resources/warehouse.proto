@@ -78,6 +78,7 @@ message Task2 {
     WAIT = 0;         // задача в очереди
     STARTED = 1;      // задача выполняется
     CANCELLED = 2;    // задача отменена
+    FINISHED = 3;     // задача завершена
   }
   Status status = 6;
   string assignee = 7; // постановщик задачи

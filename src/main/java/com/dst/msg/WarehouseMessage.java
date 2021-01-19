@@ -9065,6 +9065,14 @@ public final class WarehouseMessage {
        * <code>CANCELLED = 2;</code>
        */
       CANCELLED(2),
+      /**
+       * <pre>
+       * задача завершена
+       * </pre>
+       *
+       * <code>FINISHED = 3;</code>
+       */
+      FINISHED(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -9092,6 +9100,14 @@ public final class WarehouseMessage {
        * <code>CANCELLED = 2;</code>
        */
       public static final int CANCELLED_VALUE = 2;
+      /**
+       * <pre>
+       * задача завершена
+       * </pre>
+       *
+       * <code>FINISHED = 3;</code>
+       */
+      public static final int FINISHED_VALUE = 3;
 
 
       public final int getNumber() {
@@ -9121,6 +9137,7 @@ public final class WarehouseMessage {
           case 0: return WAIT;
           case 1: return STARTED;
           case 2: return CANCELLED;
+          case 3: return FINISHED;
           default: return null;
         }
       }
@@ -10956,15 +10973,16 @@ public final class WarehouseMessage {
       "sg.Action.Act\"(\n\003Act\022\n\n\006CANCEL\020\000\022\n\n\006FINI" +
       "SH\020\001\022\t\n\005START\020\002\"Q\n\016ListofTaskDisp\022%\n\007det" +
       "ails\030\001 \003(\0132\024.google.protobuf.Any\022\030\n\004task" +
-      "\030\002 \003(\0132\n.msg.Task2\"\241\002\n\005Task2\022%\n\007details\030" +
+      "\030\002 \003(\0132\n.msg.Task2\"\257\002\n\005Task2\022%\n\007details\030" +
       "\001 \003(\0132\024.google.protobuf.Any\022\n\n\002id\030\002 \001(\005\022" +
       "#\n\006weight\030\003 \001(\0162\023.msg.NewTask.Weight\022\'\n\010" +
       "priority\030\004 \001(\0162\025.msg.NewTask.Priority\022\022\n" +
       "\ntimeCreate\030\005 \001(\t\022!\n\006status\030\006 \001(\0162\021.msg." +
       "Task2.Status\022\020\n\010assignee\030\007 \001(\t\022\020\n\010report" +
-      "er\030\010 \001(\t\022\014\n\004name\030\t \001(\t\".\n\006Status\022\010\n\004WAIT" +
-      "\020\000\022\013\n\007STARTED\020\001\022\r\n\tCANCELLED\020\002B\037\n\013com.ds" +
-      "t.msgB\020WarehouseMessageb\006proto3"
+      "er\030\010 \001(\t\022\014\n\004name\030\t \001(\t\"<\n\006Status\022\010\n\004WAIT" +
+      "\020\000\022\013\n\007STARTED\020\001\022\r\n\tCANCELLED\020\002\022\014\n\010FINISH" +
+      "ED\020\003B\037\n\013com.dst.msgB\020WarehouseMessageb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

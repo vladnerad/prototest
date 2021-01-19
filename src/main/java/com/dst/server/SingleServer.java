@@ -31,18 +31,20 @@ public class SingleServer implements Runnable {
                 DispatcherExchanger dispatcherExchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
 //                dispatcherExchanger.initListBuilder();
                 dispatcherExchanger.initListBuilder2();
-                while (true){
+                while (socket.isConnected()){
                     dispatcherExchanger.exchange();
                 }
+                System.out.println("Connection closed " + socket.getInetAddress());
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
                 DriverExchanger driverExchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
                 driverExchanger.initListBuilder2();
-                while (true){
+                while (socket.isConnected()){
                     driverExchanger.exchange();
                 }
+                System.out.println("Connection closed " + socket.getInetAddress());
             }
             // User not authorized
             else System.out.println("Not authorized: " + socket.getInetAddress());
