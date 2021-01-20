@@ -2,6 +2,7 @@ package com.dst.server;
 
 import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
+import com.dst.observer.EventListener;
 import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserDispatcher;
@@ -15,18 +16,18 @@ import java.util.stream.Collectors;
 
 import static com.dst.TaskStorage.noDriverLogin;
 
-public class DispatcherExchanger {
+public class DispatcherExchanger implements EventListener {
 
     private UserDispatcher userDispatcher;
     private InputStream inputStream;
     private OutputStream outputStream;
-    private WarehouseMessage.ListofTaskDisp.Builder listBuilder;
 
     public DispatcherExchanger(User user, InputStream inputStream, OutputStream outputStream) {
         if (user.getRole() == Role.DISPATCHER) {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
+            TaskStorage.eventManager.subscribe("change", this);
         } else System.out.println("DispatcherExchanger constructor error");
     }
 
@@ -52,20 +53,21 @@ public class DispatcherExchanger {
                     // Dispatcher removes task
                     if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
                         t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
+                        TaskStorage.eventManager.notify("change", t2.build());
                         TaskStorage.allTasks.remove(t2);
                         System.out.println("Task removed: " + t2.getId());
                     }
                     // Dispatcher creates new task
-                    else if (action.getAct() == WarehouseMessage.Action.Act.START) {
-                        t2.setStatus(WarehouseMessage.Task2.Status.STARTED).build();
-                        System.out.println("Status changed");
-                    }
+//                    else if (action.getAct() == WarehouseMessage.Action.Act.START) {
+//                        t2.setStatus(WarehouseMessage.Task2.Status.STARTED).build();
+//                        System.out.println("Status changed");
+//                    }
                     // Action doesn't exists
                     else {
                         System.out.println("Unknown action");
                     }
                     // Send updated list to dispatcher client
-                    Any.pack(t2.build()).writeDelimitedTo(outputStream);
+//                    Any.pack(t2.build()).writeDelimitedTo(outputStream);
                 } else {
                     System.out.println("Task isn't found");
                 }
@@ -75,7 +77,7 @@ public class DispatcherExchanger {
 
     // Get list of tasks for current dispatcher
     public void initListBuilder2() throws IOException {
-        listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
+        WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
         listBuilder.addAllTask(
                 TaskStorage.allTasks
                         .stream()
@@ -86,6 +88,7 @@ public class DispatcherExchanger {
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
+        System.out.println("Task list size: " + listBuilder.getTaskList().size());
     }
 
     public void createTask(WarehouseMessage.NewTask newTask) throws IOException {
@@ -98,8 +101,14 @@ public class DispatcherExchanger {
         t2builder.setAssignee(userDispatcher.getUserName());
         t2builder.setReporter(noDriverLogin);
         TaskStorage.allTasks.add(t2builder);
-        listBuilder.addTask(t2builder.build());
+//        listBuilder.addTask(t2builder.build());
+        TaskStorage.eventManager.notify("change", t2builder.build());
         System.out.println("Task added: " + t2builder.getId());
-        Any.pack(t2builder.build()).writeDelimitedTo(outputStream);
+//        Any.pack(t2builder.build()).writeDelimitedTo(outputStream);
+    }
+
+    @Override
+    public void update(String event, WarehouseMessage.Task2 task) throws IOException {
+        Any.pack(task).writeDelimitedTo(outputStream);
     }
 }
