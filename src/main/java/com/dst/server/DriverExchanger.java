@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static com.dst.TaskStorage.changeAct;
 import static com.dst.TaskStorage.noDriverLogin;
 
-public class DriverExchanger implements EventListener {
+public class DriverExchanger implements EventListener, Exchanger {
 
     private UserDriver userDriver;
     private InputStream inputStream;
@@ -30,12 +30,13 @@ public class DriverExchanger implements EventListener {
             this.inputStream = inputStream;
             this.outputStream = outputStream;
             userDriver.setStatus(DriverStatus.FREE);
-            TaskStorage.eventManager.subscribe(changeAct, this);
+//            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DriverExchanger constructor error");
     }
 
     // Get list of tasks for current dispatcher
-    public void initListBuilder2() throws IOException {
+    @Override
+    public void initListFromCache() throws IOException {
         WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
         listBuilder.addAllTask(TaskStorage.allTasks.stream().filter(task2 -> task2.getReporter().equals("Not assigned")).map(WarehouseMessage.Task2.Builder::build).collect(Collectors.toList()));
         if (!listBuilder.getTaskList().isEmpty()) {
@@ -44,6 +45,7 @@ public class DriverExchanger implements EventListener {
         System.out.println(userDriver.getUserName() + " has status " + userDriver.getStatus());
     }
 
+    @Override
     public void exchange() throws IOException {
         if (userDriver.getStatus() == DriverStatus.FREE) startNewTask();
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
@@ -63,12 +65,18 @@ public class DriverExchanger implements EventListener {
                         Any.pack(t2.build()).writeDelimitedTo(outputStream);
                     }
                     System.out.println("Status changed");
-                } else*/ if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
+                } else*/
+                if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
                     finishCurrentTask();
                     System.out.println("Current task finished");
                 }
             }
         }
+    }
+
+    @Override
+    public EventListener getEventListener() {
+        return this;
     }
 
     public WarehouseMessage.Task2.Builder getNextTask() {
@@ -79,21 +87,17 @@ public class DriverExchanger implements EventListener {
                 .orElse(null);
     }
 
-    public void startNewTask() throws IOException {
+    public void startNewTask() {
         WarehouseMessage.Task2.Builder task = getNextTask();
         if (task != null) {
             userDriver.setStatus(DriverStatus.BUSY);
             task.setStatus(WarehouseMessage.Task2.Status.STARTED).setReporter(userDriver.getUserName());
             TaskStorage.eventManager.notify(changeAct, task.build());
-//            Any.pack(task/*getNextTask()*/
-//                    .setStatus(WarehouseMessage.Task2.Status.STARTED)
-//                    .setReporter(userDriver.getUserName())
-//                    .build()).writeDelimitedTo(outputStream);
             System.out.println("New task started by: " + userDriver.getUserName());
         } else System.out.println("No tasks available");
     }
 
-    public void finishCurrentTask() throws IOException {
+    public void finishCurrentTask() {
         userDriver.setStatus(DriverStatus.FREE);
         WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
                 .stream()
@@ -104,16 +108,13 @@ public class DriverExchanger implements EventListener {
         if (t2 != null) {
             t2.setStatus(WarehouseMessage.Task2.Status.FINISHED);
             TaskStorage.eventManager.notify(changeAct, t2.build());
-//            Any.pack(t2
-//                    .setStatus(WarehouseMessage.Task2.Status.FINISHED)
-//                    .build()).writeDelimitedTo(outputStream);
             TaskStorage.allTasks.remove(t2);
             System.out.println("Task finished: " + t2.getId());
         } else System.out.println("Task not founded");
     }
 
-    public void returnTaskToList () throws IOException {
-        if (userDriver.getStatus() == DriverStatus.BUSY){
+    public void returnTaskToList() {
+        if (userDriver.getStatus() == DriverStatus.BUSY) {
             WarehouseMessage.Task2.Builder task = TaskStorage.allTasks
                     .stream()
                     .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.STARTED)
@@ -123,10 +124,6 @@ public class DriverExchanger implements EventListener {
             if (task != null) {
                 task.setStatus(WarehouseMessage.Task2.Status.WAIT).setReporter(noDriverLogin);
                 TaskStorage.eventManager.notify(changeAct, task.build());
-//                Any.pack(task
-//                        .setStatus(WarehouseMessage.Task2.Status.WAIT)
-//                        .setReporter(noDriverLogin)
-//                        .build()).writeDelimitedTo(outputStream);
                 System.out.println("Task " + task.getId() + " has been returned by: " + userDriver.getUserName());
             } else System.out.println("No tasks available");
         }

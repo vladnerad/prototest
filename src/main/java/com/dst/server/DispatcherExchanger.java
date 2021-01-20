@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import static com.dst.TaskStorage.changeAct;
 import static com.dst.TaskStorage.noDriverLogin;
 
-public class DispatcherExchanger implements EventListener {
+public class DispatcherExchanger implements EventListener, Exchanger {
 
     private UserDispatcher userDispatcher;
     private InputStream inputStream;
@@ -28,10 +28,11 @@ public class DispatcherExchanger implements EventListener {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
-            TaskStorage.eventManager.subscribe(changeAct, this);
+//            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DispatcherExchanger constructor error");
     }
 
+    @Override
     public void exchange() throws IOException {
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         if (any == null) {
@@ -76,8 +77,14 @@ public class DispatcherExchanger implements EventListener {
         }
     }
 
+    @Override
+    public EventListener getEventListener() {
+        return this;
+    }
+
     // Get list of tasks for current dispatcher
-    public void initListBuilder2() throws IOException {
+    @Override
+    public void initListFromCache() throws IOException {
         WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
         listBuilder.addAllTask(
                 TaskStorage.allTasks

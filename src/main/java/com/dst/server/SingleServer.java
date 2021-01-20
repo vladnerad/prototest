@@ -28,42 +28,24 @@ public class SingleServer implements Runnable {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
             User sessionUser = getAuthUser(inputStream, outputStream);
+            Exchanger exchanger;
             // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
-                DispatcherExchanger dispatcherExchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
-                dispatcherExchanger.initListBuilder2();
-                while (!socket.isClosed()){
-                    try {
-                        dispatcherExchanger.exchange();
-                    } catch (SocketException e) {
-//                        e.printStackTrace();
-                        TaskStorage.eventManager.unsubscribe(changeAct, dispatcherExchanger);
-                        socket.close();
-                    }
-                }
-                System.out.println("Connection closed " + socket.getInetAddress());
+                exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
-                DriverExchanger driverExchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
-                driverExchanger.initListBuilder2();
-                while (!socket.isClosed()){
-                    try {
-                        driverExchanger.exchange();
-                    } catch (SocketException e) {
-//                        e.printStackTrace();
-                        TaskStorage.eventManager.unsubscribe(changeAct, driverExchanger);
-                        socket.close();
-                    }
-                }
-                System.out.println("Connection closed " + socket.getInetAddress());
+                exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
             }
             // User not authorized
-            else System.out.println("Not authorized: " + socket.getInetAddress());
-        } catch (
-                IOException e) {
+            else {
+                System.out.println("Not authorized: " + socket.getInetAddress());
+                exchanger = null;
+            }
+            if (exchanger != null) process(socket, exchanger);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -98,5 +80,19 @@ public class SingleServer implements Runnable {
             return user;
         }
         return null;
+    }
+
+    public void process(Socket socket, Exchanger exchanger) throws IOException {
+        TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
+        exchanger.initListFromCache();
+        while (!socket.isClosed()) {
+            try {
+                exchanger.exchange();
+            } catch (SocketException e) {
+                socket.close();
+            }
+        }
+        TaskStorage.eventManager.unsubscribe(changeAct, exchanger.getEventListener());
+        System.out.println("Connection closed " + socket.getInetAddress());
     }
 }
