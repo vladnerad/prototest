@@ -1,5 +1,6 @@
 package com.dst.server;
 
+import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
 import com.dst.users.Role;
 import com.dst.users.User;
@@ -11,6 +12,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+
+import static com.dst.TaskStorage.changeAct;
 
 public class SingleServer implements Runnable {
 
@@ -35,6 +38,7 @@ public class SingleServer implements Runnable {
                         dispatcherExchanger.exchange();
                     } catch (SocketException e) {
 //                        e.printStackTrace();
+                        TaskStorage.eventManager.unsubscribe(changeAct, dispatcherExchanger);
                         socket.close();
                     }
                 }
@@ -50,6 +54,7 @@ public class SingleServer implements Runnable {
                         driverExchanger.exchange();
                     } catch (SocketException e) {
 //                        e.printStackTrace();
+                        TaskStorage.eventManager.unsubscribe(changeAct, driverExchanger);
                         socket.close();
                     }
                 }

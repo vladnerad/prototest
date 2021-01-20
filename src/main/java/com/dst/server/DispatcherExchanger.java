@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
+import static com.dst.TaskStorage.changeAct;
 import static com.dst.TaskStorage.noDriverLogin;
 
 public class DispatcherExchanger implements EventListener {
@@ -27,7 +28,7 @@ public class DispatcherExchanger implements EventListener {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
-            TaskStorage.eventManager.subscribe("change", this);
+            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DispatcherExchanger constructor error");
     }
 
@@ -53,7 +54,7 @@ public class DispatcherExchanger implements EventListener {
                     // Dispatcher removes task
                     if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
                         t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
-                        TaskStorage.eventManager.notify("change", t2.build());
+                        TaskStorage.eventManager.notify(changeAct, t2.build());
                         TaskStorage.allTasks.remove(t2);
                         System.out.println("Task removed: " + t2.getId());
                     }
@@ -88,7 +89,8 @@ public class DispatcherExchanger implements EventListener {
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
-        System.out.println("Task list size: " + listBuilder.getTaskList().size());
+        System.out.println("listBuilder size: " + listBuilder.getTaskList().size());
+        System.out.println("TaskStorage size: " + TaskStorage.allTasks.size());
     }
 
     public void createTask(WarehouseMessage.NewTask newTask) throws IOException {
@@ -102,8 +104,9 @@ public class DispatcherExchanger implements EventListener {
         t2builder.setReporter(noDriverLogin);
         TaskStorage.allTasks.add(t2builder);
 //        listBuilder.addTask(t2builder.build());
-        TaskStorage.eventManager.notify("change", t2builder.build());
+        TaskStorage.eventManager.notify(changeAct, t2builder.build());
         System.out.println("Task added: " + t2builder.getId());
+        System.out.println("Storage size after addition: " + TaskStorage.allTasks.size());
 //        Any.pack(t2builder.build()).writeDelimitedTo(outputStream);
     }
 

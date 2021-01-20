@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
+import static com.dst.TaskStorage.changeAct;
 import static com.dst.TaskStorage.noDriverLogin;
 
 public class DriverExchanger implements EventListener {
@@ -29,7 +30,7 @@ public class DriverExchanger implements EventListener {
             this.inputStream = inputStream;
             this.outputStream = outputStream;
             userDriver.setStatus(DriverStatus.FREE);
-            TaskStorage.eventManager.subscribe("change", this);
+            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DriverExchanger constructor error");
     }
 
@@ -83,7 +84,7 @@ public class DriverExchanger implements EventListener {
         if (task != null) {
             userDriver.setStatus(DriverStatus.BUSY);
             task.setStatus(WarehouseMessage.Task2.Status.STARTED).setReporter(userDriver.getUserName());
-            TaskStorage.eventManager.notify("change", task.build());
+            TaskStorage.eventManager.notify(changeAct, task.build());
 //            Any.pack(task/*getNextTask()*/
 //                    .setStatus(WarehouseMessage.Task2.Status.STARTED)
 //                    .setReporter(userDriver.getUserName())
@@ -102,7 +103,7 @@ public class DriverExchanger implements EventListener {
                 .orElse(null);
         if (t2 != null) {
             t2.setStatus(WarehouseMessage.Task2.Status.FINISHED);
-            TaskStorage.eventManager.notify("change", t2.build());
+            TaskStorage.eventManager.notify(changeAct, t2.build());
 //            Any.pack(t2
 //                    .setStatus(WarehouseMessage.Task2.Status.FINISHED)
 //                    .build()).writeDelimitedTo(outputStream);
@@ -121,7 +122,7 @@ public class DriverExchanger implements EventListener {
                     .orElse(null);
             if (task != null) {
                 task.setStatus(WarehouseMessage.Task2.Status.WAIT).setReporter(noDriverLogin);
-                TaskStorage.eventManager.notify("change", task.build());
+                TaskStorage.eventManager.notify(changeAct, task.build());
 //                Any.pack(task
 //                        .setStatus(WarehouseMessage.Task2.Status.WAIT)
 //                        .setReporter(noDriverLogin)
