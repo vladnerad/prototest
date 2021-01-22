@@ -3,6 +3,7 @@ package com.dst.server;
 import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
 import com.dst.observer.EventListener;
+import com.dst.users.DriverStatus;
 import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserDispatcher;
@@ -14,8 +15,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
-import static com.dst.TaskStorage.changeAct;
-import static com.dst.TaskStorage.noDriverLogin;
+import static com.dst.TaskStorage.*;
 
 public class DispatcherExchanger implements EventListener, Exchanger {
 
@@ -109,9 +109,11 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
         t2builder.setAssignee(userDispatcher.getUserName());
         t2builder.setReporter(noDriverLogin);
+        boolean wasEmpty = TaskStorage.allTasks.isEmpty();
         TaskStorage.allTasks.add(t2builder);
 //        listBuilder.addTask(t2builder.build());
         TaskStorage.eventManager.notify(changeAct, t2builder.build());
+        if (wasEmpty) TaskStorage.eventManager.notify(addAfterEmpty, t2builder.build());
         System.out.println("Task added: " + t2builder.getId());
         System.out.println("Storage size after addition: " + TaskStorage.allTasks.size());
 //        Any.pack(t2builder.build()).writeDelimitedTo(outputStream);
@@ -119,6 +121,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        Any.pack(task).writeDelimitedTo(outputStream);
+        if (!event.equals(addAfterEmpty)) Any.pack(task).writeDelimitedTo(outputStream);
     }
 }

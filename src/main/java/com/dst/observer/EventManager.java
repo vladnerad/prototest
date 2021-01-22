@@ -37,4 +37,20 @@ public class EventManager {
             }
         }
     }
+
+    public void unsubscribeAll(EventListener listener){
+        for (Map.Entry<String, List<EventListener>> entry: listeners.entrySet()){
+            unsubscribe(entry.getKey(), listener);
+        }
+//        listeners.clear();
+    }
+
+    public void printInfo(){
+        for (Map.Entry<String, List<EventListener>> entry: listeners.entrySet()){
+            System.out.println("Action: " + entry.getKey() + " Listeners: " + entry.getValue().size());
+//            for (EventListener listener: entry.getValue()){
+//                unsubscribe(entry.getKey(), listener);
+//            }
+        }
+    }
 }

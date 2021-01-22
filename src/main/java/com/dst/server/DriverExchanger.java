@@ -15,8 +15,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.stream.Collectors;
 
-import static com.dst.TaskStorage.changeAct;
-import static com.dst.TaskStorage.noDriverLogin;
+import static com.dst.TaskStorage.*;
 
 public class DriverExchanger implements EventListener, Exchanger {
 
@@ -47,7 +46,13 @@ public class DriverExchanger implements EventListener, Exchanger {
 
     @Override
     public void exchange() throws IOException {
-        if (userDriver.getStatus() == DriverStatus.FREE) startNewTask();
+        if (userDriver.getStatus() == DriverStatus.FREE) {
+            startNewTask();
+//            while (!startNewTask()) startNewTask(); // остановить поток?
+//            if (!startNewTask()) {
+//                /*wait*/
+//            } //else userDriver.setStatus(DriverStatus.BUSY);
+        }
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         // Create new task
         if (any == null) {
@@ -68,7 +73,6 @@ public class DriverExchanger implements EventListener, Exchanger {
                 } else*/
                 if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
                     finishCurrentTask();
-                    System.out.println("Current task finished");
                 }
             }
         }
@@ -87,14 +91,18 @@ public class DriverExchanger implements EventListener, Exchanger {
                 .orElse(null);
     }
 
-    public void startNewTask() {
+    public boolean startNewTask() {
         WarehouseMessage.Task2.Builder task = getNextTask();
         if (task != null) {
             userDriver.setStatus(DriverStatus.BUSY);
             task.setStatus(WarehouseMessage.Task2.Status.STARTED).setReporter(userDriver.getUserName());
             TaskStorage.eventManager.notify(changeAct, task.build());
-            System.out.println("New task started by: " + userDriver.getUserName());
-        } else System.out.println("No tasks available");
+            System.out.println("Task " + task.getId() + " started by: " + userDriver.getUserName());
+            return true;
+        } else {
+            System.out.println("No tasks available");
+            return false;
+        }
     }
 
     public void finishCurrentTask() {
@@ -132,6 +140,7 @@ public class DriverExchanger implements EventListener, Exchanger {
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        Any.pack(task).writeDelimitedTo(outputStream);
+        if (event.equals(addAfterEmpty) && userDriver.getStatus() == DriverStatus.FREE) startNewTask();
+        else Any.pack(task).writeDelimitedTo(outputStream);
     }
 }

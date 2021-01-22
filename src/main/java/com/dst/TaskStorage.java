@@ -14,6 +14,7 @@ public class TaskStorage {
 
     public static final String noDriverLogin = "Not assigned";
     public static final String changeAct = "change";
+    public static final String addAfterEmpty = "not null";
 
     static Comparator<WarehouseMessage.Task2OrBuilder> comparator = Comparator
             .comparing(WarehouseMessage.Task2OrBuilder::getPriority)
@@ -22,6 +23,6 @@ public class TaskStorage {
 
     public static Set<WarehouseMessage.Task2.Builder> allTasks = new ConcurrentSkipListSet<>(comparator);
 
-    public static volatile EventManager eventManager = new EventManager(changeAct);
+    public static volatile EventManager eventManager = new EventManager(changeAct, addAfterEmpty);
 
 }

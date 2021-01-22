@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+import static com.dst.TaskStorage.addAfterEmpty;
 import static com.dst.TaskStorage.changeAct;
 
 public class SingleServer implements Runnable {
@@ -33,17 +34,21 @@ public class SingleServer implements Runnable {
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
                 exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
+//                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
                 exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
+                TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
+//                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
             }
             // User not authorized
             else {
                 System.out.println("Not authorized: " + socket.getInetAddress());
                 exchanger = null;
             }
+            TaskStorage.eventManager.printInfo();
             if (exchanger != null) process(socket, exchanger);
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +97,9 @@ public class SingleServer implements Runnable {
                 socket.close();
             }
         }
-        TaskStorage.eventManager.unsubscribe(changeAct, exchanger.getEventListener());
+//        TaskStorage.eventManager.unsubscribe(changeAct, exchanger.getEventListener());
+        TaskStorage.eventManager.unsubscribeAll(exchanger.getEventListener());
         System.out.println("Connection closed " + socket.getInetAddress());
+        TaskStorage.eventManager.printInfo();
     }
 }
