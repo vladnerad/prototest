@@ -48,11 +48,10 @@ public class DriverExchanger implements EventListener, Exchanger {
     public void exchange() throws IOException {
         if (userDriver.getStatus() == DriverStatus.FREE) {
             startNewTask();
-//            while (!startNewTask()) startNewTask(); // остановить поток?
-//            if (!startNewTask()) {
-//                /*wait*/
-//            } //else userDriver.setStatus(DriverStatus.BUSY);
         }
+//        else if (userDriver.getStatus() == DriverStatus.BROKEN){
+//
+//        }
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         // Create new task
         if (any == null) {
@@ -61,18 +60,24 @@ public class DriverExchanger implements EventListener, Exchanger {
         } else {
             if (any.is(WarehouseMessage.Action.class)) {
                 WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
- /*               if (action.getAct() == WarehouseMessage.Action.Act.START) {
-                    WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks.stream().filter(t -> t.getId() == action.getId()).findFirst().orElse(null);
-                    if (t2 != null) {
-                        t2
-                                .setStatus(WarehouseMessage.Task2.Status.STARTED)
-                                .setReporter(userDriver.getUserName());
-                        Any.pack(t2.build()).writeDelimitedTo(outputStream);
-                    }
-                    System.out.println("Status changed");
-                } else*/
                 if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
                     finishCurrentTask();
+                }
+            }
+            else if (any.is(WarehouseMessage.UserStatus.class)) {
+                WarehouseMessage.UserStatus status = any.unpack(WarehouseMessage.UserStatus.class);
+                if (status.getStatus() == WarehouseMessage.UserStatus.Status.READY
+                    && userDriver.getStatus() == DriverStatus.BROKEN){
+                    userDriver.setStatus(DriverStatus.FREE);
+                    Any.pack(status).writeDelimitedTo(outputStream);
+                    System.out.println("Driver: " + userDriver.getUserName() + " has repaired");
+                }
+                else if (status.getStatus() == WarehouseMessage.UserStatus.Status.BROKEN
+                    && userDriver.getStatus() != DriverStatus.BROKEN){
+                    if (userDriver.getStatus() == DriverStatus.BUSY) returnTaskToList();
+                    userDriver.setStatus(DriverStatus.BROKEN);
+                    Any.pack(status).writeDelimitedTo(outputStream);
+                    System.out.println("Driver: " + userDriver.getUserName() + " has broken");
                 }
             }
         }
@@ -93,7 +98,7 @@ public class DriverExchanger implements EventListener, Exchanger {
 
     public boolean startNewTask() {
         WarehouseMessage.Task2.Builder task = getNextTask();
-        if (task != null) {
+        if (task != null && userDriver.getStatus() == DriverStatus.FREE) {
             userDriver.setStatus(DriverStatus.BUSY);
             task.setStatus(WarehouseMessage.Task2.Status.STARTED).setReporter(userDriver.getUserName());
             TaskStorage.eventManager.notify(changeAct, task.build());

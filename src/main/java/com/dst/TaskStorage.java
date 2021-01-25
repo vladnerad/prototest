@@ -25,4 +25,8 @@ public class TaskStorage {
 
     public static volatile EventManager eventManager = new EventManager(changeAct, addAfterEmpty);
 
+//    public static void printStatusInfo(){
+//
+//    }
+
 }

@@ -38,7 +38,7 @@ public class SingleServer implements Runnable {
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
-                System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER");
+                System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
                 exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
                 TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
 //                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
@@ -48,7 +48,7 @@ public class SingleServer implements Runnable {
                 System.out.println("Not authorized: " + socket.getInetAddress());
                 exchanger = null;
             }
-            TaskStorage.eventManager.printInfo();
+//            TaskStorage.eventManager.printInfo();
             if (exchanger != null) process(socket, exchanger);
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,6 +89,7 @@ public class SingleServer implements Runnable {
 
     public void process(Socket socket, Exchanger exchanger) throws IOException {
         TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
+        TaskStorage.eventManager.printInfo();
         exchanger.initListFromCache();
         while (!socket.isClosed()) {
             try {

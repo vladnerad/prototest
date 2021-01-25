@@ -3,7 +3,6 @@ package com.dst.server;
 import com.dst.TaskStorage;
 import com.dst.msg.WarehouseMessage;
 import com.dst.observer.EventListener;
-import com.dst.users.DriverStatus;
 import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserDispatcher;
@@ -96,11 +95,11 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
-        System.out.println("listBuilder size: " + listBuilder.getTaskList().size());
-        System.out.println("TaskStorage size: " + TaskStorage.allTasks.size());
+//        System.out.println("listBuilder size: " + listBuilder.getTaskList().size());
+//        System.out.println("TaskStorage size: " + TaskStorage.allTasks.size());
     }
 
-    public void createTask(WarehouseMessage.NewTask newTask) throws IOException {
+    public void createTask(WarehouseMessage.NewTask newTask) {
         WarehouseMessage.Task2.Builder t2builder = WarehouseMessage.Task2.newBuilder();
         t2builder.setId(TaskStorage.idCounter.incrementAndGet());
         t2builder.setWeight(newTask.getWeight());
@@ -109,18 +108,16 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
         t2builder.setAssignee(userDispatcher.getUserName());
         t2builder.setReporter(noDriverLogin);
-        boolean wasEmpty = TaskStorage.allTasks.isEmpty();
+        boolean wasEmpty = TaskStorage.allTasks.isEmpty() || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT);
         TaskStorage.allTasks.add(t2builder);
-//        listBuilder.addTask(t2builder.build());
         TaskStorage.eventManager.notify(changeAct, t2builder.build());
         if (wasEmpty) TaskStorage.eventManager.notify(addAfterEmpty, t2builder.build());
-        System.out.println("Task added: " + t2builder.getId());
+        System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
         System.out.println("Storage size after addition: " + TaskStorage.allTasks.size());
-//        Any.pack(t2builder.build()).writeDelimitedTo(outputStream);
     }
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        if (!event.equals(addAfterEmpty)) Any.pack(task).writeDelimitedTo(outputStream);
+        if (!event.equals(addAfterEmpty) && task.getAssignee().equals(userDispatcher.getUserName())) Any.pack(task).writeDelimitedTo(outputStream);
     }
 }

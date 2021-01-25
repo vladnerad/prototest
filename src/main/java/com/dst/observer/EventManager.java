@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EventManager {
-    Map<String, List<EventListener>> listeners = new ConcurrentHashMap<>();
+    volatile Map<String, List<EventListener>> listeners = new ConcurrentHashMap<>();
 
     public EventManager(String... operations) {
         for (String operation : operations) {
@@ -42,15 +42,11 @@ public class EventManager {
         for (Map.Entry<String, List<EventListener>> entry: listeners.entrySet()){
             unsubscribe(entry.getKey(), listener);
         }
-//        listeners.clear();
     }
 
     public void printInfo(){
         for (Map.Entry<String, List<EventListener>> entry: listeners.entrySet()){
             System.out.println("Action: " + entry.getKey() + " Listeners: " + entry.getValue().size());
-//            for (EventListener listener: entry.getValue()){
-//                unsubscribe(entry.getKey(), listener);
-//            }
         }
     }
 }
