@@ -88,6 +88,12 @@ public class DriverExchanger implements EventListener, Exchanger {
         return this;
     }
 
+    @Override
+    public void close() {
+        if (userDriver.getStatus() == DriverStatus.BUSY) returnTaskToList();
+        TaskStorage.eventManager.unsubscribeAll(this);
+    }
+
     public WarehouseMessage.Task2.Builder getNextTask() {
         return TaskStorage.allTasks
                 .stream()

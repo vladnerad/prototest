@@ -32,7 +32,7 @@ public class SingleServer implements Runnable {
             Exchanger exchanger;
             // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
-                System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER");
+                System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
                 exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
 //                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
             }
@@ -67,7 +67,7 @@ public class SingleServer implements Runnable {
                 if (usr.getUserName().equals(credentials.getLogin())) {
                     isFound = true;
                     if (usr.getPassword().equals(credentials.getPassword())) {
-                        System.out.println("Logged in: " + usr.getUserName());
+//                        System.out.println("Logged in: " + usr.getUserName());
                         response.setPassword("SUCCESS: " + usr.getRole());
                         user = usr;
                     } else {
@@ -98,8 +98,8 @@ public class SingleServer implements Runnable {
                 socket.close();
             }
         }
-//        TaskStorage.eventManager.unsubscribe(changeAct, exchanger.getEventListener());
-        TaskStorage.eventManager.unsubscribeAll(exchanger.getEventListener());
+//        TaskStorage.eventManager.unsubscribeAll(exchanger.getEventListener());
+        exchanger.close();
         System.out.println("Connection closed " + socket.getInetAddress());
         TaskStorage.eventManager.printInfo();
     }

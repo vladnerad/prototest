@@ -58,11 +58,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                         TaskStorage.allTasks.remove(t2);
                         System.out.println("Task removed: " + t2.getId());
                     }
-                    // Dispatcher creates new task
-//                    else if (action.getAct() == WarehouseMessage.Action.Act.START) {
-//                        t2.setStatus(WarehouseMessage.Task2.Status.STARTED).build();
-//                        System.out.println("Status changed");
-//                    }
                     // Action doesn't exists
                     else {
                         System.out.println("Unknown action");
@@ -79,6 +74,11 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     @Override
     public EventListener getEventListener() {
         return this;
+    }
+
+    @Override
+    public void close() {
+        TaskStorage.eventManager.unsubscribeAll(this);
     }
 
     // Get list of tasks for current dispatcher
@@ -101,7 +101,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 
     public void createTask(WarehouseMessage.NewTask newTask) {
         WarehouseMessage.Task2.Builder t2builder = WarehouseMessage.Task2.newBuilder();
-        t2builder.setId(TaskStorage.idCounter.incrementAndGet());
+        int id = TaskStorage.idCounter.incrementAndGet();
+        t2builder.setId(id);
         t2builder.setWeight(newTask.getWeight());
         t2builder.setPriority(newTask.getPriority());
         t2builder.setTimeCreate(String.valueOf(System.currentTimeMillis()));
@@ -110,14 +111,20 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setReporter(noDriverLogin);
         boolean wasEmpty = TaskStorage.allTasks.isEmpty() || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT);
         TaskStorage.allTasks.add(t2builder);
-        TaskStorage.eventManager.notify(changeAct, t2builder.build());
-        if (wasEmpty) TaskStorage.eventManager.notify(addAfterEmpty, t2builder.build());
+        if (wasEmpty){
+            // когда начнется новая задача, слушатели будут оповещены
+            TaskStorage.allTasks.stream().filter(t -> t.getId() == id).findFirst().ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
+        } else {
+            TaskStorage.allTasks.stream().filter(t -> t.getId() == id).findFirst().ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
+        }
+
         System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
         System.out.println("Storage size after addition: " + TaskStorage.allTasks.size());
     }
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        if (!event.equals(addAfterEmpty) && task.getAssignee().equals(userDispatcher.getUserName())) Any.pack(task).writeDelimitedTo(outputStream);
+        if (!event.equals(addAfterEmpty) && task.getAssignee().equals(userDispatcher.getUserName()))
+            Any.pack(task).writeDelimitedTo(outputStream);
     }
 }
