@@ -111,15 +111,29 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setReporter(noDriverLogin);
         boolean wasEmpty = TaskStorage.allTasks.isEmpty() || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT);
         TaskStorage.allTasks.add(t2builder);
-        if (wasEmpty){
-            // когда начнется новая задача, слушатели будут оповещены
-            TaskStorage.allTasks.stream().filter(t -> t.getId() == id).findFirst().ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
-        } else {
-            TaskStorage.allTasks.stream().filter(t -> t.getId() == id).findFirst().ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
-        }
-
         System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
-        System.out.println("Storage size after addition: " + TaskStorage.allTasks.size());
+        TaskStorage.allTasks
+                .stream()
+                .filter(t -> t.getId() == id)
+                .findFirst()
+                .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
+        if (wasEmpty) {
+            // когда начнется новая задача, слушатели будут оповещены
+            TaskStorage.allTasks
+                    .stream()
+                    .filter(t -> t.getId() == id)
+                    .findFirst()
+                    .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
+//            System.out.println("was empty");
+        } /*else {
+            TaskStorage.allTasks
+                    .stream()
+                    .filter(t -> t.getId() == id)
+                    .findFirst()
+                    .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
+//            System.out.println("wasn't empty");
+        }*/
+        System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
     }
 
     @Override

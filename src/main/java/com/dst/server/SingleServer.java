@@ -89,7 +89,7 @@ public class SingleServer implements Runnable {
 
     public void process(Socket socket, Exchanger exchanger) throws IOException {
         TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
-        TaskStorage.eventManager.printInfo();
+//        TaskStorage.eventManager.printInfo();
         exchanger.initListFromCache();
         while (!socket.isClosed()) {
             try {
