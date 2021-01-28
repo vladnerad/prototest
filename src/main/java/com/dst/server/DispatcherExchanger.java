@@ -27,7 +27,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
-//            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DispatcherExchanger constructor error");
     }
 
@@ -124,15 +123,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                     .filter(t -> t.getId() == id)
                     .findFirst()
                     .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
-//            System.out.println("was empty");
-        } /*else {
-            TaskStorage.allTasks
-                    .stream()
-                    .filter(t -> t.getId() == id)
-                    .findFirst()
-                    .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
-//            System.out.println("wasn't empty");
-        }*/
+        }
         System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
     }
 

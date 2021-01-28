@@ -29,7 +29,6 @@ public class DriverExchanger implements EventListener, Exchanger {
             this.inputStream = inputStream;
             this.outputStream = outputStream;
             userDriver.setStatus(DriverStatus.FREE);
-//            TaskStorage.eventManager.subscribe(changeAct, this);
         } else System.out.println("DriverExchanger constructor error");
     }
 
@@ -165,31 +164,11 @@ public class DriverExchanger implements EventListener, Exchanger {
         }
     }
 
-
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
         if (event.equals(addAfterEmpty)){
             startFreshTask(task);
         }
         else Any.pack(task).writeDelimitedTo(outputStream);
-//        if (event.equals(addAfterEmpty)) {
-//            WarehouseMessage.Task2 startedTask = startTaskFromPool();
-//            if (startedTask != null) {
-//                TaskStorage.eventManager.notify(changeAct, startedTask);
-//                System.out.println(startedTask);
-//            } else {
-//                TaskStorage.allTasks
-//                        .stream()
-//                        .filter(t -> t.getId() == task.getId())
-//                        .filter(t -> t.getAssignee().equals(noDriverLogin))
-//                        .findFirst()
-//                        .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
-////                TaskStorage.eventManager.notify(changeAct, task);
-//                System.out.println(task);
-//            }
-//        } else {
-//            Any.pack(task).writeDelimitedTo(outputStream);
-//            System.out.println(task);
-//        }
     }
 }

@@ -1107,6 +1107,1707 @@ public final class WarehouseMessage {
 
   }
 
+  public interface LogInResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:msg.LogInResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<com.google.protobuf.Any> 
+        getDetailsList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.Any getDetails(int index);
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    int getDetailsCount();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * Возврат логина
+     * </pre>
+     *
+     * <code>string login = 2;</code>
+     * @return The login.
+     */
+    java.lang.String getLogin();
+    /**
+     * <pre>
+     * Возврат логина
+     * </pre>
+     *
+     * <code>string login = 2;</code>
+     * @return The bytes for login.
+     */
+    com.google.protobuf.ByteString
+        getLoginBytes();
+
+    /**
+     * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+     * @return The enum numeric value on the wire for loginStatus.
+     */
+    int getLoginStatusValue();
+    /**
+     * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+     * @return The loginStatus.
+     */
+    com.dst.msg.WarehouseMessage.LogInResponse.Status getLoginStatus();
+
+    /**
+     * <pre>
+     * Роль пользователя
+     * </pre>
+     *
+     * <code>.msg.LogInResponse.Role userRole = 4;</code>
+     * @return The enum numeric value on the wire for userRole.
+     */
+    int getUserRoleValue();
+    /**
+     * <pre>
+     * Роль пользователя
+     * </pre>
+     *
+     * <code>.msg.LogInResponse.Role userRole = 4;</code>
+     * @return The userRole.
+     */
+    com.dst.msg.WarehouseMessage.LogInResponse.Role getUserRole();
+
+    /**
+     * <pre>
+     * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+     * </pre>
+     *
+     * <code>string userInfo = 5;</code>
+     * @return The userInfo.
+     */
+    java.lang.String getUserInfo();
+    /**
+     * <pre>
+     * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+     * </pre>
+     *
+     * <code>string userInfo = 5;</code>
+     * @return The bytes for userInfo.
+     */
+    com.google.protobuf.ByteString
+        getUserInfoBytes();
+  }
+  /**
+   * Protobuf type {@code msg.LogInResponse}
+   */
+  public static final class LogInResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msg.LogInResponse)
+      LogInResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LogInResponse.newBuilder() to construct.
+    private LogInResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LogInResponse() {
+      details_ = java.util.Collections.emptyList();
+      login_ = "";
+      loginStatus_ = 0;
+      userRole_ = 0;
+      userInfo_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LogInResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LogInResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                details_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              details_.add(
+                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              login_ = s;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              loginStatus_ = rawValue;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              userRole_ = rawValue;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              userInfo_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          details_ = java.util.Collections.unmodifiableList(details_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_LogInResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_LogInResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dst.msg.WarehouseMessage.LogInResponse.class, com.dst.msg.WarehouseMessage.LogInResponse.Builder.class);
+    }
+
+    /**
+     * <pre>
+     * Статус авторизации
+     * </pre>
+     *
+     * Protobuf enum {@code msg.LogInResponse.Status}
+     */
+    public enum Status
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <pre>
+       * Авторизация прошла успешно
+       * </pre>
+       *
+       * <code>OK = 0;</code>
+       */
+      OK(0),
+      /**
+       * <pre>
+       * Логина нет в базе
+       * </pre>
+       *
+       * <code>WRONG_LOGIN = 1;</code>
+       */
+      WRONG_LOGIN(1),
+      /**
+       * <pre>
+       * Пароль неверный
+       * </pre>
+       *
+       * <code>WRONG_PASS = 2;</code>
+       */
+      WRONG_PASS(2),
+      /**
+       * <pre>
+       * Доступ запрещен по другим причинам
+       * </pre>
+       *
+       * <code>ACCESS_DENIED = 3;</code>
+       */
+      ACCESS_DENIED(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <pre>
+       * Авторизация прошла успешно
+       * </pre>
+       *
+       * <code>OK = 0;</code>
+       */
+      public static final int OK_VALUE = 0;
+      /**
+       * <pre>
+       * Логина нет в базе
+       * </pre>
+       *
+       * <code>WRONG_LOGIN = 1;</code>
+       */
+      public static final int WRONG_LOGIN_VALUE = 1;
+      /**
+       * <pre>
+       * Пароль неверный
+       * </pre>
+       *
+       * <code>WRONG_PASS = 2;</code>
+       */
+      public static final int WRONG_PASS_VALUE = 2;
+      /**
+       * <pre>
+       * Доступ запрещен по другим причинам
+       * </pre>
+       *
+       * <code>ACCESS_DENIED = 3;</code>
+       */
+      public static final int ACCESS_DENIED_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Status valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Status forNumber(int value) {
+        switch (value) {
+          case 0: return OK;
+          case 1: return WRONG_LOGIN;
+          case 2: return WRONG_PASS;
+          case 3: return ACCESS_DENIED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Status>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Status> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Status>() {
+              public Status findValueByNumber(int number) {
+                return Status.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.LogInResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Status[] VALUES = values();
+
+      public static Status valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Status(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:msg.LogInResponse.Status)
+    }
+
+    /**
+     * Protobuf enum {@code msg.LogInResponse.Role}
+     */
+    public enum Role
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <pre>
+       * Диспетчер
+       * </pre>
+       *
+       * <code>DISPATCHER = 0;</code>
+       */
+      DISPATCHER(0),
+      /**
+       * <pre>
+       * Водитель
+       * </pre>
+       *
+       * <code>DRIVER = 1;</code>
+       */
+      DRIVER(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <pre>
+       * Диспетчер
+       * </pre>
+       *
+       * <code>DISPATCHER = 0;</code>
+       */
+      public static final int DISPATCHER_VALUE = 0;
+      /**
+       * <pre>
+       * Водитель
+       * </pre>
+       *
+       * <code>DRIVER = 1;</code>
+       */
+      public static final int DRIVER_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Role valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Role forNumber(int value) {
+        switch (value) {
+          case 0: return DISPATCHER;
+          case 1: return DRIVER;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Role>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Role> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Role>() {
+              public Role findValueByNumber(int number) {
+                return Role.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.LogInResponse.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final Role[] VALUES = values();
+
+      public static Role valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Role(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:msg.LogInResponse.Role)
+    }
+
+    public static final int DETAILS_FIELD_NUMBER = 1;
+    private java.util.List<com.google.protobuf.Any> details_;
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.google.protobuf.Any> getDetailsList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public int getDetailsCount() {
+      return details_.size();
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getDetails(int index) {
+      return details_.get(index);
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index) {
+      return details_.get(index);
+    }
+
+    public static final int LOGIN_FIELD_NUMBER = 2;
+    private volatile java.lang.Object login_;
+    /**
+     * <pre>
+     * Возврат логина
+     * </pre>
+     *
+     * <code>string login = 2;</code>
+     * @return The login.
+     */
+    @java.lang.Override
+    public java.lang.String getLogin() {
+      java.lang.Object ref = login_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        login_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Возврат логина
+     * </pre>
+     *
+     * <code>string login = 2;</code>
+     * @return The bytes for login.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLoginBytes() {
+      java.lang.Object ref = login_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        login_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LOGINSTATUS_FIELD_NUMBER = 3;
+    private int loginStatus_;
+    /**
+     * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+     * @return The enum numeric value on the wire for loginStatus.
+     */
+    @java.lang.Override public int getLoginStatusValue() {
+      return loginStatus_;
+    }
+    /**
+     * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+     * @return The loginStatus.
+     */
+    @java.lang.Override public com.dst.msg.WarehouseMessage.LogInResponse.Status getLoginStatus() {
+      @SuppressWarnings("deprecation")
+      com.dst.msg.WarehouseMessage.LogInResponse.Status result = com.dst.msg.WarehouseMessage.LogInResponse.Status.valueOf(loginStatus_);
+      return result == null ? com.dst.msg.WarehouseMessage.LogInResponse.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int USERROLE_FIELD_NUMBER = 4;
+    private int userRole_;
+    /**
+     * <pre>
+     * Роль пользователя
+     * </pre>
+     *
+     * <code>.msg.LogInResponse.Role userRole = 4;</code>
+     * @return The enum numeric value on the wire for userRole.
+     */
+    @java.lang.Override public int getUserRoleValue() {
+      return userRole_;
+    }
+    /**
+     * <pre>
+     * Роль пользователя
+     * </pre>
+     *
+     * <code>.msg.LogInResponse.Role userRole = 4;</code>
+     * @return The userRole.
+     */
+    @java.lang.Override public com.dst.msg.WarehouseMessage.LogInResponse.Role getUserRole() {
+      @SuppressWarnings("deprecation")
+      com.dst.msg.WarehouseMessage.LogInResponse.Role result = com.dst.msg.WarehouseMessage.LogInResponse.Role.valueOf(userRole_);
+      return result == null ? com.dst.msg.WarehouseMessage.LogInResponse.Role.UNRECOGNIZED : result;
+    }
+
+    public static final int USERINFO_FIELD_NUMBER = 5;
+    private volatile java.lang.Object userInfo_;
+    /**
+     * <pre>
+     * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+     * </pre>
+     *
+     * <code>string userInfo = 5;</code>
+     * @return The userInfo.
+     */
+    @java.lang.Override
+    public java.lang.String getUserInfo() {
+      java.lang.Object ref = userInfo_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userInfo_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+     * </pre>
+     *
+     * <code>string userInfo = 5;</code>
+     * @return The bytes for userInfo.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserInfoBytes() {
+      java.lang.Object ref = userInfo_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userInfo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < details_.size(); i++) {
+        output.writeMessage(1, details_.get(i));
+      }
+      if (!getLoginBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
+      }
+      if (loginStatus_ != com.dst.msg.WarehouseMessage.LogInResponse.Status.OK.getNumber()) {
+        output.writeEnum(3, loginStatus_);
+      }
+      if (userRole_ != com.dst.msg.WarehouseMessage.LogInResponse.Role.DISPATCHER.getNumber()) {
+        output.writeEnum(4, userRole_);
+      }
+      if (!getUserInfoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, userInfo_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < details_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, details_.get(i));
+      }
+      if (!getLoginBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
+      }
+      if (loginStatus_ != com.dst.msg.WarehouseMessage.LogInResponse.Status.OK.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, loginStatus_);
+      }
+      if (userRole_ != com.dst.msg.WarehouseMessage.LogInResponse.Role.DISPATCHER.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, userRole_);
+      }
+      if (!getUserInfoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, userInfo_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dst.msg.WarehouseMessage.LogInResponse)) {
+        return super.equals(obj);
+      }
+      com.dst.msg.WarehouseMessage.LogInResponse other = (com.dst.msg.WarehouseMessage.LogInResponse) obj;
+
+      if (!getDetailsList()
+          .equals(other.getDetailsList())) return false;
+      if (!getLogin()
+          .equals(other.getLogin())) return false;
+      if (loginStatus_ != other.loginStatus_) return false;
+      if (userRole_ != other.userRole_) return false;
+      if (!getUserInfo()
+          .equals(other.getUserInfo())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDetailsCount() > 0) {
+        hash = (37 * hash) + DETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getDetailsList().hashCode();
+      }
+      hash = (37 * hash) + LOGIN_FIELD_NUMBER;
+      hash = (53 * hash) + getLogin().hashCode();
+      hash = (37 * hash) + LOGINSTATUS_FIELD_NUMBER;
+      hash = (53 * hash) + loginStatus_;
+      hash = (37 * hash) + USERROLE_FIELD_NUMBER;
+      hash = (53 * hash) + userRole_;
+      hash = (37 * hash) + USERINFO_FIELD_NUMBER;
+      hash = (53 * hash) + getUserInfo().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.LogInResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dst.msg.WarehouseMessage.LogInResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code msg.LogInResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msg.LogInResponse)
+        com.dst.msg.WarehouseMessage.LogInResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_LogInResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_LogInResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dst.msg.WarehouseMessage.LogInResponse.class, com.dst.msg.WarehouseMessage.LogInResponse.Builder.class);
+      }
+
+      // Construct using com.dst.msg.WarehouseMessage.LogInResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDetailsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          detailsBuilder_.clear();
+        }
+        login_ = "";
+
+        loginStatus_ = 0;
+
+        userRole_ = 0;
+
+        userInfo_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_LogInResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.LogInResponse getDefaultInstanceForType() {
+        return com.dst.msg.WarehouseMessage.LogInResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.LogInResponse build() {
+        com.dst.msg.WarehouseMessage.LogInResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.LogInResponse buildPartial() {
+        com.dst.msg.WarehouseMessage.LogInResponse result = new com.dst.msg.WarehouseMessage.LogInResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (detailsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            details_ = java.util.Collections.unmodifiableList(details_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.details_ = details_;
+        } else {
+          result.details_ = detailsBuilder_.build();
+        }
+        result.login_ = login_;
+        result.loginStatus_ = loginStatus_;
+        result.userRole_ = userRole_;
+        result.userInfo_ = userInfo_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dst.msg.WarehouseMessage.LogInResponse) {
+          return mergeFrom((com.dst.msg.WarehouseMessage.LogInResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dst.msg.WarehouseMessage.LogInResponse other) {
+        if (other == com.dst.msg.WarehouseMessage.LogInResponse.getDefaultInstance()) return this;
+        if (detailsBuilder_ == null) {
+          if (!other.details_.isEmpty()) {
+            if (details_.isEmpty()) {
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDetailsIsMutable();
+              details_.addAll(other.details_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.details_.isEmpty()) {
+            if (detailsBuilder_.isEmpty()) {
+              detailsBuilder_.dispose();
+              detailsBuilder_ = null;
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              detailsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDetailsFieldBuilder() : null;
+            } else {
+              detailsBuilder_.addAllMessages(other.details_);
+            }
+          }
+        }
+        if (!other.getLogin().isEmpty()) {
+          login_ = other.login_;
+          onChanged();
+        }
+        if (other.loginStatus_ != 0) {
+          setLoginStatusValue(other.getLoginStatusValue());
+        }
+        if (other.userRole_ != 0) {
+          setUserRoleValue(other.getUserRoleValue());
+        }
+        if (!other.getUserInfo().isEmpty()) {
+          userInfo_ = other.userInfo_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.dst.msg.WarehouseMessage.LogInResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.dst.msg.WarehouseMessage.LogInResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.google.protobuf.Any> details_ =
+        java.util.Collections.emptyList();
+      private void ensureDetailsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          details_ = new java.util.ArrayList<com.google.protobuf.Any>(details_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> detailsBuilder_;
+
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any> getDetailsList() {
+        if (detailsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(details_);
+        } else {
+          return detailsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public int getDetailsCount() {
+        if (detailsBuilder_ == null) {
+          return details_.size();
+        } else {
+          return detailsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any getDetails(int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);
+        } else {
+          return detailsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.set(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addAllDetails(
+          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, details_);
+          onChanged();
+        } else {
+          detailsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder clearDetails() {
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          detailsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder removeDetails(int index) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.remove(index);
+          onChanged();
+        } else {
+          detailsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder getDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+          int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);  } else {
+          return detailsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+           getDetailsOrBuilderList() {
+        if (detailsBuilder_ != null) {
+          return detailsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(details_);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder() {
+        return getDetailsFieldBuilder().addBuilder(
+            com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().addBuilder(
+            index, com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any.Builder> 
+           getDetailsBuilderList() {
+        return getDetailsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getDetailsFieldBuilder() {
+        if (detailsBuilder_ == null) {
+          detailsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  details_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          details_ = null;
+        }
+        return detailsBuilder_;
+      }
+
+      private java.lang.Object login_ = "";
+      /**
+       * <pre>
+       * Возврат логина
+       * </pre>
+       *
+       * <code>string login = 2;</code>
+       * @return The login.
+       */
+      public java.lang.String getLogin() {
+        java.lang.Object ref = login_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          login_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Возврат логина
+       * </pre>
+       *
+       * <code>string login = 2;</code>
+       * @return The bytes for login.
+       */
+      public com.google.protobuf.ByteString
+          getLoginBytes() {
+        java.lang.Object ref = login_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          login_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Возврат логина
+       * </pre>
+       *
+       * <code>string login = 2;</code>
+       * @param value The login to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLogin(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        login_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Возврат логина
+       * </pre>
+       *
+       * <code>string login = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLogin() {
+        
+        login_ = getDefaultInstance().getLogin();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Возврат логина
+       * </pre>
+       *
+       * <code>string login = 2;</code>
+       * @param value The bytes for login to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLoginBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        login_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int loginStatus_ = 0;
+      /**
+       * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+       * @return The enum numeric value on the wire for loginStatus.
+       */
+      @java.lang.Override public int getLoginStatusValue() {
+        return loginStatus_;
+      }
+      /**
+       * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+       * @param value The enum numeric value on the wire for loginStatus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLoginStatusValue(int value) {
+        
+        loginStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+       * @return The loginStatus.
+       */
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.LogInResponse.Status getLoginStatus() {
+        @SuppressWarnings("deprecation")
+        com.dst.msg.WarehouseMessage.LogInResponse.Status result = com.dst.msg.WarehouseMessage.LogInResponse.Status.valueOf(loginStatus_);
+        return result == null ? com.dst.msg.WarehouseMessage.LogInResponse.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+       * @param value The loginStatus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLoginStatus(com.dst.msg.WarehouseMessage.LogInResponse.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        loginStatus_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.msg.LogInResponse.Status loginStatus = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLoginStatus() {
+        
+        loginStatus_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int userRole_ = 0;
+      /**
+       * <pre>
+       * Роль пользователя
+       * </pre>
+       *
+       * <code>.msg.LogInResponse.Role userRole = 4;</code>
+       * @return The enum numeric value on the wire for userRole.
+       */
+      @java.lang.Override public int getUserRoleValue() {
+        return userRole_;
+      }
+      /**
+       * <pre>
+       * Роль пользователя
+       * </pre>
+       *
+       * <code>.msg.LogInResponse.Role userRole = 4;</code>
+       * @param value The enum numeric value on the wire for userRole to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserRoleValue(int value) {
+        
+        userRole_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Роль пользователя
+       * </pre>
+       *
+       * <code>.msg.LogInResponse.Role userRole = 4;</code>
+       * @return The userRole.
+       */
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.LogInResponse.Role getUserRole() {
+        @SuppressWarnings("deprecation")
+        com.dst.msg.WarehouseMessage.LogInResponse.Role result = com.dst.msg.WarehouseMessage.LogInResponse.Role.valueOf(userRole_);
+        return result == null ? com.dst.msg.WarehouseMessage.LogInResponse.Role.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Роль пользователя
+       * </pre>
+       *
+       * <code>.msg.LogInResponse.Role userRole = 4;</code>
+       * @param value The userRole to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserRole(com.dst.msg.WarehouseMessage.LogInResponse.Role value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        userRole_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Роль пользователя
+       * </pre>
+       *
+       * <code>.msg.LogInResponse.Role userRole = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserRole() {
+        
+        userRole_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object userInfo_ = "";
+      /**
+       * <pre>
+       * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+       * </pre>
+       *
+       * <code>string userInfo = 5;</code>
+       * @return The userInfo.
+       */
+      public java.lang.String getUserInfo() {
+        java.lang.Object ref = userInfo_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userInfo_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+       * </pre>
+       *
+       * <code>string userInfo = 5;</code>
+       * @return The bytes for userInfo.
+       */
+      public com.google.protobuf.ByteString
+          getUserInfoBytes() {
+        java.lang.Object ref = userInfo_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userInfo_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+       * </pre>
+       *
+       * <code>string userInfo = 5;</code>
+       * @param value The userInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserInfo(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        userInfo_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+       * </pre>
+       *
+       * <code>string userInfo = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserInfo() {
+        
+        userInfo_ = getDefaultInstance().getUserInfo();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Информация о пользователе: для водителя - грузоподъемность, например "1750"
+       * </pre>
+       *
+       * <code>string userInfo = 5;</code>
+       * @param value The bytes for userInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        userInfo_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:msg.LogInResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:msg.LogInResponse)
+    private static final com.dst.msg.WarehouseMessage.LogInResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dst.msg.WarehouseMessage.LogInResponse();
+    }
+
+    public static com.dst.msg.WarehouseMessage.LogInResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LogInResponse>
+        PARSER = new com.google.protobuf.AbstractParser<LogInResponse>() {
+      @java.lang.Override
+      public LogInResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LogInResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LogInResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LogInResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dst.msg.WarehouseMessage.LogInResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface NewTaskOrBuilder extends
       // @@protoc_insertion_point(interface_extends:msg.NewTask)
       com.google.protobuf.MessageOrBuilder {
@@ -1276,32 +2977,48 @@ public final class WarehouseMessage {
     public enum Weight
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>TON_2 = 0;</code>
+       * <code>KG_1500 = 0;</code>
        */
-      TON_2(0),
+      KG_1500(0),
       /**
-       * <code>TON_3 = 1;</code>
+       * <code>KG_1750 = 1;</code>
        */
-      TON_3(1),
+      KG_1750(1),
       /**
-       * <code>TON_5 = 2;</code>
+       * <code>KG_2000 = 2;</code>
        */
-      TON_5(2),
+      KG_2000(2),
+      /**
+       * <code>KG_3000 = 3;</code>
+       */
+      KG_3000(3),
+      /**
+       * <code>KG_5000 = 4;</code>
+       */
+      KG_5000(4),
       UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>TON_2 = 0;</code>
+       * <code>KG_1500 = 0;</code>
        */
-      public static final int TON_2_VALUE = 0;
+      public static final int KG_1500_VALUE = 0;
       /**
-       * <code>TON_3 = 1;</code>
+       * <code>KG_1750 = 1;</code>
        */
-      public static final int TON_3_VALUE = 1;
+      public static final int KG_1750_VALUE = 1;
       /**
-       * <code>TON_5 = 2;</code>
+       * <code>KG_2000 = 2;</code>
        */
-      public static final int TON_5_VALUE = 2;
+      public static final int KG_2000_VALUE = 2;
+      /**
+       * <code>KG_3000 = 3;</code>
+       */
+      public static final int KG_3000_VALUE = 3;
+      /**
+       * <code>KG_5000 = 4;</code>
+       */
+      public static final int KG_5000_VALUE = 4;
 
 
       public final int getNumber() {
@@ -1328,9 +3045,11 @@ public final class WarehouseMessage {
        */
       public static Weight forNumber(int value) {
         switch (value) {
-          case 0: return TON_2;
-          case 1: return TON_3;
-          case 2: return TON_5;
+          case 0: return KG_1500;
+          case 1: return KG_1750;
+          case 2: return KG_2000;
+          case 3: return KG_3000;
+          case 4: return KG_5000;
           default: return null;
         }
       }
@@ -1603,7 +3322,7 @@ public final class WarehouseMessage {
       for (int i = 0; i < details_.size(); i++) {
         output.writeMessage(1, details_.get(i));
       }
-      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.KG_1500.getNumber()) {
         output.writeEnum(2, weight_);
       }
       if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
@@ -1622,7 +3341,7 @@ public final class WarehouseMessage {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, details_.get(i));
       }
-      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.KG_1500.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, weight_);
       }
@@ -5438,7 +7157,7 @@ public final class WarehouseMessage {
       if (id_ != 0) {
         output.writeInt32(2, id_);
       }
-      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.KG_1500.getNumber()) {
         output.writeEnum(3, weight_);
       }
       if (priority_ != com.dst.msg.WarehouseMessage.NewTask.Priority.LOW.getNumber()) {
@@ -5476,7 +7195,7 @@ public final class WarehouseMessage {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, id_);
       }
-      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.TON_2.getNumber()) {
+      if (weight_ != com.dst.msg.WarehouseMessage.NewTask.Weight.KG_1500.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, weight_);
       }
@@ -7848,6 +9567,11 @@ public final class WarehouseMessage {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_msg_Credentials_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_msg_LogInResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msg_LogInResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_msg_NewTask_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -7884,30 +9608,37 @@ public final class WarehouseMessage {
       "\n\017warehouse.proto\022\003msg\032\031google/protobuf/" +
       "any.proto\"U\n\013Credentials\022\r\n\005login\030\001 \001(\t\022" +
       "\020\n\010password\030\002 \001(\t\022%\n\007details\030\003 \003(\0132\024.goo" +
-      "gle.protobuf.Any\"\324\001\n\007NewTask\022%\n\007details\030" +
-      "\001 \003(\0132\024.google.protobuf.Any\022#\n\006weight\030\002 " +
-      "\001(\0162\023.msg.NewTask.Weight\022\'\n\010priority\030\003 \001" +
-      "(\0162\025.msg.NewTask.Priority\")\n\006Weight\022\t\n\005T" +
-      "ON_2\020\000\022\t\n\005TON_3\020\001\022\t\n\005TON_5\020\002\")\n\010Priority" +
-      "\022\007\n\003LOW\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002\"\203\001\n\006Acti" +
-      "on\022%\n\007details\030\001 \003(\0132\024.google.protobuf.An" +
-      "y\022\n\n\002id\030\002 \001(\005\022\034\n\003act\030\003 \001(\0162\017.msg.Action." +
-      "Act\"(\n\003Act\022\n\n\006CANCEL\020\000\022\n\n\006FINISH\020\001\022\t\n\005ST" +
-      "ART\020\002\"Q\n\016ListofTaskDisp\022%\n\007details\030\001 \003(\013" +
-      "2\024.google.protobuf.Any\022\030\n\004task\030\002 \003(\0132\n.m" +
-      "sg.Task2\"\257\002\n\005Task2\022%\n\007details\030\001 \003(\0132\024.go" +
-      "ogle.protobuf.Any\022\n\n\002id\030\002 \001(\005\022#\n\006weight\030" +
-      "\003 \001(\0162\023.msg.NewTask.Weight\022\'\n\010priority\030\004" +
-      " \001(\0162\025.msg.NewTask.Priority\022\022\n\ntimeCreat" +
-      "e\030\005 \001(\t\022!\n\006status\030\006 \001(\0162\021.msg.Task2.Stat" +
-      "us\022\020\n\010assignee\030\007 \001(\t\022\020\n\010reporter\030\010 \001(\t\022\014" +
-      "\n\004name\030\t \001(\t\"<\n\006Status\022\010\n\004WAIT\020\000\022\013\n\007STAR" +
-      "TED\020\001\022\r\n\tCANCELLED\020\002\022\014\n\010FINISHED\020\003\"|\n\nUs" +
-      "erStatus\022%\n\007details\030\001 \003(\0132\024.google.proto" +
-      "buf.Any\022&\n\006status\030\002 \001(\0162\026.msg.UserStatus" +
-      ".Status\"\037\n\006Status\022\t\n\005READY\020\000\022\n\n\006BROKEN\020\001" +
-      "B\037\n\013com.dst.msgB\020WarehouseMessageb\006proto" +
-      "3"
+      "gle.protobuf.Any\"\234\002\n\rLogInResponse\022%\n\007de" +
+      "tails\030\001 \003(\0132\024.google.protobuf.Any\022\r\n\005log" +
+      "in\030\002 \001(\t\022.\n\013loginStatus\030\003 \001(\0162\031.msg.LogI" +
+      "nResponse.Status\022)\n\010userRole\030\004 \001(\0162\027.msg" +
+      ".LogInResponse.Role\022\020\n\010userInfo\030\005 \001(\t\"D\n" +
+      "\006Status\022\006\n\002OK\020\000\022\017\n\013WRONG_LOGIN\020\001\022\016\n\nWRON" +
+      "G_PASS\020\002\022\021\n\rACCESS_DENIED\020\003\"\"\n\004Role\022\016\n\nD" +
+      "ISPATCHER\020\000\022\n\n\006DRIVER\020\001\"\364\001\n\007NewTask\022%\n\007d" +
+      "etails\030\001 \003(\0132\024.google.protobuf.Any\022#\n\006we" +
+      "ight\030\002 \001(\0162\023.msg.NewTask.Weight\022\'\n\010prior" +
+      "ity\030\003 \001(\0162\025.msg.NewTask.Priority\"I\n\006Weig" +
+      "ht\022\013\n\007KG_1500\020\000\022\013\n\007KG_1750\020\001\022\013\n\007KG_2000\020" +
+      "\002\022\013\n\007KG_3000\020\003\022\013\n\007KG_5000\020\004\")\n\010Priority\022" +
+      "\007\n\003LOW\020\000\022\n\n\006MEDIUM\020\001\022\010\n\004HIGH\020\002\"\203\001\n\006Actio" +
+      "n\022%\n\007details\030\001 \003(\0132\024.google.protobuf.Any" +
+      "\022\n\n\002id\030\002 \001(\005\022\034\n\003act\030\003 \001(\0162\017.msg.Action.A" +
+      "ct\"(\n\003Act\022\n\n\006CANCEL\020\000\022\n\n\006FINISH\020\001\022\t\n\005STA" +
+      "RT\020\002\"Q\n\016ListofTaskDisp\022%\n\007details\030\001 \003(\0132" +
+      "\024.google.protobuf.Any\022\030\n\004task\030\002 \003(\0132\n.ms" +
+      "g.Task2\"\257\002\n\005Task2\022%\n\007details\030\001 \003(\0132\024.goo" +
+      "gle.protobuf.Any\022\n\n\002id\030\002 \001(\005\022#\n\006weight\030\003" +
+      " \001(\0162\023.msg.NewTask.Weight\022\'\n\010priority\030\004 " +
+      "\001(\0162\025.msg.NewTask.Priority\022\022\n\ntimeCreate" +
+      "\030\005 \001(\t\022!\n\006status\030\006 \001(\0162\021.msg.Task2.Statu" +
+      "s\022\020\n\010assignee\030\007 \001(\t\022\020\n\010reporter\030\010 \001(\t\022\014\n" +
+      "\004name\030\t \001(\t\"<\n\006Status\022\010\n\004WAIT\020\000\022\013\n\007START" +
+      "ED\020\001\022\r\n\tCANCELLED\020\002\022\014\n\010FINISHED\020\003\"|\n\nUse" +
+      "rStatus\022%\n\007details\030\001 \003(\0132\024.google.protob" +
+      "uf.Any\022&\n\006status\030\002 \001(\0162\026.msg.UserStatus." +
+      "Status\"\037\n\006Status\022\t\n\005READY\020\000\022\n\n\006BROKEN\020\001B" +
+      "\037\n\013com.dst.msgB\020WarehouseMessageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7920,32 +9651,38 @@ public final class WarehouseMessage {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_Credentials_descriptor,
         new java.lang.String[] { "Login", "Password", "Details", });
-    internal_static_msg_NewTask_descriptor =
+    internal_static_msg_LogInResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_msg_LogInResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msg_LogInResponse_descriptor,
+        new java.lang.String[] { "Details", "Login", "LoginStatus", "UserRole", "UserInfo", });
+    internal_static_msg_NewTask_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_msg_NewTask_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_NewTask_descriptor,
         new java.lang.String[] { "Details", "Weight", "Priority", });
     internal_static_msg_Action_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_msg_Action_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_Action_descriptor,
         new java.lang.String[] { "Details", "Id", "Act", });
     internal_static_msg_ListofTaskDisp_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_msg_ListofTaskDisp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_ListofTaskDisp_descriptor,
         new java.lang.String[] { "Details", "Task", });
     internal_static_msg_Task2_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_msg_Task2_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_Task2_descriptor,
         new java.lang.String[] { "Details", "Id", "Weight", "Priority", "TimeCreate", "Status", "Assignee", "Reporter", "Name", });
     internal_static_msg_UserStatus_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_msg_UserStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_UserStatus_descriptor,

@@ -13,6 +13,24 @@ message Credentials {
   repeated google.protobuf.Any details = 3;
 }
 
+message LogInResponse {
+  repeated google.protobuf.Any details = 1;
+  string login = 2;         // Возврат логина
+  enum Status {             // Статус авторизации
+    OK = 0;                 // Авторизация прошла успешно
+    WRONG_LOGIN = 1;        // Логина нет в базе
+    WRONG_PASS = 2;         // Пароль неверный
+    ACCESS_DENIED = 3;      // Доступ запрещен по другим причинам
+  }
+  Status loginStatus = 3;
+  enum Role {
+    DISPATCHER = 0;         // Диспетчер
+    DRIVER = 1;             // Водитель
+  }
+  Role userRole = 4;        // Роль пользователя
+  string userInfo = 5;      // Информация о пользователе: для водителя - грузоподъемность, например "1750"
+}
+
 //message Task {
 //  int32 id = 1; // Номер задачи
 //  string cargo_name =2; // Объект перевозки
@@ -40,9 +58,11 @@ message Credentials {
 message NewTask {
   repeated google.protobuf.Any details = 1;
   enum Weight { // Грузоподъемность
-    TON_2 = 0;
-    TON_3 = 1;
-    TON_5 = 2;
+    KG_1500 = 0;
+    KG_1750 = 1;
+    KG_2000 = 2;
+    KG_3000 = 3;
+    KG_5000 = 4;
   }
   Weight weight = 2;
   enum Priority { // Приоритет
