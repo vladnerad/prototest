@@ -1,6 +1,8 @@
 package com.dst.users;
 
-public class User implements Roleable {
+import com.dst.msg.WarehouseMessage;
+
+public class User implements Roleable, UserInfo {
     private final String userName;
     private final String password;
 //    private Role role;
@@ -19,7 +21,18 @@ public class User implements Roleable {
         return password;
     }
 
-    public Role getRole() {
-        return Role.UNKNOWN;
+    @Override
+    public WarehouseMessage.LogInResponse.Role getRole() {
+        return null;
     }
+
+    @Override
+    public String getUserInfo() {
+        return "null";
+    }
+
+//    public Role getRole() {
+//        return Role.UNKNOWN;
+//    }
+
 }

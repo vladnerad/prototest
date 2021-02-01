@@ -28,16 +28,16 @@ public class SingleServer implements Runnable {
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
-            User sessionUser = getAuthUser(inputStream, outputStream);
+            User sessionUser = getAuthUser2(inputStream, outputStream);
             Exchanger exchanger;
             // Dispatcher
-            if (sessionUser != null && sessionUser.getRole() == Role.DISPATCHER) {
+            if (sessionUser != null && sessionUser.getRole() == /*Role.DISPATCHER*/ WarehouseMessage.LogInResponse.Role.DISPATCHER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
                 exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
 //                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
             }
             // Driver
-            else if (sessionUser != null && sessionUser.getRole() == Role.DRIVER) {
+            else if (sessionUser != null && sessionUser.getRole() == /*Role.DRIVER*/ WarehouseMessage.LogInResponse.Role.DRIVER) {
                 System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
                 exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
                 TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
@@ -80,6 +80,40 @@ public class SingleServer implements Runnable {
             if (!isFound) {
                 System.out.println("Incorrect login");
                 response.setPassword("LOGIN NOT EXISTS");
+            }
+            Any.pack(response.build()).writeDelimitedTo(outputStream);
+            return user;
+        }
+        return null;
+    }
+
+    private User getAuthUser2(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
+        User user = null;
+        Any auth = Any.parseDelimitedFrom(inputStream);
+        if (auth != null && auth.is(WarehouseMessage.Credentials.class)) {
+            WarehouseMessage.Credentials credentials = auth.unpack(WarehouseMessage.Credentials.class);
+            WarehouseMessage.LogInResponse.Builder response = WarehouseMessage.LogInResponse.newBuilder();
+            response.setLogin(credentials.getLogin());
+            boolean isFound = false;
+            for (User usr : UserStorage.getUsers()) {
+                if (usr.getUserName().equals(credentials.getLogin())) {
+                    isFound = true;
+                    if (usr.getPassword().equals(credentials.getPassword())) {
+//                        System.out.println("Logged in: " + usr.getUserName());
+                        response.setLoginStatus(WarehouseMessage.LogInResponse.Status.OK);
+                        response.setUserInfo(usr.getUserInfo());
+                        user = usr;
+                    } else {
+                        System.out.println("Incorrect password");
+                        response.setLoginStatus(WarehouseMessage.LogInResponse.Status.WRONG_PASS);
+                    }
+                    response.setUserRole(usr.getRole());
+                    break;
+                }
+            }
+            if (!isFound) {
+                System.out.println("Incorrect login");
+                response.setLoginStatus(WarehouseMessage.LogInResponse.Status.WRONG_LOGIN);
             }
             Any.pack(response.build()).writeDelimitedTo(outputStream);
             return user;

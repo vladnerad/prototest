@@ -17,8 +17,8 @@ public class UserDriver extends User {
     }
 
     @Override
-    public Role getRole() {
-        return Role.DRIVER;
+    public WarehouseMessage.LogInResponse.Role getRole() {
+        return WarehouseMessage.LogInResponse.Role.DRIVER;
     }
 
     public DriverStatus getStatus() {
@@ -27,5 +27,10 @@ public class UserDriver extends User {
 
     public void setStatus(DriverStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public String getUserInfo() {
+        return weightClass.name();
     }
 }

@@ -24,7 +24,7 @@ public class DriverExchanger implements EventListener, Exchanger {
     private OutputStream outputStream;
 
     public DriverExchanger(User user, InputStream inputStream, OutputStream outputStream) {
-        if (user.getRole() == Role.DRIVER) {
+        if (user.getRole() == /*Role.DRIVER*/ WarehouseMessage.LogInResponse.Role.DRIVER) {
             this.userDriver = (UserDriver) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;

@@ -23,7 +23,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     private OutputStream outputStream;
 
     public DispatcherExchanger(User user, InputStream inputStream, OutputStream outputStream) {
-        if (user.getRole() == Role.DISPATCHER) {
+        if (user.getRole() == /*Role.DISPATCHER*/ WarehouseMessage.LogInResponse.Role.DISPATCHER) {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;

@@ -1,5 +1,7 @@
 package com.dst.users;
 
+import com.dst.msg.WarehouseMessage;
+
 interface Roleable {
-    Role getRole();
+    WarehouseMessage.LogInResponse.Role getRole();
 }
