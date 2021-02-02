@@ -33,4 +33,8 @@ public class UserDriver extends User {
     public String getUserInfo() {
         return weightClass.name();
     }
+
+    public WarehouseMessage.NewTask.Weight getWeightClass() {
+        return weightClass;
+    }
 }

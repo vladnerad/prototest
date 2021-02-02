@@ -19,7 +19,7 @@ import static com.dst.TaskStorage.*;
 
 public class DriverExchanger implements EventListener, Exchanger {
 
-    private UserDriver userDriver;
+    private volatile UserDriver userDriver;
     private InputStream inputStream;
     private OutputStream outputStream;
 
@@ -36,16 +36,23 @@ public class DriverExchanger implements EventListener, Exchanger {
     @Override
     public void initListFromCache() throws IOException {
         WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
-        listBuilder.addAllTask(TaskStorage.allTasks.stream().filter(task2 -> task2.getReporter().equals("Not assigned")).map(WarehouseMessage.Task2.Builder::build).collect(Collectors.toList()));
+        listBuilder.addAllTask(
+                TaskStorage.allTasks
+                        .stream()
+                        .filter(task2 -> task2.getReporter().equals("Not assigned"))
+                        .filter(t -> t.getWeight().getNumber() <= userDriver.getWeightClass().getNumber())
+                        .map(WarehouseMessage.Task2.Builder::build)
+                        .collect(Collectors.toList()));
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
-        System.out.println(userDriver.getUserName() + " has status " + userDriver.getStatus());
+//        System.out.println(userDriver.getUserName() + " has status " + userDriver.getStatus());
     }
 
     @Override
     public void exchange() throws IOException {
         if (userDriver.getStatus() == DriverStatus.FREE) {
+            System.out.println(userDriver.getUserName() + " is " + userDriver.getStatus());
             startTaskFromPool();
         }
 //        else if (userDriver.getStatus() == DriverStatus.BROKEN){
@@ -95,12 +102,27 @@ public class DriverExchanger implements EventListener, Exchanger {
         return TaskStorage.allTasks
                 .stream()
                 .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                .filter(t -> t.getWeight() == userDriver.getWeightClass())
+                .findFirst()
+                .orElse(TaskStorage.allTasks
+                        .stream()
+                        .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                        .filter(t -> t.getWeight().getNumber() < userDriver.getWeightClass().getNumber())
+                        .findFirst()
+                        .orElse(null));
+    }
+
+    public WarehouseMessage.Task2.Builder getNextTask2() {
+        return TaskStorage.allTasks
+                .stream()
+                .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                .filter(t -> t.getWeight().getNumber() <= userDriver.getWeightClass().getNumber())
                 .findFirst()
                 .orElse(null);
     }
 
     public WarehouseMessage.Task2 startTaskFromPool() {
-        WarehouseMessage.Task2.Builder task = getNextTask();
+        WarehouseMessage.Task2.Builder task = getNextTask2();
         if (task != null && userDriver.getStatus() == DriverStatus.FREE) {
             userDriver.setStatus(DriverStatus.BUSY);
             task.setStatus(WarehouseMessage.Task2.Status.STARTED).setReporter(userDriver.getUserName());
@@ -108,7 +130,9 @@ public class DriverExchanger implements EventListener, Exchanger {
             TaskStorage.eventManager.notify(changeAct, task.build());
             return task.build();
         } else {
-            System.out.println("New task in pool for " + userDriver.getUserName());
+            if (task != null)
+                System.out.println("New task in pool for " + userDriver.getUserName() + ", taskId: " + task.getId());
+            else System.out.println("No task in pool for " + userDriver.getUserName() + ", task is null");
             return null;
         }
     }
@@ -128,12 +152,14 @@ public class DriverExchanger implements EventListener, Exchanger {
             System.out.println("Task " + task.getId() + " started by: " + userDriver.getUserName());
             TaskStorage.eventManager.notify(changeAct, checkTask.build());
         } else {
-            System.out.println("Fresh task not started by " + userDriver.getUserName());
+            if (task != null) {
+                System.out.println("Fresh task not started by " + userDriver.getUserName() + ", taskId: " + task.getId());
+            } else System.out.println("Fresh task not started by " + userDriver.getUserName() + ", task is null");
         }
     }
 
     public void finishCurrentTask() {
-        userDriver.setStatus(DriverStatus.FREE);
+        System.out.println(userDriver.getUserName() + " finishCurrentTask");
         WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
                 .stream()
                 .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.STARTED)
@@ -146,6 +172,7 @@ public class DriverExchanger implements EventListener, Exchanger {
             TaskStorage.allTasks.remove(t2);
             System.out.println("Task finished: " + t2.getId());
         } else System.out.println("Task not founded");
+        userDriver.setStatus(DriverStatus.FREE);
     }
 
     public void returnTaskToList() {
@@ -166,9 +193,19 @@ public class DriverExchanger implements EventListener, Exchanger {
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        if (event.equals(addAfterEmpty)){
-            startFreshTask(task);
-        }
-        else Any.pack(task).writeDelimitedTo(outputStream);
+        System.out.println(userDriver.getUserName() + " update() -> " + event + " " + task.getId());
+        if (task.getWeight().getNumber() <= userDriver.getWeightClass().getNumber()) {
+            System.out.println("weight match for " + userDriver.getUserName());
+            if (event.equals(addAfterEmpty) && userDriver.getStatus() == DriverStatus.FREE) {
+                startFreshTask(task);
+            } else {
+                if (userDriver.getStatus() == DriverStatus.FREE) {
+                    startFreshTask(task);
+                } else {
+                    Any.pack(task).writeDelimitedTo(outputStream);
+                }
+                System.out.println(userDriver.getUserName() + " update() -> \"else\" " + task.getId());
+            }
+        } else System.out.println("weight doesn't match for " + userDriver.getUserName());
     }
 }

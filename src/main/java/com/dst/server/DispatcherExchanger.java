@@ -108,7 +108,9 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
         t2builder.setAssignee(userDispatcher.getUserName());
         t2builder.setReporter(noDriverLogin);
-        boolean wasEmpty = TaskStorage.allTasks.isEmpty() || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT);
+        boolean wasEmpty = TaskStorage.allTasks.isEmpty();
+//                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+//                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id);
         TaskStorage.allTasks.add(t2builder);
         System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
         TaskStorage.allTasks
@@ -116,7 +118,9 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                 .filter(t -> t.getId() == id)
                 .findFirst()
                 .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
-        if (wasEmpty) {
+        if (wasEmpty
+                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id)) {
             // когда начнется новая задача, слушатели будут оповещены
             TaskStorage.allTasks
                     .stream()
