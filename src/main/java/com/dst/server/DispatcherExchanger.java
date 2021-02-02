@@ -53,7 +53,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                     // Dispatcher removes task
                     if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
                         t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
-                        TaskStorage.eventManager.notify(changeAct, t2.build());
+                        TaskStorage.eventManager.notify(changeAct, t2);
                         TaskStorage.allTasks.remove(t2);
                         System.out.println("Task removed: " + t2.getId());
                     }
@@ -117,7 +117,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                 .stream()
                 .filter(t -> t.getId() == id)
                 .findFirst()
-                .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
+                .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t));
         if (wasEmpty
                 || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
                 && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id)) {
@@ -126,14 +126,14 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                     .stream()
                     .filter(t -> t.getId() == id)
                     .findFirst()
-                    .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
+                    .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t));
         }
         System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
     }
 
     @Override
-    public void update(String event, WarehouseMessage.Task2 task) throws IOException {
+    public void update(String event, WarehouseMessage.Task2.Builder task) throws IOException {
         if (!event.equals(addAfterEmpty) && task.getAssignee().equals(userDispatcher.getUserName()))
-            Any.pack(task).writeDelimitedTo(outputStream);
+            Any.pack(task.build()).writeDelimitedTo(outputStream);
     }
 }

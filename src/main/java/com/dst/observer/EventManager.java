@@ -27,7 +27,7 @@ public class EventManager {
         users.remove(listener);
     }
 
-    public void notify(String eventType, WarehouseMessage.Task2 task) {
+    public void notify(String eventType, WarehouseMessage.Task2.Builder task) {
         List<EventListener> users = listeners.get(eventType);
         for (EventListener listener : users) {
             try {
