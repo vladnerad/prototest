@@ -7,6 +7,8 @@ import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserDispatcher;
 import com.google.protobuf.Any;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +20,7 @@ import static com.dst.TaskStorage.*;
 
 public class DispatcherExchanger implements EventListener, Exchanger {
 
+    private static final Logger logger = LogManager.getLogger(DispatcherExchanger.class);
     private UserDispatcher userDispatcher;
     private InputStream inputStream;
     private OutputStream outputStream;
@@ -27,7 +30,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
-        } else System.out.println("DispatcherExchanger constructor error");
+        } else logger.trace("DispatcherExchanger constructor error");
+//            System.out.println("DispatcherExchanger constructor error");
     }
 
     @Override
@@ -55,16 +59,19 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                         t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
                         TaskStorage.eventManager.notify(changeAct, t2);
                         TaskStorage.allTasks.remove(t2);
-                        System.out.println("Task removed: " + t2.getId());
+                        logger.debug("Task removed: " + t2.getId());
+//                        System.out.println("Task removed: " + t2.getId());
                     }
                     // Action doesn't exists
                     else {
-                        System.out.println("Unknown action");
+                        logger.debug("Unknown action");
+//                        System.out.println("Unknown action");
                     }
                     // Send updated list to dispatcher client
 //                    Any.pack(t2.build()).writeDelimitedTo(outputStream);
                 } else {
-                    System.out.println("Task isn't found");
+                    logger.debug("Task isn't found");
+//                    System.out.println("Task isn't found");
                 }
             }
         }
@@ -112,7 +119,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 //                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
 //                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id);
         TaskStorage.allTasks.add(t2builder);
-        System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
+        logger.debug("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
+//        System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
         TaskStorage.allTasks
                 .stream()
                 .filter(t -> t.getId() == id)
@@ -128,7 +136,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                     .findFirst()
                     .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t));
         }
-        System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
+        logger.debug("Storage size after createTask(): " + TaskStorage.allTasks.size());
+//        System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
     }
 
     @Override

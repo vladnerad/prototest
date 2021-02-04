@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="filename">logs/app.log</Property>
+        <Property name="filePattern">logs/app.%i.log.gz</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        </Console>
+
+<!--        <File name="LogToFile" fileName="${filename}">-->
+<!--            <LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            <PatternLayout pattern="%d %p %c{1.} [%t] %msg%n" />-->
+<!--        </File>-->
+
+        <RollingFile
+                name="roll-by-size"
+                fileName="${filename}"
+                filePattern="${filePattern}"
+                ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1024 KB" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.dst.App" level="all" additivity="false">
+            <appender-ref ref="roll-by-size" />
+            <appender-ref ref="console" />
+        </Logger>
+        <Logger name="com.dst.server.SingleServer" level="all" additivity="false">
+            <appender-ref ref="roll-by-size" />
+            <appender-ref ref="console" />
+        </Logger>
+        <Logger name="com.dst.server.DriverExchanger" level="all" additivity="false">
+            <appender-ref ref="roll-by-size" />
+            <appender-ref ref="console" />
+        </Logger>
+        <Logger name="com.dst.server.DispatcherExchanger" level="all" additivity="false">
+            <appender-ref ref="roll-by-size" />
+            <appender-ref ref="console" />
+        </Logger>
+        <Root level="all">
+            <appender-ref ref="roll-by-size" />
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>

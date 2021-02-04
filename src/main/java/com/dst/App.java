@@ -1,6 +1,8 @@
 package com.dst;
 
 import com.dst.server.SingleServer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,16 +12,19 @@ import java.util.concurrent.Executors;
 
 public class App 
 {
+    private static final Logger logger = LogManager.getLogger(App.class);
     static volatile int counter = 0;
     public static void main( String[] args )
     {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        System.out.println( "Server started!" );
-        try (ServerSocket serverSocket = new ServerSocket(8189)){
+//        System.out.println( "Server started!" );
+        try (ServerSocket serverSocket = new ServerSocket(8185)){
+            logger.info("Server started at port: " + serverSocket.getLocalPort());
             while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
                 counter++;
-                System.out.println("IP " + socket.getInetAddress() + " connected: #" + counter);
+                logger.info("IP " + socket.getInetAddress() + " connected: #" + counter);
+//                System.out.println("IP " + socket.getInetAddress() + " connected: #" + counter);
                 executorService.execute(new SingleServer(socket));
             }
         } catch (IOException e) {
