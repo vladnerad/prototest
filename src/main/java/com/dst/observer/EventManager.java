@@ -44,9 +44,15 @@ public class EventManager {
         }
     }
 
-    public void printInfo(){
-        for (Map.Entry<String, List<EventListener>> entry: listeners.entrySet()){
-            System.out.println("Action: " + entry.getKey() + " Listeners: " + entry.getValue().size());
+    public String getInfo(){
+        StringBuilder sb = new StringBuilder("");
+        if (listeners.isEmpty()) sb.append("Empty manager");
+        else {
+            for (Map.Entry<String, List<EventListener>> entry : listeners.entrySet()) {
+//                System.out.println("Action: " + entry.getKey() + " Listeners: " + entry.getValue().size());
+                sb.append("Act: ").append(entry.getKey()).append(" Listeners : ").append(entry.getValue().size()).append("|");
+            }
         }
+        return sb.toString();
     }
 }

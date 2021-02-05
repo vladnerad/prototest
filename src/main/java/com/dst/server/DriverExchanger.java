@@ -124,6 +124,20 @@ public class DriverExchanger implements EventListener, Exchanger {
                 .orElse(null);
     }
 
+//    public WarehouseMessage.Task2.Builder getNextTask3() {
+//        return TaskStorage.allTasks
+//                .stream()
+//                .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+//                .filter(t -> t.getWeight() == userDriver.getWeightClass())
+//                .findFirst()
+//                .orElse(TaskStorage.allTasks
+//                        .stream()
+//                        .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+//                        .filter(t -> t.getWeight().getNumber() < userDriver.getWeightClass().getNumber())
+//                        .findFirst()
+//                        .orElse(null));
+//    }
+
     public WarehouseMessage.Task2 startTaskFromPool() {
         WarehouseMessage.Task2.Builder task = getNextTask2();
         if (task != null && userDriver.getStatus() == DriverStatus.FREE) {

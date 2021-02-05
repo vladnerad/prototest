@@ -144,6 +144,7 @@ public class SingleServer implements Runnable {
         exchanger.close();
         logger.info("Connection closed " + socket.getInetAddress());
 //        System.out.println("Connection closed " + socket.getInetAddress());
-        TaskStorage.eventManager.printInfo();
+//        TaskStorage.eventManager.printInfo();
+        logger.trace(TaskStorage.eventManager.getInfo());
     }
 }
