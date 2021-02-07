@@ -28,4 +28,8 @@ public class UserDriver extends User {
     public void setStatus(DriverStatus status) {
         this.status = status;
     }
+
+    public WarehouseMessage.NewTask.Weight getWeightClass() {
+        return weightClass;
+    }
 }
