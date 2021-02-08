@@ -1,9 +1,7 @@
 package com.dst.server;
 
 import com.dst.TaskStorage;
-import com.dst.TaskStorage2;
 import com.dst.msg.WarehouseMessage;
-import com.dst.users.Role;
 import com.dst.users.User;
 import com.dst.users.UserStorage;
 import com.google.protobuf.Any;
@@ -16,7 +14,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import static com.dst.TaskStorage.addAfterEmpty;
 import static com.dst.TaskStorage.changeAct;
 
 public class SingleServer implements Runnable {
@@ -35,22 +32,20 @@ public class SingleServer implements Runnable {
             User sessionUser = getAuthUser2(inputStream, outputStream);
             Exchanger exchanger;
             // Dispatcher
-            if (sessionUser != null && sessionUser.getRole() == /*Role.DISPATCHER*/ WarehouseMessage.LogInResponse.Role.DISPATCHER) {
+            if (sessionUser != null && sessionUser.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
                 exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
             }
             // Driver
-            else if (sessionUser != null && sessionUser.getRole() == /*Role.DRIVER*/ WarehouseMessage.LogInResponse.Role.DRIVER) {
+            else if (sessionUser != null && sessionUser.getRole() == WarehouseMessage.LogInResponse.Role.DRIVER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
                 exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
-//                TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
             }
             // User not authorized
             else {
                 logger.info("Not authorized: " + socket.getInetAddress());
                 exchanger = null;
             }
-//            TaskStorage.eventManager.printInfo();
             if (exchanger != null) process(socket, exchanger);
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,8 +86,7 @@ public class SingleServer implements Runnable {
     }
 
     public void process(Socket socket, Exchanger exchanger) throws IOException {
-//        TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
-        TaskStorage2.eventManager.subscribe(changeAct, exchanger.getEventListener());
+        TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
         exchanger.initListFromCache();
         while (!socket.isClosed()) {
             try {
