@@ -83,7 +83,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         listBuilder.addAllTask(
                 TaskStorage.getAllTasks()
                         .stream()
-                        .filter(task2 -> task2.getAssignee().equals(userDispatcher.getUserName()))
+                        .filter(task2 -> task2.getAssignee().equals(userDispatcher.getUserInfo()))
 //                        .map(WarehouseMessage.Task2.Builder::build)
                         .collect(Collectors.toList())
         );
@@ -109,7 +109,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
-        if (task.getAssignee().equals(userDispatcher.getUserName()))
+        if (task.getAssignee().equals(userDispatcher.getUserInfo()))
             Any.pack(task).writeDelimitedTo(outputStream);
     }
 }
