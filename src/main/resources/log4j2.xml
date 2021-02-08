@@ -35,6 +35,10 @@
             <appender-ref ref="roll-by-size" />
             <appender-ref ref="console" />
         </Logger>
+        <Logger name="com.dst.TaskStorage" level="all" additivity="false">
+            <appender-ref ref="roll-by-size" />
+            <appender-ref ref="console" />
+        </Logger>
         <Logger name="com.dst.server.SingleServer" level="all" additivity="false">
             <appender-ref ref="roll-by-size" />
             <appender-ref ref="console" />

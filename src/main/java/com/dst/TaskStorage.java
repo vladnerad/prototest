@@ -5,6 +5,8 @@ import com.dst.observer.EventManager;
 import com.dst.server.DispatcherExchanger;
 import com.dst.users.DriverStatus;
 import com.dst.users.UserDriver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 public class TaskStorage {
 
+    private static final Logger logger = LogManager.getLogger(TaskStorage.class);
     public static final String changeAct = "change";
     public static volatile EventManager eventManager = new EventManager(changeAct);
 
@@ -117,15 +120,17 @@ public class TaskStorage {
     }
 
     public static void driverCancelTask(UserDriver userDriver) {
-        WarehouseMessage.Task2 task = getTaskForDriver(userDriver);
+        logger.trace(userDriver.getUserName() + " wants to return task");
+        WarehouseMessage.Task2 task = getCurrentDriverTask(userDriver);
         if (task != null) {
+            logger.trace("returning task " + task.getId());
             WarehouseMessage.Task2.Builder cancelled = task.toBuilder();
             cancelled.setStatus(WarehouseMessage.Task2.Status.WAIT);
             cancelled.setReporter(DispatcherExchanger.noDriverLogin);
             WarehouseMessage.Task2 t2 = cancelled.build();
             updateTask(t2);
             eventManager.notify(changeAct, t2);
-        }
+        } else logger.trace("returning null task");
         // updateTask - WAIT
         // update all listeners
     }

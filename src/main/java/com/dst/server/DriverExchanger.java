@@ -60,7 +60,7 @@ public class DriverExchanger implements EventListener, Exchanger {
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         // Create new task
         if (any == null) {
-            returnTaskToList();
+            TaskStorage.driverCancelTask(userDriver);
             throw new SocketException("Any in driver exchanger is null");
         } else {
             if (any.is(WarehouseMessage.Action.class)) {
@@ -78,7 +78,7 @@ public class DriverExchanger implements EventListener, Exchanger {
                     logger.debug("Driver: " + userDriver.getUserName() + " has repaired");
                 } else if (status.getStatus() == WarehouseMessage.UserStatus.Status.BROKEN
                         && userDriver.getStatus() != DriverStatus.BROKEN) {
-                    if (userDriver.getStatus() == DriverStatus.BUSY) returnTaskToList();
+                    if (userDriver.getStatus() == DriverStatus.BUSY) TaskStorage.driverCancelTask(userDriver);
                     userDriver.setStatus(DriverStatus.BROKEN);
                     Any.pack(status).writeDelimitedTo(outputStream);
                     logger.debug("Driver: " + userDriver.getUserName() + " has broken");
@@ -94,7 +94,8 @@ public class DriverExchanger implements EventListener, Exchanger {
 
     @Override
     public void close() {
-        if (userDriver.getStatus() == DriverStatus.BUSY) returnTaskToList();
+        logger.trace("Closing connection for: " + userDriver.getUserName() + " has status " + userDriver.getStatus());
+        if (userDriver.getStatus() == DriverStatus.BUSY) TaskStorage.driverCancelTask(userDriver);
         TaskStorage.eventManager.unsubscribeAll(this);
         TaskStorage.removeDriver(userDriver);
     }
@@ -113,9 +114,9 @@ public class DriverExchanger implements EventListener, Exchanger {
         userDriver.setStatus(DriverStatus.FREE);
     }
 
-    public void returnTaskToList() {
-        TaskStorage.driverCancelTask(userDriver);
-    }
+//    public void returnTaskToList() {
+//        TaskStorage.driverCancelTask(userDriver);
+//    }
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
