@@ -100,7 +100,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setPriority(newTask.getPriority());
         t2builder.setTimeCreate(String.valueOf(System.currentTimeMillis()));
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
-        t2builder.setAssignee(userDispatcher.getUserName());
+        t2builder.setAssignee(userDispatcher.getUserInfo());
         t2builder.setReporter(noDriverLogin);
         TaskStorage.addTask(t2builder.build());
         logger.debug("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());

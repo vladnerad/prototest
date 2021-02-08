@@ -13,8 +13,8 @@ public class UserStorage {
     }
 
     static {
-        users.add(new UserDispatcher("disp1", "123"));
-        users.add(new UserDispatcher("disp2", "123"));
+        users.add(new UserDispatcher("SVC-1", "123", "СВЦ-1"));
+        users.add(new UserDispatcher("CMO-1", "123", "ЦМО-1"));
         users.add(new UserDispatcher("disp3", "123"));
         users.add(new UserDispatcher("disp4", "123"));
         users.add(new UserDispatcher("disp5", "123"));

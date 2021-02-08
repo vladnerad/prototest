@@ -3,15 +3,16 @@ package com.dst.users;
 import com.dst.msg.WarehouseMessage;
 
 public class UserDispatcher extends User {
+
+    private String dispatcherInfo = "no information";
     public UserDispatcher(String userName, String password) {
         super(userName, password);
     }
 
-//    @Override
-//    public Role getRole() {
-//        return Role.DISPATCHER;
-//    }
-
+    public UserDispatcher(String userName, String password, String dispatcherInfo) {
+        super(userName, password);
+        this.dispatcherInfo = dispatcherInfo;
+    }
 
     @Override
     public WarehouseMessage.LogInResponse.Role getRole() {
@@ -20,6 +21,6 @@ public class UserDispatcher extends User {
 
     @Override
     public String getUserInfo() {
-        return "Склад № 0";
+        return dispatcherInfo;
     }
 }
