@@ -1,6 +1,7 @@
 package com.dst.server;
 
 import com.dst.TaskStorage;
+import com.dst.TaskStorage2;
 import com.dst.msg.WarehouseMessage;
 import com.dst.users.Role;
 import com.dst.users.User;
@@ -36,22 +37,17 @@ public class SingleServer implements Runnable {
             // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == /*Role.DISPATCHER*/ WarehouseMessage.LogInResponse.Role.DISPATCHER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
-//                System.out.println("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
                 exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
-//                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == /*Role.DRIVER*/ WarehouseMessage.LogInResponse.Role.DRIVER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
-//                System.out.println("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
                 exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
-                TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
-//                TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
+//                TaskStorage.eventManager.subscribe(addAfterEmpty, exchanger.getEventListener());
             }
             // User not authorized
             else {
                 logger.info("Not authorized: " + socket.getInetAddress());
-//                System.out.println("Not authorized: " + socket.getInetAddress());
                 exchanger = null;
             }
 //            TaskStorage.eventManager.printInfo();
@@ -60,38 +56,6 @@ public class SingleServer implements Runnable {
             e.printStackTrace();
         }
     }
-
-//    private User getAuthUser(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
-//        User user = null;
-//        Any auth = Any.parseDelimitedFrom(inputStream);
-//        if (auth != null && auth.is(WarehouseMessage.Credentials.class)) {
-//            WarehouseMessage.Credentials credentials = auth.unpack(WarehouseMessage.Credentials.class);
-//            WarehouseMessage.Credentials.Builder response = WarehouseMessage.Credentials.newBuilder();
-//            response.setLogin(credentials.getLogin());
-//            boolean isFound = false;
-//            for (User usr : UserStorage.getUsers()) {
-//                if (usr.getUserName().equals(credentials.getLogin())) {
-//                    isFound = true;
-//                    if (usr.getPassword().equals(credentials.getPassword())) {
-////                        System.out.println("Logged in: " + usr.getUserName());
-//                        response.setPassword("SUCCESS: " + usr.getRole());
-//                        user = usr;
-//                    } else {
-//                        System.out.println("Incorrect password");
-//                        response.setPassword("WRONG PASS");
-//                    }
-//                    break;
-//                }
-//            }
-//            if (!isFound) {
-//                System.out.println("Incorrect login");
-//                response.setPassword("LOGIN NOT EXISTS");
-//            }
-//            Any.pack(response.build()).writeDelimitedTo(outputStream);
-//            return user;
-//        }
-//        return null;
-//    }
 
     private User getAuthUser2(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
         User user = null;
@@ -105,13 +69,11 @@ public class SingleServer implements Runnable {
                 if (usr.getUserName().equals(credentials.getLogin())) {
                     isFound = true;
                     if (usr.getPassword().equals(credentials.getPassword())) {
-//                        System.out.println("Logged in: " + usr.getUserName());
                         response.setLoginStatus(WarehouseMessage.LogInResponse.Status.OK);
                         response.setUserInfo(usr.getUserInfo());
                         user = usr;
                     } else {
                         logger.debug("Incorrect password");
-//                        System.out.println("Incorrect password");
                         response.setLoginStatus(WarehouseMessage.LogInResponse.Status.WRONG_PASS);
                     }
                     response.setUserRole(usr.getRole());
@@ -120,7 +82,6 @@ public class SingleServer implements Runnable {
             }
             if (!isFound) {
                 logger.debug("Incorrect login");
-//                System.out.println("Incorrect login");
                 response.setLoginStatus(WarehouseMessage.LogInResponse.Status.WRONG_LOGIN);
             }
             Any.pack(response.build()).writeDelimitedTo(outputStream);
@@ -130,8 +91,8 @@ public class SingleServer implements Runnable {
     }
 
     public void process(Socket socket, Exchanger exchanger) throws IOException {
-        TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
-//        TaskStorage.eventManager.printInfo();
+//        TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
+        TaskStorage2.eventManager.subscribe(changeAct, exchanger.getEventListener());
         exchanger.initListFromCache();
         while (!socket.isClosed()) {
             try {
@@ -140,11 +101,7 @@ public class SingleServer implements Runnable {
                 socket.close();
             }
         }
-//        TaskStorage.eventManager.unsubscribeAll(exchanger.getEventListener());
         exchanger.close();
         logger.info("Connection closed " + socket.getInetAddress());
-//        System.out.println("Connection closed " + socket.getInetAddress());
-//        TaskStorage.eventManager.printInfo();
-        logger.trace(TaskStorage.eventManager.getInfo());
     }
 }

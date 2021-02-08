@@ -1,6 +1,7 @@
 package com.dst.server;
 
 import com.dst.TaskStorage;
+import com.dst.TaskStorage2;
 import com.dst.msg.WarehouseMessage;
 import com.dst.observer.EventListener;
 import com.dst.users.Role;
@@ -31,7 +32,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
             this.inputStream = inputStream;
             this.outputStream = outputStream;
         } else logger.trace("DispatcherExchanger constructor error");
-//            System.out.println("DispatcherExchanger constructor error");
     }
 
     @Override
@@ -48,17 +48,14 @@ public class DispatcherExchanger implements EventListener, Exchanger {
             // Action with task
             else if (any.is(WarehouseMessage.Action.class)) {
                 WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
-                WarehouseMessage.Task2.Builder t2 = TaskStorage.allTasks
-                        .stream()
-                        .filter(t -> t.getId() == action.getId())
-                        .findAny()
-                        .orElse(null);
+                WarehouseMessage.Task2 t2 = TaskStorage2.getTaskById(action.getId());
                 if (t2 != null) {
                     // Dispatcher removes task
                     if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
-                        t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
-                        TaskStorage.eventManager.notify(changeAct, t2);
-                        TaskStorage.allTasks.remove(t2);
+//                        t2.setStatus(WarehouseMessage.Task2.Status.CANCELLED);
+//                        TaskStorage.eventManager.notify(changeAct, t2.build());
+//                        TaskStorage.allTasks.remove(t2);
+                        TaskStorage2.dispCancelTask(t2);
                         logger.debug("Task removed: " + t2.getId());
 //                        System.out.println("Task removed: " + t2.getId());
                     }
@@ -71,7 +68,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 //                    Any.pack(t2.build()).writeDelimitedTo(outputStream);
                 } else {
                     logger.debug("Task isn't found");
-//                    System.out.println("Task isn't found");
                 }
             }
         }
@@ -84,7 +80,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
 
     @Override
     public void close() {
-        TaskStorage.eventManager.unsubscribeAll(this);
+//        TaskStorage.eventManager.unsubscribeAll(this);
+        TaskStorage2.eventManager.unsubscribeAll(this);
     }
 
     // Get list of tasks for current dispatcher
@@ -92,17 +89,15 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     public void initListFromCache() throws IOException {
         WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
         listBuilder.addAllTask(
-                TaskStorage.allTasks
+                TaskStorage2.getAllTasks()
                         .stream()
                         .filter(task2 -> task2.getAssignee().equals(userDispatcher.getUserName()))
-                        .map(WarehouseMessage.Task2.Builder::build)
+//                        .map(WarehouseMessage.Task2.Builder::build)
                         .collect(Collectors.toList())
         );
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
-//        System.out.println("listBuilder size: " + listBuilder.getTaskList().size());
-//        System.out.println("TaskStorage size: " + TaskStorage.allTasks.size());
     }
 
     public void createTask(WarehouseMessage.NewTask newTask) {
@@ -115,34 +110,33 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         t2builder.setStatus(WarehouseMessage.Task2.Status.WAIT);
         t2builder.setAssignee(userDispatcher.getUserName());
         t2builder.setReporter(noDriverLogin);
-        boolean wasEmpty = TaskStorage.allTasks.isEmpty();
+//        boolean wasEmpty = TaskStorage.allTasks.isEmpty();
 //                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
 //                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id);
-        TaskStorage.allTasks.add(t2builder);
+//        TaskStorage.allTasks.add(t2builder);
+        TaskStorage2.addTask(t2builder.build());
         logger.debug("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
-//        System.out.println("Task added: " + t2builder.getId() + " by " + userDispatcher.getUserName());
-        TaskStorage.allTasks
-                .stream()
-                .filter(t -> t.getId() == id)
-                .findFirst()
-                .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t));
-        if (wasEmpty
-                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
-                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id)) {
-            // когда начнется новая задача, слушатели будут оповещены
-            TaskStorage.allTasks
-                    .stream()
-                    .filter(t -> t.getId() == id)
-                    .findFirst()
-                    .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t));
-        }
-        logger.debug("Storage size after createTask(): " + TaskStorage.allTasks.size());
-//        System.out.println("Storage size after createTask(): " + TaskStorage.allTasks.size());
+//        TaskStorage.allTasks
+//                .stream()
+//                .filter(t -> t.getId() == id)
+//                .findFirst()
+//                .ifPresent(t -> TaskStorage.eventManager.notify(changeAct, t.build()));
+//        if (wasEmpty
+//                || TaskStorage.allTasks.stream().noneMatch(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+//                && TaskStorage.allTasks.stream().noneMatch(t -> t.getId() == id)) {
+//            // когда начнется новая задача, слушатели будут оповещены
+//            TaskStorage.allTasks
+//                    .stream()
+//                    .filter(t -> t.getId() == id)
+//                    .findFirst()
+//                    .ifPresent(t -> TaskStorage.eventManager.notify(addAfterEmpty, t.build()));
+//        }
+        logger.debug("Storage size after createTask(): " + TaskStorage2.getAllTasks().size());
     }
 
     @Override
-    public void update(String event, WarehouseMessage.Task2.Builder task) throws IOException {
+    public void update(String event, WarehouseMessage.Task2 task) throws IOException {
         if (!event.equals(addAfterEmpty) && task.getAssignee().equals(userDispatcher.getUserName()))
-            Any.pack(task.build()).writeDelimitedTo(outputStream);
+            Any.pack(task).writeDelimitedTo(outputStream);
     }
 }
