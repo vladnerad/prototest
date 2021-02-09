@@ -67,7 +67,7 @@ public class DriverExchanger implements EventListener, Exchanger {
             if (any.is(WarehouseMessage.Action.class)) {
                 WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
                 if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
-                    finishCurrentTask();
+                    TaskStorage.finishTask(userDriver);
                 }
             } else if (any.is(WarehouseMessage.UserStatus.class)) {
                 WarehouseMessage.UserStatus status = any.unpack(WarehouseMessage.UserStatus.class);
@@ -105,15 +105,15 @@ public class DriverExchanger implements EventListener, Exchanger {
 //        TaskStorage.startNewTask(userDriver);
 //    }
 
-    public void finishCurrentTask() {
-        logger.debug(userDriver.getUserName() + " finishCurrentTask");
-        WarehouseMessage.Task2 t2 = TaskStorage.getCurrentDriverTask(userDriver);
-        if (t2 != null) {
-            TaskStorage.finishTask(t2);
-            logger.debug("Task finished: " + t2.getId());
-        } else logger.debug("Task not founded");
-        userDriver.setStatus(DriverStatus.FREE);
-    }
+//    public void finishCurrentTask() {
+//        logger.debug(userDriver.getUserName() + " finishCurrentTask");
+//        WarehouseMessage.Task2 t2 = TaskStorage.getCurrentDriverTask(userDriver);
+//        if (t2 != null) {
+//            TaskStorage.finishTask(t2);
+//            logger.debug("Task finished: " + t2.getId());
+//        } else logger.debug("Task not founded");
+//        userDriver.setStatus(DriverStatus.FREE);
+//    }
 
 //    public void returnTaskToList() {
 //        TaskStorage.driverCancelTask(userDriver);

@@ -42,17 +42,27 @@ public class TaskStorage {
                 .collect(Collectors.toSet());
     }
 
-    private synchronized static WarehouseMessage.Task2 getTaskForDriver(UserDriver driver) {
+    private /*synchronized*/ static WarehouseMessage.Task2 getTaskForDriver(UserDriver driver) {
         for (int i = WarehouseMessage.NewTask.Priority.HIGH_VALUE; i >= 0; i--) {
             for (int j = driver.getWeightClass().getNumber(); j >= 0; j--) {
                 TreeSet<WarehouseMessage.Task2> set = new TreeSet<>(comparator);
-                set.addAll(getWeight(getPrior(allTasks, WarehouseMessage.NewTask.Priority.forNumber(i)), WarehouseMessage.NewTask.Weight.forNumber(j)));
-                if (!set.isEmpty()){
+                set.addAll(
+                        getWaitingTasks(WarehouseMessage.NewTask.Priority.forNumber(i), WarehouseMessage.NewTask.Weight.forNumber(j)));
+                if (!set.isEmpty()) {
                     return set.stream().filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT).findFirst().orElse(null);
                 }
             }
         }
         return null;
+    }
+
+    private static Set<WarehouseMessage.Task2> getWaitingTasks(WarehouseMessage.NewTask.Priority priority, WarehouseMessage.NewTask.Weight weight) {
+        return getWeight(
+                getPrior(allTasks, priority),
+                weight)
+                .stream()
+                .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
+                .collect(Collectors.toSet());
     }
 
     private synchronized static WarehouseMessage.Task2 checkTaskBeforeAdd(WarehouseMessage.Task2 task) {
@@ -111,12 +121,23 @@ public class TaskStorage {
         eventManager.notify(changeAct, checkedTask);
     }
 
-    public static void finishTask(WarehouseMessage.Task2 task) {
-        eventManager.notify(changeAct, task.toBuilder().setStatus(WarehouseMessage.Task2.Status.FINISHED).build());
-        allTasks.remove(task);
-        // updateTask - FINISHED
-        // update all listeners
-        // remove task from set
+//    public static void finishTask(WarehouseMessage.Task2 task) {
+//        eventManager.notify(changeAct, task.toBuilder().setStatus(WarehouseMessage.Task2.Status.FINISHED).build());
+//        allTasks.remove(task);
+//        // updateTask - FINISHED
+//        // update all listeners
+//        // remove task from set
+//    }
+
+    public static void finishTask(UserDriver userDriver) {
+//        logger.debug(userDriver.getUserName() + " finishCurrentTask");
+        WarehouseMessage.Task2 t2 = TaskStorage.getCurrentDriverTask(userDriver);
+        if (t2 != null) {
+            eventManager.notify(changeAct, t2.toBuilder().setStatus(WarehouseMessage.Task2.Status.FINISHED).build());
+            allTasks.remove(t2);
+            logger.debug("Task finished: " + t2.getId() + " by " + userDriver.getUserName());
+        } else logger.debug(userDriver.getUserName() + " can't finish null task");
+        userDriver.setStatus(DriverStatus.FREE);
     }
 
     public static void driverCancelTask(UserDriver userDriver) {
@@ -136,8 +157,10 @@ public class TaskStorage {
     }
 
     public static synchronized void startNewTask(UserDriver userDriver) {
+//        logger.trace(userDriver.getUserName() + " wants to start a new task");
         WarehouseMessage.Task2 task = getTaskForDriver(userDriver);
         if (task != null) {
+            logger.trace(userDriver.getUserName() + " wants to start task " + task.getId());
             WarehouseMessage.Task2.Builder startedTask = task.toBuilder();
             startedTask.setStatus(WarehouseMessage.Task2.Status.STARTED);
             startedTask.setReporter(userDriver.getUserName());
@@ -145,7 +168,7 @@ public class TaskStorage {
             updateTask(t2);
             eventManager.notify(changeAct, t2);
             userDriver.setStatus(DriverStatus.BUSY);
-        }
+        } else logger.trace(userDriver.getUserName() + " can't start null task");
     }
 
     public static Set<WarehouseMessage.Task2> getAllTasks() {
