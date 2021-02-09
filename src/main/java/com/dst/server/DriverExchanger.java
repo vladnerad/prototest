@@ -54,7 +54,8 @@ public class DriverExchanger implements EventListener, Exchanger {
     public void exchange() throws IOException {
         if (userDriver.getStatus() == DriverStatus.FREE) {
             logger.debug(userDriver.getUserName() + " is " + userDriver.getStatus());
-            startTaskFromPool();
+            TaskStorage.startNewTask(userDriver);
+//            startTaskFromPool();
         }
 
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
@@ -100,9 +101,9 @@ public class DriverExchanger implements EventListener, Exchanger {
         TaskStorage.removeDriver(userDriver);
     }
 
-    public void startTaskFromPool() {
-        TaskStorage.startNewTask(userDriver);
-    }
+//    public void startTaskFromPool() {
+//        TaskStorage.startNewTask(userDriver);
+//    }
 
     public void finishCurrentTask() {
         logger.debug(userDriver.getUserName() + " finishCurrentTask");

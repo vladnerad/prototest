@@ -42,7 +42,7 @@ public class TaskStorage {
                 .collect(Collectors.toSet());
     }
 
-    private static WarehouseMessage.Task2 getTaskForDriver(UserDriver driver) {
+    private synchronized static WarehouseMessage.Task2 getTaskForDriver(UserDriver driver) {
         for (int i = WarehouseMessage.NewTask.Priority.HIGH_VALUE; i >= 0; i--) {
             for (int j = driver.getWeightClass().getNumber(); j >= 0; j--) {
                 TreeSet<WarehouseMessage.Task2> set = new TreeSet<>(comparator);
@@ -55,7 +55,7 @@ public class TaskStorage {
         return null;
     }
 
-    private static WarehouseMessage.Task2 checkTaskBeforeAdd(WarehouseMessage.Task2 task) {
+    private synchronized static WarehouseMessage.Task2 checkTaskBeforeAdd(WarehouseMessage.Task2 task) {
         if (isFreeDriverForTaskExist(task)) {
             for (int i = task.getWeightValue(); i <= WarehouseMessage.NewTask.Weight.KG_5000_VALUE; i++) {
                 Set<UserDriver> set = getWeightDrivers(WarehouseMessage.NewTask.Weight.forNumber(i));
@@ -86,7 +86,7 @@ public class TaskStorage {
                 .anyMatch(d -> d.getStatus() == DriverStatus.FREE);
     }
 
-    private static void updateTask(WarehouseMessage.Task2 task) {
+    private static synchronized void updateTask(WarehouseMessage.Task2 task) {
         allTasks.remove(getTaskById(task.getId()));
         allTasks.add(task);
     }
@@ -135,7 +135,7 @@ public class TaskStorage {
         // update all listeners
     }
 
-    public static void startNewTask(UserDriver userDriver) {
+    public static synchronized void startNewTask(UserDriver userDriver) {
         WarehouseMessage.Task2 task = getTaskForDriver(userDriver);
         if (task != null) {
             WarehouseMessage.Task2.Builder startedTask = task.toBuilder();
