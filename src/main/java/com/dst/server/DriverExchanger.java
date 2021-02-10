@@ -31,10 +31,9 @@ public class DriverExchanger implements EventListener, Exchanger {
             userDriver.setStatus(DriverStatus.FREE);
             TaskStorage.addDriver(userDriver);
         } else
-            logger.trace("DriverExchanger constructor error"); /*System.out.println("DriverExchanger constructor error");*/
+            logger.trace("DriverExchanger constructor error");
     }
-
-    // Get list of tasks for current dispatcher
+    // Get list of tasks for current driver, without starting any task
     @Override
     public void initListFromCache() throws IOException {
         WarehouseMessage.ListofTaskDisp.Builder listBuilder = WarehouseMessage.ListofTaskDisp.newBuilder();
@@ -43,49 +42,63 @@ public class DriverExchanger implements EventListener, Exchanger {
                         .stream()
                         .filter(task2 -> task2.getReporter().equals("Not assigned"))
                         .filter(t -> t.getWeight().getNumber() <= userDriver.getWeightClass().getNumber())
-//                        .map(WarehouseMessage.Task2.Builder::build)
                         .collect(Collectors.toList()));
         if (!listBuilder.getTaskList().isEmpty()) {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
     }
-
+    // Cyclic process
     @Override
     public void exchange() throws IOException {
         if (userDriver.getStatus() == DriverStatus.FREE) {
             logger.debug(userDriver.getUserName() + " is " + userDriver.getStatus());
             TaskStorage.startNewTask(userDriver);
-//            startTaskFromPool();
         }
-
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
-        // Create new task
+        // Error - socket closed
         if (any == null) {
             TaskStorage.driverCancelTask(userDriver);
             throw new SocketException("Any in driver exchanger is null");
-        } else {
+        }
+        // Normal socket work
+        else {
+            // Driver wants to do something with his task
             if (any.is(WarehouseMessage.Action.class)) {
                 WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
+                // Driver can only finish task
                 if (action.getAct() == WarehouseMessage.Action.Act.FINISH) {
                     TaskStorage.finishTask(userDriver);
                 }
-            } else if (any.is(WarehouseMessage.UserStatus.class)) {
+            }
+            // Driver wants to change his status
+            else if (any.is(WarehouseMessage.UserStatus.class)) {
                 WarehouseMessage.UserStatus status = any.unpack(WarehouseMessage.UserStatus.class);
+                // Driver has been repaired
                 if (status.getStatus() == WarehouseMessage.UserStatus.Status.READY
                         && userDriver.getStatus() == DriverStatus.BROKEN) {
-                    userDriver.setStatus(DriverStatus.FREE);
-                    Any.pack(status).writeDelimitedTo(outputStream);
-                    TaskStorage.startNewTask(userDriver);
-                    logger.debug("Driver: " + userDriver.getUserName() + " has repaired");
-                } else if (status.getStatus() == WarehouseMessage.UserStatus.Status.BROKEN
+                    driverRepaired(status);
+                }
+                // Driver has been broken
+                else if (status.getStatus() == WarehouseMessage.UserStatus.Status.BROKEN
                         && userDriver.getStatus() != DriverStatus.BROKEN) {
-                    if (userDriver.getStatus() == DriverStatus.BUSY) TaskStorage.driverCancelTask(userDriver);
-                    userDriver.setStatus(DriverStatus.BROKEN);
-                    Any.pack(status).writeDelimitedTo(outputStream);
-                    logger.debug("Driver: " + userDriver.getUserName() + " has broken");
+                    driverBroken(status);
                 }
             }
         }
+    }
+
+    private void driverRepaired(WarehouseMessage.UserStatus echo) throws IOException {
+        userDriver.setStatus(DriverStatus.FREE);
+        Any.pack(echo).writeDelimitedTo(outputStream);
+        TaskStorage.startNewTask(userDriver);
+        logger.debug("Driver: " + userDriver.getUserName() + " has repaired");
+    }
+
+    private void driverBroken(WarehouseMessage.UserStatus status) throws IOException {
+        if (userDriver.getStatus() == DriverStatus.BUSY) TaskStorage.driverCancelTask(userDriver);
+        userDriver.setStatus(DriverStatus.BROKEN);
+        Any.pack(status).writeDelimitedTo(outputStream);
+        logger.debug("Driver: " + userDriver.getUserName() + " has broken");
     }
 
     @Override
@@ -100,24 +113,6 @@ public class DriverExchanger implements EventListener, Exchanger {
         TaskStorage.eventManager.unsubscribeAll(this);
         TaskStorage.removeDriver(userDriver);
     }
-
-//    public void startTaskFromPool() {
-//        TaskStorage.startNewTask(userDriver);
-//    }
-
-//    public void finishCurrentTask() {
-//        logger.debug(userDriver.getUserName() + " finishCurrentTask");
-//        WarehouseMessage.Task2 t2 = TaskStorage.getCurrentDriverTask(userDriver);
-//        if (t2 != null) {
-//            TaskStorage.finishTask(t2);
-//            logger.debug("Task finished: " + t2.getId());
-//        } else logger.debug("Task not founded");
-//        userDriver.setStatus(DriverStatus.FREE);
-//    }
-
-//    public void returnTaskToList() {
-//        TaskStorage.driverCancelTask(userDriver);
-//    }
 
     @Override
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {

@@ -22,9 +22,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     private UserDispatcher userDispatcher;
     private InputStream inputStream;
     private OutputStream outputStream;
-    // Id for task
-    public static volatile AtomicInteger idCounter = new AtomicInteger(0);
-    public static final String noDriverLogin = "Not assigned";
+    public static volatile AtomicInteger idCounter = new AtomicInteger(0);  // Id for task
+    public static final String noDriverLogin = "Not assigned";  // When task not started
 
     public DispatcherExchanger(User user, InputStream inputStream, OutputStream outputStream) {
         if (user.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
@@ -50,7 +49,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                 WarehouseMessage.Action action = any.unpack(WarehouseMessage.Action.class);
                 WarehouseMessage.Task2 t2 = TaskStorage.getTaskById(action.getId());
                 if (t2 != null) {
-                    // Dispatcher removes task
+                    // Dispatcher con only remove task
                     if (action.getAct() == WarehouseMessage.Action.Act.CANCEL) {
                         TaskStorage.dispCancelTask(t2);
                         logger.debug("Task removed: " + t2.getId());
@@ -75,7 +74,6 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     public void close() {
         TaskStorage.eventManager.unsubscribeAll(this);
     }
-
     // Get list of tasks for current dispatcher
     @Override
     public void initListFromCache() throws IOException {

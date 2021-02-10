@@ -43,6 +43,7 @@ public class TaskStorage {
     }
 
     private /*synchronized*/ static WarehouseMessage.Task2 getTaskForDriver(UserDriver driver) {
+        // Get sets of waiting task, scan through priority at first, then scan through weight class
         for (int i = WarehouseMessage.NewTask.Priority.HIGH_VALUE; i >= 0; i--) {
             for (int j = driver.getWeightClass().getNumber(); j >= 0; j--) {
                 TreeSet<WarehouseMessage.Task2> set = new TreeSet<>(comparator);
@@ -55,7 +56,7 @@ public class TaskStorage {
         }
         return null;
     }
-
+    // Priority and weight intersection
     private static Set<WarehouseMessage.Task2> getWaitingTasks(WarehouseMessage.NewTask.Priority priority, WarehouseMessage.NewTask.Weight weight) {
         return getWeight(
                 getPrior(allTasks, priority),
@@ -64,7 +65,7 @@ public class TaskStorage {
                 .filter(t -> t.getStatus() == WarehouseMessage.Task2.Status.WAIT)
                 .collect(Collectors.toSet());
     }
-
+    // If free drivers in list - task will be added with status STARTED
     private synchronized static WarehouseMessage.Task2 checkTaskBeforeAdd(WarehouseMessage.Task2 task) {
         if (isFreeDriverForTaskExist(task)) {
             for (int i = task.getWeightValue(); i <= WarehouseMessage.NewTask.Weight.KG_5000_VALUE; i++) {
@@ -79,7 +80,6 @@ public class TaskStorage {
             }
         }
         return task;
-
     }
 
 //    private boolean isFreeDriverExist(){
@@ -95,7 +95,7 @@ public class TaskStorage {
                 .filter(d -> d.getWeightClass().getNumber() >= task.getWeight().getNumber())
                 .anyMatch(d -> d.getStatus() == DriverStatus.FREE);
     }
-
+    // Replace task in the set
     private static synchronized void updateTask(WarehouseMessage.Task2 task) {
         allTasks.remove(getTaskById(task.getId()));
         allTasks.add(task);
@@ -113,21 +113,12 @@ public class TaskStorage {
                 .findAny()
                 .orElse(null);
     }
-
-    //dispatcher adds task
+    // Dispatcher adds task
     public static void addTask(WarehouseMessage.Task2 task) {
         WarehouseMessage.Task2 checkedTask = checkTaskBeforeAdd(task);
         allTasks.add(checkedTask);
         eventManager.notify(changeAct, checkedTask);
     }
-
-//    public static void finishTask(WarehouseMessage.Task2 task) {
-//        eventManager.notify(changeAct, task.toBuilder().setStatus(WarehouseMessage.Task2.Status.FINISHED).build());
-//        allTasks.remove(task);
-//        // updateTask - FINISHED
-//        // update all listeners
-//        // remove task from set
-//    }
 
     public static void finishTask(UserDriver userDriver) {
 //        logger.debug(userDriver.getUserName() + " finishCurrentTask");
@@ -152,8 +143,6 @@ public class TaskStorage {
             updateTask(t2);
             eventManager.notify(changeAct, t2);
         } else logger.trace("returning null task");
-        // updateTask - WAIT
-        // update all listeners
     }
 
     public static synchronized void startNewTask(UserDriver userDriver) {
