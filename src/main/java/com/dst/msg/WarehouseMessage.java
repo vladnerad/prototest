@@ -67,6 +67,10 @@ public final class WarehouseMessage {
         int index);
   }
   /**
+   * <pre>
+   * Данные для входа в систему
+   * </pre>
+   *
    * Protobuf type {@code msg.Credentials}
    */
   public static final class Credentials extends
@@ -465,6 +469,10 @@ public final class WarehouseMessage {
       return builder;
     }
     /**
+     * <pre>
+     * Данные для входа в систему
+     * </pre>
+     *
      * Protobuf type {@code msg.Credentials}
      */
     public static final class Builder extends
@@ -1206,6 +1214,10 @@ public final class WarehouseMessage {
         getUserInfoBytes();
   }
   /**
+   * <pre>
+   * Ответ на запрос входа в систему
+   * </pre>
+   *
    * Protobuf type {@code msg.LogInResponse}
    */
   public static final class LogInResponse extends
@@ -1986,6 +1998,10 @@ public final class WarehouseMessage {
       return builder;
     }
     /**
+     * <pre>
+     * Ответ на запрос входа в систему
+     * </pre>
+     *
      * Protobuf type {@code msg.LogInResponse}
      */
     public static final class Builder extends
@@ -8577,6 +8593,10 @@ public final class WarehouseMessage {
     com.dst.msg.WarehouseMessage.UserStatus.Status getStatus();
   }
   /**
+   * <pre>
+   * Статус водителя
+   * </pre>
+   *
    * Protobuf type {@code msg.UserStatus}
    */
   public static final class UserStatus extends
@@ -9025,6 +9045,10 @@ public final class WarehouseMessage {
       return builder;
     }
     /**
+     * <pre>
+     * Статус водителя
+     * </pre>
+     *
      * Protobuf type {@code msg.UserStatus}
      */
     public static final class Builder extends
@@ -9561,6 +9585,877 @@ public final class WarehouseMessage {
 
   }
 
+  public interface ConnectionCheckOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:msg.ConnectionCheck)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<com.google.protobuf.Any> 
+        getDetailsList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.Any getDetails(int index);
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    int getDetailsCount();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList();
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index);
+
+    /**
+     * <code>int32 checkMsg = 2;</code>
+     * @return The checkMsg.
+     */
+    int getCheckMsg();
+  }
+  /**
+   * <pre>
+   * Сообщение для проверки связи
+   * </pre>
+   *
+   * Protobuf type {@code msg.ConnectionCheck}
+   */
+  public static final class ConnectionCheck extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:msg.ConnectionCheck)
+      ConnectionCheckOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ConnectionCheck.newBuilder() to construct.
+    private ConnectionCheck(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ConnectionCheck() {
+      details_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ConnectionCheck();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ConnectionCheck(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                details_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              details_.add(
+                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+              break;
+            }
+            case 16: {
+
+              checkMsg_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          details_ = java.util.Collections.unmodifiableList(details_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_ConnectionCheck_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dst.msg.WarehouseMessage.internal_static_msg_ConnectionCheck_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dst.msg.WarehouseMessage.ConnectionCheck.class, com.dst.msg.WarehouseMessage.ConnectionCheck.Builder.class);
+    }
+
+    public static final int DETAILS_FIELD_NUMBER = 1;
+    private java.util.List<com.google.protobuf.Any> details_;
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.google.protobuf.Any> getDetailsList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+        getDetailsOrBuilderList() {
+      return details_;
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public int getDetailsCount() {
+      return details_.size();
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getDetails(int index) {
+      return details_.get(index);
+    }
+    /**
+     * <code>repeated .google.protobuf.Any details = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+        int index) {
+      return details_.get(index);
+    }
+
+    public static final int CHECKMSG_FIELD_NUMBER = 2;
+    private int checkMsg_;
+    /**
+     * <code>int32 checkMsg = 2;</code>
+     * @return The checkMsg.
+     */
+    @java.lang.Override
+    public int getCheckMsg() {
+      return checkMsg_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < details_.size(); i++) {
+        output.writeMessage(1, details_.get(i));
+      }
+      if (checkMsg_ != 0) {
+        output.writeInt32(2, checkMsg_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < details_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, details_.get(i));
+      }
+      if (checkMsg_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, checkMsg_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dst.msg.WarehouseMessage.ConnectionCheck)) {
+        return super.equals(obj);
+      }
+      com.dst.msg.WarehouseMessage.ConnectionCheck other = (com.dst.msg.WarehouseMessage.ConnectionCheck) obj;
+
+      if (!getDetailsList()
+          .equals(other.getDetailsList())) return false;
+      if (getCheckMsg()
+          != other.getCheckMsg()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDetailsCount() > 0) {
+        hash = (37 * hash) + DETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getDetailsList().hashCode();
+      }
+      hash = (37 * hash) + CHECKMSG_FIELD_NUMBER;
+      hash = (53 * hash) + getCheckMsg();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dst.msg.WarehouseMessage.ConnectionCheck prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Сообщение для проверки связи
+     * </pre>
+     *
+     * Protobuf type {@code msg.ConnectionCheck}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:msg.ConnectionCheck)
+        com.dst.msg.WarehouseMessage.ConnectionCheckOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_ConnectionCheck_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_ConnectionCheck_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dst.msg.WarehouseMessage.ConnectionCheck.class, com.dst.msg.WarehouseMessage.ConnectionCheck.Builder.class);
+      }
+
+      // Construct using com.dst.msg.WarehouseMessage.ConnectionCheck.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDetailsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          detailsBuilder_.clear();
+        }
+        checkMsg_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dst.msg.WarehouseMessage.internal_static_msg_ConnectionCheck_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.ConnectionCheck getDefaultInstanceForType() {
+        return com.dst.msg.WarehouseMessage.ConnectionCheck.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.ConnectionCheck build() {
+        com.dst.msg.WarehouseMessage.ConnectionCheck result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dst.msg.WarehouseMessage.ConnectionCheck buildPartial() {
+        com.dst.msg.WarehouseMessage.ConnectionCheck result = new com.dst.msg.WarehouseMessage.ConnectionCheck(this);
+        int from_bitField0_ = bitField0_;
+        if (detailsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            details_ = java.util.Collections.unmodifiableList(details_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.details_ = details_;
+        } else {
+          result.details_ = detailsBuilder_.build();
+        }
+        result.checkMsg_ = checkMsg_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dst.msg.WarehouseMessage.ConnectionCheck) {
+          return mergeFrom((com.dst.msg.WarehouseMessage.ConnectionCheck)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dst.msg.WarehouseMessage.ConnectionCheck other) {
+        if (other == com.dst.msg.WarehouseMessage.ConnectionCheck.getDefaultInstance()) return this;
+        if (detailsBuilder_ == null) {
+          if (!other.details_.isEmpty()) {
+            if (details_.isEmpty()) {
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDetailsIsMutable();
+              details_.addAll(other.details_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.details_.isEmpty()) {
+            if (detailsBuilder_.isEmpty()) {
+              detailsBuilder_.dispose();
+              detailsBuilder_ = null;
+              details_ = other.details_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              detailsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDetailsFieldBuilder() : null;
+            } else {
+              detailsBuilder_.addAllMessages(other.details_);
+            }
+          }
+        }
+        if (other.getCheckMsg() != 0) {
+          setCheckMsg(other.getCheckMsg());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.dst.msg.WarehouseMessage.ConnectionCheck parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.dst.msg.WarehouseMessage.ConnectionCheck) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.google.protobuf.Any> details_ =
+        java.util.Collections.emptyList();
+      private void ensureDetailsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          details_ = new java.util.ArrayList<com.google.protobuf.Any>(details_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> detailsBuilder_;
+
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any> getDetailsList() {
+        if (detailsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(details_);
+        } else {
+          return detailsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public int getDetailsCount() {
+        if (detailsBuilder_ == null) {
+          return details_.size();
+        } else {
+          return detailsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any getDetails(int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);
+        } else {
+          return detailsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.set(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder setDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any value) {
+        if (detailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDetailsIsMutable();
+          details_.add(index, value);
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addDetails(
+          int index, com.google.protobuf.Any.Builder builderForValue) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          detailsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder addAllDetails(
+          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, details_);
+          onChanged();
+        } else {
+          detailsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder clearDetails() {
+        if (detailsBuilder_ == null) {
+          details_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          detailsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public Builder removeDetails(int index) {
+        if (detailsBuilder_ == null) {
+          ensureDetailsIsMutable();
+          details_.remove(index);
+          onChanged();
+        } else {
+          detailsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder getDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getDetailsOrBuilder(
+          int index) {
+        if (detailsBuilder_ == null) {
+          return details_.get(index);  } else {
+          return detailsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+           getDetailsOrBuilderList() {
+        if (detailsBuilder_ != null) {
+          return detailsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(details_);
+        }
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder() {
+        return getDetailsFieldBuilder().addBuilder(
+            com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public com.google.protobuf.Any.Builder addDetailsBuilder(
+          int index) {
+        return getDetailsFieldBuilder().addBuilder(
+            index, com.google.protobuf.Any.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .google.protobuf.Any details = 1;</code>
+       */
+      public java.util.List<com.google.protobuf.Any.Builder> 
+           getDetailsBuilderList() {
+        return getDetailsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getDetailsFieldBuilder() {
+        if (detailsBuilder_ == null) {
+          detailsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  details_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          details_ = null;
+        }
+        return detailsBuilder_;
+      }
+
+      private int checkMsg_ ;
+      /**
+       * <code>int32 checkMsg = 2;</code>
+       * @return The checkMsg.
+       */
+      @java.lang.Override
+      public int getCheckMsg() {
+        return checkMsg_;
+      }
+      /**
+       * <code>int32 checkMsg = 2;</code>
+       * @param value The checkMsg to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCheckMsg(int value) {
+        
+        checkMsg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 checkMsg = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCheckMsg() {
+        
+        checkMsg_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:msg.ConnectionCheck)
+    }
+
+    // @@protoc_insertion_point(class_scope:msg.ConnectionCheck)
+    private static final com.dst.msg.WarehouseMessage.ConnectionCheck DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dst.msg.WarehouseMessage.ConnectionCheck();
+    }
+
+    public static com.dst.msg.WarehouseMessage.ConnectionCheck getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ConnectionCheck>
+        PARSER = new com.google.protobuf.AbstractParser<ConnectionCheck>() {
+      @java.lang.Override
+      public ConnectionCheck parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ConnectionCheck(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ConnectionCheck> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ConnectionCheck> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dst.msg.WarehouseMessage.ConnectionCheck getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_msg_Credentials_descriptor;
   private static final 
@@ -9596,6 +10491,11 @@ public final class WarehouseMessage {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_msg_UserStatus_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_msg_ConnectionCheck_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_msg_ConnectionCheck_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9637,8 +10537,10 @@ public final class WarehouseMessage {
       "ED\020\001\022\r\n\tCANCELLED\020\002\022\014\n\010FINISHED\020\003\"|\n\nUse" +
       "rStatus\022%\n\007details\030\001 \003(\0132\024.google.protob" +
       "uf.Any\022&\n\006status\030\002 \001(\0162\026.msg.UserStatus." +
-      "Status\"\037\n\006Status\022\t\n\005READY\020\000\022\n\n\006BROKEN\020\001B" +
-      "\037\n\013com.dst.msgB\020WarehouseMessageb\006proto3"
+      "Status\"\037\n\006Status\022\t\n\005READY\020\000\022\n\n\006BROKEN\020\001\"" +
+      "J\n\017ConnectionCheck\022%\n\007details\030\001 \003(\0132\024.go" +
+      "ogle.protobuf.Any\022\020\n\010checkMsg\030\002 \001(\005B\037\n\013c" +
+      "om.dst.msgB\020WarehouseMessageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9687,6 +10589,12 @@ public final class WarehouseMessage {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_msg_UserStatus_descriptor,
         new java.lang.String[] { "Details", "Status", });
+    internal_static_msg_ConnectionCheck_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_msg_ConnectionCheck_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_msg_ConnectionCheck_descriptor,
+        new java.lang.String[] { "Details", "CheckMsg", });
     com.google.protobuf.AnyProto.getDescriptor();
   }
 
