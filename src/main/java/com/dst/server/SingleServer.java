@@ -29,7 +29,7 @@ public class SingleServer implements Runnable {
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
-            User sessionUser = getAuthUser2(inputStream, outputStream);
+            User sessionUser = getAuthUser(inputStream, outputStream);
             Exchanger exchanger;
             // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
@@ -47,12 +47,13 @@ public class SingleServer implements Runnable {
                 exchanger = null;
             }
             if (exchanger != null) process(socket, exchanger);
+            else socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private User getAuthUser2(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
+    private User getAuthUser(InputStream inputStream, OutputStream outputStream) throws IOException { // Заместитель
         User user = null;
         Any auth = Any.parseDelimitedFrom(inputStream);
         if (auth != null && auth.is(WarehouseMessage.Credentials.class)) {
@@ -60,14 +61,27 @@ public class SingleServer implements Runnable {
             WarehouseMessage.LogInResponse.Builder response = WarehouseMessage.LogInResponse.newBuilder();
             response.setLogin(credentials.getLogin());
             boolean isFound = false;
+            // Find user login
             for (User usr : UserStorage.getUsers()) {
                 if (usr.getUserName().equals(credentials.getLogin())) {
                     isFound = true;
+                    // Check password
                     if (usr.getPassword().equals(credentials.getPassword())) {
-                        response.setLoginStatus(WarehouseMessage.LogInResponse.Status.OK);
                         response.setUserInfo(usr.getUserInfo());
-                        user = usr;
-                    } else {
+                        // Is driver already logged in?
+                        if (TaskStorage.getDrivers().stream().anyMatch(d -> d.getUserName().equals(usr.getUserName()))) {
+                            response.setLoginStatus(WarehouseMessage.LogInResponse.Status.ACCESS_DENIED);
+                            user = null;
+                            logger.debug("User " + usr.getUserName() + " already logged in");
+                        }
+                        // Success
+                        else {
+                            response.setLoginStatus(WarehouseMessage.LogInResponse.Status.OK);
+                            user = usr;
+                        }
+                    }
+                    // Wrong password
+                    else {
                         logger.debug("Incorrect password");
                         response.setLoginStatus(WarehouseMessage.LogInResponse.Status.WRONG_PASS);
                     }

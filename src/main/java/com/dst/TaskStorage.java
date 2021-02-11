@@ -180,4 +180,8 @@ public class TaskStorage {
     public static void removeDriver(UserDriver userDriver) {
         drivers.remove(userDriver);
     }
+
+    public static CopyOnWriteArrayList<UserDriver> getDrivers() {
+        return drivers;
+    }
 }

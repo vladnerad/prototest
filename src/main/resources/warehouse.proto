@@ -6,13 +6,13 @@ option java_package = "com.dst.msg";
 option java_outer_classname = "WarehouseMessage";
 
 import "google/protobuf/any.proto";
-
+// Данные для входа в систему
 message Credentials {
   string login = 1;
   string password = 2;
   repeated google.protobuf.Any details = 3;
 }
-
+// Ответ на запрос входа в систему
 message LogInResponse {
   repeated google.protobuf.Any details = 1;
   string login = 2;         // Возврат логина
@@ -31,30 +31,6 @@ message LogInResponse {
   string userInfo = 5;      // Информация о пользователе: для водителя - грузоподъемность, например "1750"
                             // для диспетчера - местоположение, например "Склад №3"
 }
-
-//message Task {
-//  int32 id = 1; // Номер задачи
-//  string cargo_name =2; // Объект перевозки
-//  string comment = 3; // Комментарий к задаче
-//  string source_point = 4; // Пункт откуда
-//  string dest_point = 5; // Пункт куда
-//  string task_init_time = 6; // Время постановки задачи
-//  string task_start_time = 7; // Время начала выполнения
-//  string task_finish_time = 8; // Время завершения задачи
-//  string customer = 9; // Постановщик - создать класс
-//  string executor = 10; // Исполнтель - создать класс
-//  string status = 11; // Статус - сделать enum
-//  repeated google.protobuf.Any details = 12;
-//}
-//
-//message Loader {
-//  int32 id = 1; // Номер погрузчика
-//  string lat = 2; // Широта
-//  string lon = 3; // Долгота
-//  int32 task_id = 4; // Номер текущей задачи - сделать массивом
-//  repeated google.protobuf.Any details = 5;
-//}
-
 // Новая задача от диспетчера
 message NewTask {
   repeated google.protobuf.Any details = 1;
@@ -107,7 +83,7 @@ message Task2 {
   string reporter = 8; // исполнитель задачи
   string name = 9;     // название задачи, пока что совпадает с именем того, кто поставил
 }
-
+// Статус водителя
 message UserStatus {
   repeated google.protobuf.Any details = 1;
   enum Status {
@@ -115,4 +91,9 @@ message UserStatus {
     BROKEN = 1;      // техническая неисправность у водителя
   }
   Status status = 2;
+}
+// Сообщение для проверки связи
+message ConnectionCheck {
+  repeated google.protobuf.Any details = 1;
+  int32 checkMsg = 2;
 }
