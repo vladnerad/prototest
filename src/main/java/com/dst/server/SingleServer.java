@@ -35,12 +35,12 @@ public class SingleServer implements Runnable {
             // Dispatcher
             if (sessionUser != null && sessionUser.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DISPATCHER " + sessionUser.getUserName());
-                exchanger = new DispatcherExchanger(sessionUser, inputStream, outputStream);
+                exchanger = new DispatcherExchanger(sessionUser, socket);
             }
             // Driver
             else if (sessionUser != null && sessionUser.getRole() == WarehouseMessage.LogInResponse.Role.DRIVER) {
                 logger.info("Authorized: " + socket.getInetAddress() + " as DRIVER " + sessionUser.getUserName());
-                exchanger = new DriverExchanger(sessionUser, inputStream, outputStream);
+                exchanger = new DriverExchanger(sessionUser, socket);
             }
             // User not authorized
             else {
@@ -103,13 +103,16 @@ public class SingleServer implements Runnable {
     public void process(Socket socket, Exchanger exchanger) throws IOException {
         TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
         exchanger.initListFromCache();
-        try {
-            exchanger.exchange();
-        } catch (SocketTimeoutException | SocketException e) {
-            e.printStackTrace();
-            exchanger.close();
-            logger.info("Connection closed " + socket.getInetAddress());
-            socket.close();
+        while (!socket.isClosed()) {
+            try {
+                exchanger.exchange();
+            } catch (SocketTimeoutException | SocketException e) {
+                e.printStackTrace();
+                exchanger.close();
+                logger.info("Connection closed " + socket.getInetAddress());
+                socket.close();
+            }
         }
+        logger.info(socket.getInetAddress() + " process stopped.");
     }
 }

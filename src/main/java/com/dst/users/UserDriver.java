@@ -4,7 +4,7 @@ import com.dst.msg.WarehouseMessage;
 
 public class UserDriver extends User {
     private volatile DriverStatus status;
-    private WarehouseMessage.NewTask.Weight weightClass;
+    private final WarehouseMessage.NewTask.Weight weightClass;
 
     public UserDriver(String userName, String password) {
         super(userName, password);

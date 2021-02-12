@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.net.SocketException;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -30,17 +31,28 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     public static final String noDriverLogin = "Not assigned";  // When task not started
     private TimerTask timerTask;
     private ScheduledExecutorService executorService;
+    private Socket socket;
+    private int checkSum;
 
-    public DispatcherExchanger(User user, InputStream inputStream, OutputStream outputStream) {
+    public DispatcherExchanger(User user, Socket socket) {
         if (user.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
             this.userDispatcher = (UserDispatcher) user;
-            this.inputStream = inputStream;
-            this.outputStream = outputStream;
+            this.socket = socket;
+            try {
+                this.inputStream = socket.getInputStream();
+                this.outputStream = socket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    logger.trace("Connection check");
+                    try {
+                        sendCheckMsg();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
             executorService = Executors.newSingleThreadScheduledExecutor();
@@ -52,7 +64,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     public void exchange() throws IOException {
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         if (any == null) {
-            throw new SocketException("Any in dispatcher exchanger is null");
+//            throw new SocketException("Any in dispatcher exchanger is null");
+            close();
         } else {
             // Create new task
             if (any.is(WarehouseMessage.NewTask.class)) {
@@ -76,6 +89,13 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                 } else {
                     logger.debug("Task isn't found");
                 }
+            } else if (any.is(WarehouseMessage.ConnectionCheck.class)) {
+                WarehouseMessage.ConnectionCheck resp = any.unpack(WarehouseMessage.ConnectionCheck.class);
+                if (resp.getCheckMsg() != checkSum) {
+                    logger.warn(userDispatcher.getUserName() + " lost connection");
+                    stopCheckingConn();
+                    close();
+                } else logger.trace(userDispatcher.getUserName() + " Checksum correct");
             }
         }
     }
@@ -86,11 +106,13 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     }
 
     @Override
-    public void close() {
+    public void close() throws IOException {
         TaskStorage.eventManager.unsubscribeAll(this);
         stopCheckingConn();
+        socket.close();
         logger.trace(userDispatcher.getUserName() + " dispatcher service closed");
     }
+
     // Get list of tasks for current dispatcher
     @Override
     public void initListFromCache() throws IOException {
@@ -128,27 +150,29 @@ public class DispatcherExchanger implements EventListener, Exchanger {
             Any.pack(task).writeDelimitedTo(outputStream);
     }
 
-    private void startCheckingConn(){
+    @Override
+    public void startCheckingConn() {
         int delay = 60;
         executorService.scheduleWithFixedDelay(timerTask, delay, delay, TimeUnit.SECONDS);
     }
 
-    private void stopCheckingConn() {
+    @Override
+    public void stopCheckingConn() {
         executorService.shutdown();
     }
 
-    public void checkConn() throws IOException {
+    @Override
+    public void sendCheckMsg() throws IOException {
+        checkSum = (int) (Math.random() * 1000);
         WarehouseMessage.ConnectionCheck.Builder msg = WarehouseMessage.ConnectionCheck.newBuilder();
-        msg.setCheckMsg((int)(Math.random() * 1000));
-        Any.pack(msg.build()).writeDelimitedTo(outputStream);
-        Any any = Any.parseDelimitedFrom(inputStream);
-        if (any.is(WarehouseMessage.ConnectionCheck.class)){
-            WarehouseMessage.ConnectionCheck resp = any.unpack(WarehouseMessage.ConnectionCheck.class);
-            if (resp.getCheckMsg() != msg.getCheckMsg()){
-                logger.warn(userDispatcher.getUserName() + " lost connection");
-                stopCheckingConn();
-                close();
-            }
+        msg.setCheckMsg(checkSum);
+        logger.trace("Connection check. Checksum = " + msg.getCheckMsg());
+        try {
+            Any.pack(msg.build()).writeDelimitedTo(outputStream);
+        } catch (SocketException e) {
+            e.printStackTrace();
+            stopCheckingConn();
+            close();
         }
     }
 }

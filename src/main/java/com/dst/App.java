@@ -21,7 +21,7 @@ public class App
             logger.info("Server started at port: " + serverSocket.getLocalPort());
             while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
-                socket.setSoTimeout(10000);
+                socket.setSoTimeout(90000);
                 counter++;
                 logger.info("IP " + socket.getInetAddress() + " connected: #" + counter);
                 executorService.execute(new SingleServer(socket));

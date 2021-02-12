@@ -13,7 +13,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.net.SocketException;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class DriverExchanger implements EventListener, Exchanger {
@@ -22,17 +27,40 @@ public class DriverExchanger implements EventListener, Exchanger {
     private volatile UserDriver userDriver;
     private InputStream inputStream;
     private OutputStream outputStream;
+    private Socket socket;
+    private int checkSum;
+    private TimerTask timerTask;
+    private ScheduledExecutorService executorService;
 
-    public DriverExchanger(User user, InputStream inputStream, OutputStream outputStream) {
+    public DriverExchanger(User user, Socket socket) {
         if (user.getRole() == WarehouseMessage.LogInResponse.Role.DRIVER) {
             this.userDriver = (UserDriver) user;
-            this.inputStream = inputStream;
-            this.outputStream = outputStream;
+            this.socket = socket;
+            try {
+                this.inputStream = socket.getInputStream();
+                this.outputStream = socket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        sendCheckMsg();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            executorService = Executors.newSingleThreadScheduledExecutor();
+            startCheckingConn();
             userDriver.setStatus(DriverStatus.FREE);
             TaskStorage.addDriver(userDriver);
         } else
             logger.trace("DriverExchanger constructor error");
     }
+
     // Get list of tasks for current driver, without starting any task
     @Override
     public void initListFromCache() throws IOException {
@@ -47,6 +75,7 @@ public class DriverExchanger implements EventListener, Exchanger {
             Any.pack(listBuilder.build()).writeDelimitedTo(outputStream);
         }
     }
+
     // Cyclic process
     @Override
     public void exchange() throws IOException {
@@ -58,7 +87,8 @@ public class DriverExchanger implements EventListener, Exchanger {
         // Error - socket closed
         if (any == null) {
             TaskStorage.driverCancelTask(userDriver);
-            throw new SocketException("Any in driver exchanger is null");
+//            throw new SocketException("Any in driver exchanger is null");
+            close();
         }
         // Normal socket work
         else {
@@ -83,6 +113,13 @@ public class DriverExchanger implements EventListener, Exchanger {
                         && userDriver.getStatus() != DriverStatus.BROKEN) {
                     driverBroken(status);
                 }
+            } else if (any.is(WarehouseMessage.ConnectionCheck.class)) {
+                WarehouseMessage.ConnectionCheck resp = any.unpack(WarehouseMessage.ConnectionCheck.class);
+                if (resp.getCheckMsg() != checkSum) {
+                    logger.warn(userDriver.getUserName() + " lost connection");
+                    stopCheckingConn();
+                    close();
+                } else logger.trace(userDriver.getUserName() + " Checksum correct");
             }
         }
     }
@@ -107,11 +144,14 @@ public class DriverExchanger implements EventListener, Exchanger {
     }
 
     @Override
-    public void close() {
+    public void close() throws IOException {
         logger.trace("Closing connection for: " + userDriver.getUserName() + " has status " + userDriver.getStatus());
         if (userDriver.getStatus() == DriverStatus.BUSY) TaskStorage.driverCancelTask(userDriver);
         TaskStorage.eventManager.unsubscribeAll(this);
         TaskStorage.removeDriver(userDriver);
+        stopCheckingConn();
+        socket.close();
+        logger.trace(userDriver.getUserName() + " dispatcher service closed");
     }
 
     @Override
@@ -119,5 +159,31 @@ public class DriverExchanger implements EventListener, Exchanger {
         if (task.getWeight().getNumber() <= userDriver.getWeightClass().getNumber()) {
             Any.pack(task).writeDelimitedTo(outputStream);
         }
+    }
+
+    @Override
+    public void sendCheckMsg() throws IOException {
+        checkSum = (int) (Math.random() * 1000);
+        WarehouseMessage.ConnectionCheck.Builder msg = WarehouseMessage.ConnectionCheck.newBuilder();
+        msg.setCheckMsg(checkSum);
+        logger.trace("Connection check. Checksum = " + msg.getCheckMsg());
+        try {
+            Any.pack(msg.build()).writeDelimitedTo(outputStream);
+        } catch (SocketException e) {
+            e.printStackTrace();
+            stopCheckingConn();
+            close();
+        }
+    }
+
+    @Override
+    public void startCheckingConn() {
+        int delay = 60;
+        executorService.scheduleWithFixedDelay(timerTask, delay, delay, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void stopCheckingConn() {
+        executorService.shutdown();
     }
 }
