@@ -17,14 +17,13 @@ public class App
     public static void main( String[] args )
     {
         ExecutorService executorService = Executors.newCachedThreadPool();
-//        System.out.println( "Server started!" );
         try (ServerSocket serverSocket = new ServerSocket(8185)){
             logger.info("Server started at port: " + serverSocket.getLocalPort());
             while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
+                socket.setSoTimeout(10000);
                 counter++;
                 logger.info("IP " + socket.getInetAddress() + " connected: #" + counter);
-//                System.out.println("IP " + socket.getInetAddress() + " connected: #" + counter);
                 executorService.execute(new SingleServer(socket));
             }
         } catch (IOException e) {

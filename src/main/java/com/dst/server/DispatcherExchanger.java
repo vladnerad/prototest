@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.SocketException;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -24,12 +28,23 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     private OutputStream outputStream;
     public static volatile AtomicInteger idCounter = new AtomicInteger(0);  // Id for task
     public static final String noDriverLogin = "Not assigned";  // When task not started
+    private TimerTask timerTask;
+    private ScheduledExecutorService executorService;
 
     public DispatcherExchanger(User user, InputStream inputStream, OutputStream outputStream) {
         if (user.getRole() == WarehouseMessage.LogInResponse.Role.DISPATCHER) {
             this.userDispatcher = (UserDispatcher) user;
             this.inputStream = inputStream;
             this.outputStream = outputStream;
+
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    logger.trace("Connection check");
+                }
+            };
+            executorService = Executors.newSingleThreadScheduledExecutor();
+            startCheckingConn();
         } else logger.trace("DispatcherExchanger constructor error");
     }
 
@@ -73,6 +88,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     @Override
     public void close() {
         TaskStorage.eventManager.unsubscribeAll(this);
+        stopCheckingConn();
+        logger.trace(userDispatcher.getUserName() + " dispatcher service closed");
     }
     // Get list of tasks for current dispatcher
     @Override
@@ -109,5 +126,29 @@ public class DispatcherExchanger implements EventListener, Exchanger {
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
         if (task.getAssignee().equals(userDispatcher.getUserInfo()))
             Any.pack(task).writeDelimitedTo(outputStream);
+    }
+
+    private void startCheckingConn(){
+        int delay = 60;
+        executorService.scheduleWithFixedDelay(timerTask, delay, delay, TimeUnit.SECONDS);
+    }
+
+    private void stopCheckingConn() {
+        executorService.shutdown();
+    }
+
+    public void checkConn() throws IOException {
+        WarehouseMessage.ConnectionCheck.Builder msg = WarehouseMessage.ConnectionCheck.newBuilder();
+        msg.setCheckMsg((int)(Math.random() * 1000));
+        Any.pack(msg.build()).writeDelimitedTo(outputStream);
+        Any any = Any.parseDelimitedFrom(inputStream);
+        if (any.is(WarehouseMessage.ConnectionCheck.class)){
+            WarehouseMessage.ConnectionCheck resp = any.unpack(WarehouseMessage.ConnectionCheck.class);
+            if (resp.getCheckMsg() != msg.getCheckMsg()){
+                logger.warn(userDispatcher.getUserName() + " lost connection");
+                stopCheckingConn();
+                close();
+            }
+        }
     }
 }

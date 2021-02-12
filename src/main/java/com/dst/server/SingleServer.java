@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import static com.dst.TaskStorage.changeAct;
 
@@ -102,14 +103,13 @@ public class SingleServer implements Runnable {
     public void process(Socket socket, Exchanger exchanger) throws IOException {
         TaskStorage.eventManager.subscribe(changeAct, exchanger.getEventListener());
         exchanger.initListFromCache();
-        while (!socket.isClosed()) {
-            try {
-                exchanger.exchange();
-            } catch (SocketException e) {
-                socket.close();
-            }
+        try {
+            exchanger.exchange();
+        } catch (SocketTimeoutException | SocketException e) {
+            e.printStackTrace();
+            exchanger.close();
+            logger.info("Connection closed " + socket.getInetAddress());
+            socket.close();
         }
-        exchanger.close();
-        logger.info("Connection closed " + socket.getInetAddress());
     }
 }
