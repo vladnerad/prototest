@@ -86,7 +86,7 @@ public class DriverExchanger implements EventListener, Exchanger {
         Any any = Any.parseDelimitedFrom(inputStream); // Команда
         // Error - socket closed
         if (any == null) {
-            TaskStorage.driverCancelTask(userDriver);
+//            TaskStorage.driverCancelTask(userDriver);
 //            throw new SocketException("Any in driver exchanger is null");
             close();
         }
@@ -158,6 +158,10 @@ public class DriverExchanger implements EventListener, Exchanger {
     public void update(String event, WarehouseMessage.Task2 task) throws IOException {
         if (task.getWeight().getNumber() <= userDriver.getWeightClass().getNumber()) {
             Any.pack(task).writeDelimitedTo(outputStream);
+            if (userDriver.getStatus() == DriverStatus.FREE) {
+                logger.debug(userDriver.getUserName() + " on update has " + userDriver.getStatus());
+                TaskStorage.startNewTask(userDriver);
+            }
         }
     }
 

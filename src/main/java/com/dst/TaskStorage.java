@@ -155,8 +155,9 @@ public class TaskStorage {
             startedTask.setReporter(userDriver.getUserName());
             WarehouseMessage.Task2 t2 = startedTask.build();
             updateTask(t2);
-            eventManager.notify(changeAct, t2);
+            // status change BEFORE notify
             userDriver.setStatus(DriverStatus.BUSY);
+            eventManager.notify(changeAct, t2);
         } else logger.trace(userDriver.getUserName() + " can't start null task");
     }
 
