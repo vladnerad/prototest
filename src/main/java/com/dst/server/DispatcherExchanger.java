@@ -95,7 +95,8 @@ public class DispatcherExchanger implements EventListener, Exchanger {
                     logger.warn(userDispatcher.getUserName() + " lost connection");
                     stopCheckingConn();
                     close();
-                } else logger.trace(userDispatcher.getUserName() + " Checksum correct");
+                }
+//                else logger.trace(userDispatcher.getUserName() + " Checksum correct");
             }
         }
     }
@@ -166,7 +167,7 @@ public class DispatcherExchanger implements EventListener, Exchanger {
         checkSum = (int) (Math.random() * 1000);
         WarehouseMessage.ConnectionCheck.Builder msg = WarehouseMessage.ConnectionCheck.newBuilder();
         msg.setCheckMsg(checkSum);
-        logger.trace("Connection check. Checksum = " + msg.getCheckMsg());
+//        logger.trace("Connection check. Checksum = " + msg.getCheckMsg());
         try {
             Any.pack(msg.build()).writeDelimitedTo(outputStream);
         } catch (SocketException e) {
