@@ -79,6 +79,7 @@ public class SingleServer implements Runnable {
                         else {
                             response.setLoginStatus(WarehouseMessage.LogInResponse.Status.OK);
                             user = usr;
+                            logger.debug("User " + usr.getUserName() + " logged in successfully. Weight class: " + user.getUserInfo());
                         }
                     }
                     // Wrong password
